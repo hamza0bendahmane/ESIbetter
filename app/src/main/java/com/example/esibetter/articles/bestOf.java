@@ -3,10 +3,8 @@ package com.example.esibetter.articles;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -79,7 +77,6 @@ public class bestOf extends Fragment {
     public void onStart() {
         super.onStart();
         adapter.startListening();
-        getActivity().findViewById(R.id.fab).setVisibility(View.GONE);
 
     }
 
@@ -87,7 +84,6 @@ public class bestOf extends Fragment {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
-        getActivity().findViewById(R.id.fab).setVisibility(View.VISIBLE);
 
     }
 

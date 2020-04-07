@@ -58,16 +58,6 @@ public class news extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        swipeRefreshLayout = LayoutInflater.from(getContext()).inflate(R.layout.ideas_fragment_news, null).
-                findViewById(R.id.swipper);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setEnabled(false);
-                adapter.notifyDataSetChanged();
-
-            }
-        });
 
         fab_articl = getActivity().findViewById(R.id.fab_articl);
         fab_ideas = getActivity().findViewById(R.id.fab_ideas);
@@ -92,59 +82,64 @@ public class news extends Fragment {
             }
         });
 
-        final androidx.appcompat.app.AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
-        dialog.setTitle("ADD Article");
-        dialog.setMessage("Please enter Title and Body :");
-
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        final View login_layout = inflater.inflate(R.layout.ideas_add_article, null);
-
-        final EditText addtext = login_layout.findViewById(R.id.add_text);
-        final EditText addtitle = login_layout.findViewById(R.id.add_title);
-        final Button add = login_layout.findViewById(R.id.add_art);
-
-        dialog.setView(login_layout);
-        add.setOnClickListener(new View.OnClickListener() {
+        fab_articl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.isEmpty(addtext.getText().toString()) &&
-                        !TextUtils.isEmpty(addtitle.getText().toString())) {
-                    DatabaseReference ref = FirebaseDatabase.getInstance()
-                            .getReference()
-                            .child("posts").push();
-                    String tit = addtitle.getText().toString();
-                    String tex = addtext.getText().toString();
-                    HashMap<String, Object> map = new HashMap<>();
-                    Calendar cc = Calendar.getInstance();
-                    String month = String.valueOf(cc.get(Calendar.MONTH) + 1);
-                    String date = cc.get(Calendar.DAY_OF_MONTH) + "/" + month + "/" + cc.get(Calendar.YEAR);
-                    map.put("title", tit);
-                    map.put("body", tex);
-                    map.put("uid", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                    map.put("date", date);
-                    // map.put("image",0);
-                    map.put("likes", 27);
-                    map.put("comments", null);
-                    map.put("dislikes", 13);
-                    ref.setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful())
-                                Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
-                            else
-                                Toast.makeText(getContext(), "failed", Toast.LENGTH_SHORT).show();
+                final androidx.appcompat.app.AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
+                dialog.setTitle("ADD Article");
+                dialog.setMessage("Please enter Title and Body :");
 
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                final View login_layout = inflater.inflate(R.layout.ideas_add_article, null);
+
+                final EditText addtext = login_layout.findViewById(R.id.add_text);
+                final EditText addtitle = login_layout.findViewById(R.id.add_title);
+                final Button add = login_layout.findViewById(R.id.add_art);
+
+                dialog.setView(login_layout);
+                add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!TextUtils.isEmpty(addtext.getText().toString()) &&
+                                !TextUtils.isEmpty(addtitle.getText().toString())) {
+                            DatabaseReference ref = FirebaseDatabase.getInstance()
+                                    .getReference()
+                                    .child("posts").push();
+                            String tit = addtitle.getText().toString();
+                            String tex = addtext.getText().toString();
+                            HashMap<String, Object> map = new HashMap<>();
+                            Calendar cc = Calendar.getInstance();
+                            String month = String.valueOf(cc.get(Calendar.MONTH) + 1);
+                            String date = cc.get(Calendar.DAY_OF_MONTH) + "/" + month + "/" + cc.get(Calendar.YEAR);
+                            map.put("title", tit);
+                            map.put("body", tex);
+                            map.put("uid", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            map.put("date", date);
+                            // map.put("image",0);
+                            map.put("likes", 27);
+                            map.put("comments", null);
+                            map.put("dislikes", 13);
+                            ref.setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful())
+                                        Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
+                                    else
+                                        Toast.makeText(getContext(), "failed", Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+
+
+                            dialog.dismiss();
                         }
-                    });
 
+                    }
 
-                    dialog.dismiss();
-                }
-
+                });
+                dialog.show();
             }
-
         });
-        dialog.show();
 
 
     }

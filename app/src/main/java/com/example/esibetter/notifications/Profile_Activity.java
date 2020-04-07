@@ -30,7 +30,6 @@ import com.example.esibetter.articles.Articles;
 import com.example.esibetter.community.Community;
 import com.example.esibetter.courses.Courses;
 import com.example.esibetter.general.HelpActivity;
-import com.example.esibetter.general.MainActivity;
 import com.example.esibetter.general.SettingsActivity;
 import com.example.esibetter.general.about_us;
 import com.example.esibetter.login;
@@ -89,7 +88,7 @@ public class Profile_Activity extends AppCompatActivity {
         logo = findViewById(R.id.logo);
         mPager = findViewById(R.id.bottom_pager);
         final NavigationView navigationView = findViewById(R.id.nav_view);
-        FloatingActionButton fab = findViewById(R.id.fabutton);
+        FloatingActionButton fab = findViewById(R.id.fab);
         Toolbar toolbar = findViewById(R.id.toolbar);
         bottomNavigationView = findViewById(R.id.bottom_nav);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -326,13 +325,13 @@ public class Profile_Activity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        boolean em_ver = FirebaseAuth.getInstance().getCurrentUser().isEmailVerified();
+       /* boolean em_ver = FirebaseAuth.getInstance().getCurrentUser().isEmailVerified();
         boolean userExist = FirebaseAuth.getInstance().getUid() != null && FirebaseAuth.getInstance().getCurrentUser() != null;
 
         if (userExist)
             if (em_ver) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
-            }
+            }*/
     }
 }
