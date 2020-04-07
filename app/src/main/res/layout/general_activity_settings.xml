@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/contentBodyColor"
+    tools:context=".general.SettingsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <TextView
+            style="@style/viewParent.headerText"
+            android:paddingVertical="50dp"
+
+            android:text="Settings" />
+
+
+        <TextView
+            style="@style/viewParent.headerText.settingsMiniTitle"
+            android:text="Profile" />
+
+
+        <LinearLayout
+            android:id="@+id/edit_profi"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/viewParent.headerText.settingsTextIcon"
+                android:layout_marginVertical="5dp"
+                android:drawableStart="@drawable/ic_edit_profile"
+                android:text="Edit Profile"
+
+                />
+        </LinearLayout>
+
+        <TextView
+            style="@style/viewParent.headerText.settingsTextIcon"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="50dp"
+            android:drawableStart="@drawable/ic_edit_password"
+            android:onClick="reset_password"
+            android:text="Change Password" />
+
+        <TextView
+            style="@style/viewParent.headerText.settingsMiniTitle"
+            android:text="More" />
+
+        <Switch
+            android:id="@+id/setNotification"
+            style="@style/settingsText"
+            android:checked="true"
+            android:drawableStart="@drawable/ic_notifications"
+            android:text="Notifications" />
+
+
+        <TextView
+            style="@style/viewParent.headerText.settingsTextIcon"
+            android:drawableStart="@drawable/ic_languages"
+            android:onClick="changeLanguage"
+            android:text="Language" />
+
+        <TextView
+            style="@style/viewParent.headerText.settingsTextIcon"
+            android:drawableStart="@drawable/ic_logout"
+            android:onClick="signOutAndgoTologin"
+            android:text="Logout" />
+
+
+    </LinearLayout>
+</ScrollView>

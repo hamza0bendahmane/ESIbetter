@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/contentBodyColor">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/goback"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/goback_to" />
+
+        <ImageView
+            android:id="@+id/AboutUsImage"
+            android:layout_width="337dp"
+            android:layout_height="195dp"
+            android:layout_below="@id/goback"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="37dp"
+            app:srcCompat="@drawable/about_us" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="650dp"
+            android:layout_below="@id/AboutUsImage"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical">
+
+            <customfonts.MyTextView
+                android:id="@+id/textView26"
+                style="@style/viewParent.headerText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="30dp"
+                android:text="OUR STORY"
+                android:textSize="40dp" />
+
+            <customfonts.MyTextView
+                android:id="@+id/textView27"
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                android:layout_margin="20dp"
+                android:fontFamily="sans-serif-black"
+
+                android:text="      We are team of second year of ESI-SBA students consisting of six members:
+'Bendahmane Hamza,Manaa Anouar,Boussaada Moustafa,Larbaoui Nour El Imene,Bouziane Djihane   Boufeldja Manel' we decided with cooperation between us to provide  our application to  our fellow students
+where our first and main goal was to serve and facilate your studies."
+                android:textSize="20dp" />
+
+            <customfonts.MyTextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="237dp"
+                android:layout_margin="20dp"
+                android:fontFamily="sans-serif-black"
+                android:text="Since we are students and we understand requirements of  you and problems that you may encounter,we solved some of them
+ and we created'ESI better'for university life better,that was supervised by the esteemed professor 'GHEID ZAKARIA' who accompanied us and guided us throughout our work.
+    "
+                android:textSize="20dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>

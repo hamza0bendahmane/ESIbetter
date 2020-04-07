@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_height="match_parent"
+android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="2"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linear">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp"
+            android:scaleType="centerCrop"
+            android:src="#eee" />
+
+        <ImageButton
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:layout_margin="20dp"
+            android:background="@drawable/ic_edit"
+            android:onClick="enable_edit" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageUser"
+            android:layout_width="200dp"
+            android:layout_height="194dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:onClick="pick_image"
+            android:paddingTop="20dp"
+            android:src="#FFF"
+            app:civ_border_color="#AAA"
+            app:civ_border_overlay="true"
+            app:civ_border_width="4dp" />
+
+
+    </FrameLayout>
+</LinearLayout>
+
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_weight="1"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="bottom"
+            android:layout_marginVertical="30dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <customfonts.MyTextView
+                    android:id="@+id/usrusr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="left"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="Name"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+
+                <customfonts.MyEditText
+                    android:id="@+id/name_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:enabled="false"
+                    android:gravity="right"
+                    android:hint="your name"
+                    android:inputType="textPersonName"
+                    android:maxEms="25"
+                    android:maxLength="25"
+                    android:padding="16dp"
+                    android:textColor="#181737"
+                    android:textColorHint="#181737"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <customfonts.MyTextView
+                    android:id="@+id/mail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="left"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="Email"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+
+                <customfonts.MyEditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:background="#0000"
+                    android:enabled="false"
+                    android:gravity="right"
+                    android:hint="example@esi-sba.dz"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="25"
+                    android:padding="16dp"
+                    android:textColor="#181737"
+                    android:textColorHint="#1b193b"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <customfonts.MyTextView
+                    android:id="@+id/fbook"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="left"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="Status"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+                <!--com.rey.material.widget.Switch!-->
+                <customfonts.MyEditText
+                    android:id="@+id/status_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:enabled="false"
+                    android:gravity="right"
+                    android:hint="Your status here"
+                    android:inputType="textShortMessage"
+                    android:maxEms="20"
+                    android:maxLength="20"
+                    android:padding="16dp"
+                    android:textColor="#181737"
+                    android:textColorHint="#1b193b"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <customfonts.MyTextView
+                    android:id="@+id/goooogleee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="left"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="Wilaya"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/wilaya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginTop="5dp"
+                    android:dropDownWidth="wrap_content"
+                    android:gravity="end"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="viewEnd"
+                    android:textColorHint="#181737" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <customfonts.MyTextView
+                    android:id="@+id/fbookc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="left"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="Birthday"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+                <!--com.rey.material.widget.Switch!-->
+                <customfonts.MyTextView
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:gravity="right"
+                    android:inputType="date"
+                    android:maxLength="10"
+                    android:padding="16dp"
+                    android:text="dd/mm/yyyy"
+                    android:textAllCaps="false"
+                    android:textColor="#181737"
+                    android:textColorHint="#1b193b"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <customfonts.MyTextView
+                    android:id="@+id/fboofk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#0000"
+                    android:gravity="left"
+                    android:maxLength="12"
+                    android:padding="16dp"
+                    android:text="Gender"
+                    android:textColor="#a2a1b8"
+                    android:textSize="16dp" />
+                <!--com.rey.material.widget.Switch!-->
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginTop="5dp"
+                    android:dropDownWidth="wrap_content"
+                    android:gravity="end"
+                    android:maxLength="12"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="viewEnd"
+                    android:textColorHint="#181737"
+
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dad8d8" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/change_data_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancel_changes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="#FFF"
+                android:onClick="cancel"
+                android:text="Cancel"
+                android:textColor="@color/colorPrimary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/commit_changes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="#FFF"
+                android:onClick="commit"
+                android:text="Save"
+                android:textColor="@color/colorPrimary" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

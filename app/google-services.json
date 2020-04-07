@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "395391991686",
+    "firebase_url": "https://esi-better.firebaseio.com",
+    "project_id": "esi-better",
+    "storage_bucket": "esi-better.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395391991686:android:92a92dcaae940fcedcb607",
+        "android_client_info": {
+          "package_name": "com.example.esibetter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "395391991686-gd28q8cktgt8acomrpfp01jiaqgofcag.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.esibetter",
+            "certificate_hash": "ac90aa636987a19d76cf42b60d63695cbf170451"
+          }
+        },
+        {
+          "client_id": "395391991686-doh5505cdvrf8n74rdqmqtik0qk3gcl9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt8rm8EdMuNgWC7OidHu3nZOcD0xN4yvs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "395391991686-vf1jn9l4brr0b98il4aqrvgrkb5mst6j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

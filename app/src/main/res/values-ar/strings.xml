@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ESI better</string>
+    <string name="article">مقالات</string>
+    <string name="courses">دروس</string>
+    <string name="notification">شعارات</string>
+
+</resources>
