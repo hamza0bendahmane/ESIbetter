@@ -26,22 +26,12 @@ public class Articles extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ViewPager pages = view.findViewById(R.id.viewPager);
         TabLayout tabs = view.findViewById(R.id.tabLayout);
-        MyTabPagerAdapter tabPager = new MyTabPagerAdapter(getChildFragmentManager());
-        pages.setAdapter(tabPager);
+        pages.setAdapter(new MyTabPagerAdapter(getChildFragmentManager()));
         tabs.setupWithViewPager(pages);
 
 
-        LayoutInflater.from(getContext()).inflate(R.layout.general_app_bar_profile, null, false)
-                .findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                // TODO : Djihane
-                // add the FAB manipulation ...
-                // show the buttons and manipulate them ...
 
-            }
-        });
 
     }
 
@@ -95,4 +85,14 @@ public class Articles extends Fragment {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 }

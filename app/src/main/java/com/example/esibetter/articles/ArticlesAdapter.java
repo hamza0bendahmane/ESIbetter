@@ -16,21 +16,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.esibetter.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -83,10 +78,7 @@ public static boolean UsersPost = false;
         holder.root.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (model.getUid().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
-                    UsersPost = true;
-                else
-                    UsersPost = false;
+                UsersPost = model.getUid().equals(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 return false;
             }
         });
@@ -161,6 +153,9 @@ public static class ViewHolder extends RecyclerView.ViewHolder implements View.O
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(itemView.getContext())
+                        .asBitmap()
+                        .override(300, 300)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .load(uri)
                         .into(imagePoster);
                 imageUri = uri;
@@ -174,15 +169,19 @@ public static class ViewHolder extends RecyclerView.ViewHolder implements View.O
 
     }
     public String setPosterName(String uid) {
-        FirebaseFirestore ref = FirebaseFirestore.getInstance();
-        ref.collection("users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        FirebaseDatabase ref = FirebaseDatabase.getInstance();
+        ref.getReference("users/" + uid + "/name").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                name = task.getResult().get("name").toString();
-                poster_name.setText("By :"+task.getResult().get("name").toString());
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                name = dataSnapshot.getValue().toString();
+                poster_name.setText("By :" + dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
-
         return name;
     }
 }

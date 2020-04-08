@@ -36,7 +36,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +43,6 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -54,16 +52,16 @@ public class signup extends AppCompatActivity {
     public static String URL = "https://emailverification.whoisxmlapi.com/api/v1?apiKey=at_ue6vuTmfKhO2EiG4DgUm0CaNhTU3X&emailAddress=";
     public static Button date_view;
     public static String date = "01/01/1999";
-    public String STR;
-    public boolean Exist;
-    public Uri image_prof = null;
-    public String user_wilaya;
-    FirebaseAuth firebaseAuth;
-    Button signin, signup;
-    Spinner wilaya_spinner;
-    StorageReference reference;
-    DatePickerDialog.OnDateSetListener mDateSetListener;
-    ImageView goback;
+    public static String STR;
+    public static boolean Exist;
+    public static Uri image_prof = null;
+    public static String user_wilaya;
+    static FirebaseAuth firebaseAuth;
+    static Button signin, signup;
+    static RadioButton male_radio;
+    static Spinner wilaya_spinner;
+    static DatePickerDialog.OnDateSetListener mDateSetListener;
+    static ImageView goback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +69,7 @@ public class signup extends AppCompatActivity {
         setContentView(R.layout.general_activity_signup);
 
         // url of profile pic for the user ...
-        final RadioButton male_radio = findViewById(R.id.male);
+        male_radio = findViewById(R.id.male);
         wilaya_spinner = findViewById(R.id.wilaya_spinner);
         wilaya_spinner.setAdapter(new CustomAdapter(getApplicationContext(), getResources().getStringArray(R.array.wilayas)));
 
@@ -108,17 +106,17 @@ public class signup extends AppCompatActivity {
                 dialog.getWindow().setGravity(Gravity.CENTER_VERTICAL);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+                dialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month = month + 1;
+                        date = dayOfMonth + "/" + month + "/" + year;
+                        date_view.setText(date);
+                    }
+                });
                 dialog.show();
 
-                mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        month = month + 1;
-                        date = day + "/" + month + "/" + year;
-                        date_view.setText(date);
 
-                    }
-                };
 
 
             }
@@ -235,13 +233,13 @@ public class signup extends AppCompatActivity {
                                 }
                             });
                             try {
-                                User_Account account = new User_Account(image_prof, names, "Your Status", user_wilaya, isMale, date);
+                                User_Account account = new User_Account(image_prof, names, "is Student", user_wilaya, isMale, date);
                                 account.SaveData(user, account);
 
-                            } catch (MalformedURLException | URISyntaxException e) {
+                            } catch (URISyntaxException e) {
                                 e.printStackTrace();
                             }
-                            skip();
+                            gotoSignin();
                         }
 
                     }
@@ -252,15 +250,11 @@ public class signup extends AppCompatActivity {
         }
     }
 
-    private void skip() {
-        startActivity(new Intent(signup.this, login.class));
-        finish();
-    }
-
     private void gotoSignin() {
         startActivity(new Intent(signup.this, login.class));
         finish();
     }
+
 
     private boolean isValidEmail(String email) {
         return (email.contains("@esi-sba.dz"));
@@ -273,7 +267,7 @@ public class signup extends AppCompatActivity {
     public boolean isValidName(String s) {
         String[] words = s.split(" ");
         boolean twoOrMore = words.length >= 2;
-        boolean val = false;
+        boolean val = true;
         for (String ss : words) {
             for (int i = 0; i < ss.length(); i++) {
                 char ch = ss.charAt(i);
@@ -283,10 +277,12 @@ public class signup extends AppCompatActivity {
                 val = false;
                 break;
             }
-            val = true;
+            if (!val)
+                break;
         }
         return val && twoOrMore;
     }
+
 
     public void pick_image(View view) {
         Intent intent = new Intent();
@@ -310,7 +306,7 @@ public class signup extends AppCompatActivity {
 
         @Override
         protected JSONObject doInBackground(Void... params) {
-            URLConnection urlConn = null;
+            URLConnection urlConn;
             BufferedReader bufferedReader = null;
             try {
                 URL url = new URL(STR);

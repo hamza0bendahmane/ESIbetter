@@ -25,6 +25,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.esibetter.R;
 import com.example.esibetter.articles.Articles;
 import com.example.esibetter.community.Community;
@@ -32,6 +33,7 @@ import com.example.esibetter.courses.Courses;
 import com.example.esibetter.general.HelpActivity;
 import com.example.esibetter.general.SettingsActivity;
 import com.example.esibetter.general.about_us;
+import com.example.esibetter.general.favoris_offline;
 import com.example.esibetter.login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -52,27 +54,24 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Profile_Activity extends AppCompatActivity {
 
     public static int TOTAL_PAGES = 4;
-    public StorageReference images_url;
-    public TextView user_name, status;
-    public CircleImageView image_user;
-    public ImageView logo;
-    public ViewPager mPager;
-    public PagerAdapter mPagerAdapter;
-    public DrawerLayout drawer;
+    public static StorageReference images_url;
+    public static TextView user_name, status;
+    public static CircleImageView image_user;
+    public static ImageView logo;
+    public static ViewPager mPager;
+    public static PagerAdapter mPagerAdapter;
+    public static DrawerLayout drawer;
+    public static AppBarConfiguration mAppBarConfiguration;
+    public static FirebaseAuth firebaseAuth;
+    public static BottomNavigationView bottomNavigationView;
 
-    public AppBarConfiguration mAppBarConfiguration;
-    public FirebaseAuth firebaseAuth;
-    public BottomNavigationView bottomNavigationView;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.general_activity_profile);
-
-        // put notification flag ON .......;
-
-
 
               /*  String languageToLoad  = "ar"; // your language
                 Toast.makeText(Profile_Activity.this, "click", Toast.LENGTH_SHORT).show();
@@ -206,7 +205,8 @@ public class Profile_Activity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         Log.d("uriuri", "onSuccess: " + uri);
-                                        Glide.with(getApplicationContext()).load(uri).into(image_user);
+                                        Glide.with(getApplicationContext()).asBitmap()
+                                                .diskCacheStrategy(DiskCacheStrategy.ALL).load(uri).into(image_user);
                                     }
                                 });
 
@@ -292,6 +292,12 @@ public class Profile_Activity extends AppCompatActivity {
             mPager.setCurrentItem(mPager.getCurrentItem() - 1);
         }
 
+    }
+
+
+    public void openFavoris(MenuItem item) {
+        startActivity(new Intent(getApplicationContext(), favoris_offline.class));
+        finish();
     }
 
     private class IntroPagerAdapter extends FragmentStatePagerAdapter {

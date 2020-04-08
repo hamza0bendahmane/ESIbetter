@@ -11,6 +11,7 @@
 
         <item
             android:id="@+id/nav_hme"
+            android:onClick="openFavoris"
             android:icon="@drawable/ic_star"
             android:title="Favoris" />
 

@@ -2,7 +2,6 @@ package com.example.esibetter.articles;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.esibetter.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -35,14 +32,11 @@ import java.util.HashMap;
 
 
 public class news extends Fragment {
-    RecyclerView recyclerView;
-    ContextMenu lv;
-    SwipeRefreshLayout swipeRefreshLayout;
-    FloatingActionButton fab_articl, fab_event, fab_ideas;
-    private RecyclerView.LayoutManager manager;
-    private FirebaseRecyclerAdapter adapter;
-    private boolean UsersPost = false;
-    private boolean isopen = false;
+    static RecyclerView recyclerView;
+    static FloatingActionButton fab_articl, fab_event, fab_ideas;
+    private static RecyclerView.LayoutManager manager;
+    private static FirebaseRecyclerAdapter adapter;
+    private static boolean isopen = false;
     public news() {
         // Required empty public constructor
     }
@@ -67,15 +61,10 @@ public class news extends Fragment {
             public void onClick(View v) {
 
                 if (isopen) {
-                    fab_articl.setVisibility(View.GONE);
-                    fab_ideas.setVisibility(View.GONE);
-                    fab_event.setVisibility(View.GONE);
+                    hideFabs();
                     isopen = false;
                 } else {
-
-                    fab_articl.setVisibility(View.VISIBLE);
-                    fab_ideas.setVisibility(View.VISIBLE);
-                    fab_event.setVisibility(View.VISIBLE);
+                    showFabs();
                     isopen = true;
                 }
 
@@ -88,7 +77,7 @@ public class news extends Fragment {
                 final androidx.appcompat.app.AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
                 dialog.setTitle("ADD Article");
                 dialog.setMessage("Please enter Title and Body :");
-
+                hideFabs();
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 final View login_layout = inflater.inflate(R.layout.ideas_add_article, null);
 
@@ -164,23 +153,6 @@ public class news extends Fragment {
         recyclerView.setLayoutManager(manager);
         adapter = new ArticlesAdapter(options);
         recyclerView.setAdapter(adapter);
-        new ItemTouchHelper(new ItemTouchHelper.Callback() {
-            @Override
-            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                return 0;
-            }
-
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                viewHolder.getAdapterPosition();
-            }
-        }).attachToRecyclerView(recyclerView);
-
 
     }
 
@@ -197,5 +169,15 @@ public class news extends Fragment {
         adapter.stopListening();
     }
 
+    public void hideFabs() {
+        fab_articl.setVisibility(View.GONE);
+        fab_ideas.setVisibility(View.GONE);
+        fab_event.setVisibility(View.GONE);
+    }
 
+    public void showFabs() {
+        fab_articl.setVisibility(View.VISIBLE);
+        fab_ideas.setVisibility(View.VISIBLE);
+        fab_event.setVisibility(View.VISIBLE);
+    }
 }

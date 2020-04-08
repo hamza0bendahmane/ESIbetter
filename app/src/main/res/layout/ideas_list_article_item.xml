@@ -4,6 +4,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 android:id="@+id/lin"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
+    android:onClick="articles.ArticlesAdapter.clickitem"
 android:layout_margin="5dp"
 android:background="@drawable/bottom_navigation_background"
 android:backgroundTint="#eee"
@@ -87,14 +88,12 @@ android:padding="3dp">
         android:layout_marginBottom="5dp"
         android:lines="1"
         android:maxEms="25"
-        android:text="title of content "
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/poster_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="11/02/2019" />
+        android:layout_height="wrap_content" />
 </LinearLayout>
 
 <de.hdodenhof.circleimageview.CircleImageView

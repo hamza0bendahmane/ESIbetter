@@ -1,7 +1,6 @@
 package com.example.esibetter.general;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,23 +23,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.esibetter.R;
-import com.example.esibetter.signup;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -57,14 +54,13 @@ public class User_Profile extends AppCompatActivity {
     public static TextView date_view;
     public static String date;
     public static boolean wilaya_isChanged, date_isChanged, gender_isChanged;
-    public int Edit_pointer = 0;
-    public Uri Image_picked = null;
-    StorageReference reference;
-    FirebaseFirestore database;
-    DatePickerDialog.OnDateSetListener mDateSetListener;
-
-    FirebaseUser user;
-    Spinner wilaya_spinner, gender;
+    public static int Edit_pointer = 0;
+    public static Uri Image_picked = null;
+    static StorageReference reference;
+    static FirebaseFirestore database;
+    static DatePickerDialog.OnDateSetListener mDateSetListener;
+    static FirebaseUser user;
+    static Spinner wilaya_spinner, gender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,23 +99,16 @@ public class User_Profile extends AppCompatActivity {
                 dialog.getWindow().setGravity(Gravity.CENTER_VERTICAL);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                dialog.show();
-
-                mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+                dialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         month = month + 1;
-                        date = day + "/" + month + "/" + year;
+                        date = dayOfMonth + "/" + month + "/" + year;
                         date_view.setText(date);
                         User_Profile.date_isChanged = true;
-
-
                     }
-                };
-                        // Create a new instance of DatePickerDialog and return it
-
-                        // Do something with the date chosen by the user
-
+                });
+                dialog.show();
 
 
             }
@@ -158,7 +147,8 @@ public class User_Profile extends AppCompatActivity {
                             photo.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    Glide.with(getApplicationContext()).load(uri).into(image_user);
+                                    Glide.with(getApplicationContext()).asBitmap()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL).load(uri).into(image_user);
                                 }
                             });
 
@@ -178,31 +168,14 @@ public class User_Profile extends AppCompatActivity {
         finish();
     }
 
-    public void updateEmail() {
-
-        final EditText email_field = findViewById(R.id.email);
-        final String email = email_field.getText().toString();
-        if (TextUtils.isEmpty(email)) {
-            email_field.requestFocus();
-            email_field.setError("email should not be empty");
-        } else if (!isValidEmail(email)) {
-            email_field.requestFocus();
-            email_field.setError("You should use your Email at ESI SBA !");
-        } else {
-
-
-        }
-    }
 
     public void enable_edit(View view) {
         final LinearLayout linear = findViewById(R.id.change_data_layout);
         linear.setVisibility(View.VISIBLE);
         Edit_pointer = 1;
-        EditText name, email, status;
-        MaterialButton pass;
+        EditText name, status;
         TextView date;
         name = findViewById(R.id.name_user);
-        email = findViewById(R.id.email);
         status = findViewById(R.id.status_user);
         // see if some fields has changed .............................................................
         wilaya_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -244,12 +217,10 @@ public class User_Profile extends AppCompatActivity {
         final LinearLayout linear = findViewById(R.id.change_data_layout);
         linear.setVisibility(View.VISIBLE);
         saveUserChanges();
-        EditText name, email, status;
-        MaterialButton pass;
+        EditText name, status;
         TextView datee;
         Spinner wilaya, gender;
         name = findViewById(R.id.name_user);
-        email = findViewById(R.id.email);
         status = findViewById(R.id.status_user);
         datee = findViewById(R.id.date);
         wilaya = findViewById(R.id.wilaya);
@@ -268,12 +239,10 @@ public class User_Profile extends AppCompatActivity {
     }
 
     public void cancel(View v) {
-        EditText name, email, status;
-        MaterialButton pass;
+        EditText name, status;
         TextView datee;
         Spinner wilaya, gender;
         name = findViewById(R.id.name_user);
-        email = findViewById(R.id.email);
         status = findViewById(R.id.status_user);
         datee = findViewById(R.id.date);
         wilaya = findViewById(R.id.wilaya);
@@ -308,8 +277,6 @@ public class User_Profile extends AppCompatActivity {
                 @Override
                 public void onComplete(@Nonnull Task<UploadTask.TaskSnapshot> task) {
                     if (task.isSuccessful()) {
-                        map.put("image", task.getResult().getUploadSessionUri());
-
                         Snackbar.make(date_view, "Image Uploaded ", Snackbar.LENGTH_LONG).show();
                     } else Toast.makeText(User_Profile.this,
                             "can't upload image, try again", Toast.LENGTH_SHORT).show();
@@ -369,14 +336,13 @@ public class User_Profile extends AppCompatActivity {
         } else {
             // Name is valid save it ....
             map.put("name", names);
-
+            map.put("token", FirebaseInstanceId.getInstance().getToken());
             names = name.getText().toString();
             inputs.put("name", names);
 
 
         }
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users/" + user.getUid());
-        ValueEventListener vv;
         if (map.containsKey("image") || map.containsKey("name"))
             ref.updateChildren(map);
         database.collection("users").document(user.getUid()).update(inputs).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -392,14 +358,11 @@ public class User_Profile extends AppCompatActivity {
 
     }
 
-    private boolean isValidEmail(String email) {
-        return (email.contains("@esi-sba.dz"));
-    }
 
     public boolean isValidName(String s) {
         String[] words = s.split(" ");
         boolean twoOrMore = words.length >= 2;
-        boolean val = false;
+        boolean val = true;
         for (String ss : words) {
             for (int i = 0; i < ss.length(); i++) {
                 char ch = ss.charAt(i);
@@ -409,7 +372,8 @@ public class User_Profile extends AppCompatActivity {
                 val = false;
                 break;
             }
-            val = true;
+            if (!val)
+                break;
         }
         return val && twoOrMore;
     }

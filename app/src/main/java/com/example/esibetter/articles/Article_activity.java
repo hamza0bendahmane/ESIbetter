@@ -3,29 +3,30 @@ package com.example.esibetter.articles;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.esibetter.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Article_activity extends AppCompatActivity {
-    CircleImageView imagePoster;
-    TextView datee, posterName, bodye, likese, dislikese;
-
-    ImageView imagePost;
+    static CircleImageView imagePoster;
+    static TextView datee, posterName, bodye, likese, dislikese;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,9 @@ public class Article_activity extends AppCompatActivity {
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(getApplicationContext())
+                        .asBitmap()
+                        .override(300, 300)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .load(uri)
                         .into(imagePoster);
 
@@ -94,13 +98,18 @@ public class Article_activity extends AppCompatActivity {
 
     }
     public void setPosterName(String uid) {
-        FirebaseFirestore ref = FirebaseFirestore.getInstance();
-        ref.collection("users").document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        FirebaseDatabase ref = FirebaseDatabase.getInstance();
+        ref.getReference("users/" + uid + "/name").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                posterName.setText("By :"+documentSnapshot.getData().get("name").toString());
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                posterName.setText("By :" + dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
-
     }
+
 }

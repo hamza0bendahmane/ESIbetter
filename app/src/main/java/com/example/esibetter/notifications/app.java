@@ -3,15 +3,9 @@ package com.example.esibetter.notifications;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.SharedPreferences;
 import android.os.Build;
-import android.util.Log;
 
 import com.example.esibetter.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
 public class app extends Application {
     public static final String NOTIFICATION = "notification";
@@ -19,30 +13,14 @@ public class app extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //intro ...
-        SharedPreferences store_data = getSharedPreferences("seen_intro", MODE_PRIVATE);
-        if (!store_data.contains("have_seen_intro"))
-            store_data.edit().putBoolean("have_seen_intro", false).apply();
-        // notification ... SHARED PREFS ...
 
+        // notification ... SHARED PREFS ...
+        if (!getSharedPreferences("seen_intro", MODE_PRIVATE).contains("have_seen_intro"))
+            getSharedPreferences("seen_intro", MODE_PRIVATE).edit().putBoolean("have_seen_intro", false).apply();
         if (!getSharedPreferences(NOTIFICATION, MODE_PRIVATE).contains(NOTIFICATION))
             getSharedPreferences(NOTIFICATION, MODE_PRIVATE).edit()
                     .putBoolean(NOTIFICATION, true).apply();
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
-                            return;
-                        }
 
-                        // Get new Instance ID token
-                        String token = task.getResult().getToken();
-
-                        // Log and toast
-                        Log.d("hbhb", token);
-                    }
-                });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create channel to show notifications.
             String channelId = getString(R.string.default_notification_channel_id);

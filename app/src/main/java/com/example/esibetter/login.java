@@ -1,8 +1,6 @@
 package com.example.esibetter;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -31,27 +29,23 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
 public class login extends AppCompatActivity {
-    public Uri uri;
-    public SignInButton signin_google;
-    FirebaseAuth firebaseAuth;
-    int RC_SIGN_IN = 1;
-    Button signin, signup, forget_password;
-    TextInputEditText email_field;
+    public static final int RC_SIGN_IN = 1;
+    public static SignInButton signin_google;
+    static FirebaseAuth firebaseAuth;
+    static Button signin, signup, forget_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // if (FirebaseAuth.getInstance().getCurrentUser()!=null )
-        //    verify_youremail();
+        getSharedPreferences("seen_intro", MODE_PRIVATE).edit().
+                putBoolean("have_seen_intro", true).apply();
         setContentView(R.layout.general_activity_login);
 
         // change the value of seen_intro to skip it next time ...
-        SharedPreferences sharedPreferences = getSharedPreferences("seen_intro", 0);
-        sharedPreferences.edit().putBoolean("have_seen_intro", true).apply();
+
         // linking variables ...
         firebaseAuth = FirebaseAuth.getInstance();
         verify_your_email(FirebaseAuth.getInstance().getCurrentUser());
@@ -248,17 +242,17 @@ public class login extends AppCompatActivity {
                             else {
                                 boolean succ = false;
                                 User_Account newUser = null;
+
                                 try {
-                                    newUser = new User_Account(null, acct.getDisplayName(),
-                                            "Your Status", "16", true, "01/01/1999");
+                                    newUser = new User_Account(acct.getPhotoUrl(), acct.getDisplayName(),
+                                            "is Student", "16", true, "01/01/1999");
                                 } catch (URISyntaxException e) {
                                     e.printStackTrace();
                                 }
-                                try {
-                                    succ = newUser.SaveData(user, newUser);
-                                } catch (MalformedURLException e) {
-                                    e.printStackTrace();
-                                }
+
+
+                                succ = newUser.SaveData(user, newUser);
+
                                 if (succ) {
                                     Snackbar.make(signin, "Done", Snackbar.LENGTH_LONG).show();
                                     goToProfile();

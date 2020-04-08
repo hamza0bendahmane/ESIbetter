@@ -1,7 +1,6 @@
 package com.example.esibetter.general;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -21,17 +20,16 @@ import com.example.esibetter.login;
 
 public class MainActivity extends AppCompatActivity {
     private static final int TOTAL_PAGES = 4;
-    private ViewPager mPager;
-    private PagerAdapter mPagerAdapter;
+    private static ViewPager mPager;
+    private static PagerAdapter mPagerAdapter;
 
     @Override
     //intro_1
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.general_activity_main);
-        SharedPreferences store_data = getSharedPreferences("seen_intro", MODE_PRIVATE);
-        if (store_data.getBoolean("have_seen_intro", true))
-            gotoLoginActivity();
+        // intro
+
 
 
         final Typeface text_font = Typeface.createFromAsset(getAssets(), "font/CeraPro-Regular.ttf");
@@ -57,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
                 btnIntroSkip.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        gotoLoginActivity();
+
+                        gotologin();
                     }
                 });
                 if (position == 0) {
@@ -68,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
                     introIndicator3.setImageResource(R.drawable.dote_default);
                     introIndicator3.setImageResource(R.drawable.dote_default);
                     // text title
-                    View v = null;
                     final TextView slideTitle1 = findViewById(R.id.title_slide1);
                     slideTitle1.setText(titles[position]);
 
@@ -128,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 btnIntroSkip.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        gotoLoginActivity();
+                        gotologin();
                     }
                 });
                 //text ;;;title
@@ -183,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
                     seemore.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            gotoLoginActivity();
+                            gotologin();
                         }
                     });
                     TextView slideTitle4 = findViewById(R.id.title_slide4);
@@ -199,10 +197,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void gotoLoginActivity() {
-
-        Intent intent = new Intent(MainActivity.this, login.class);
+    private void gotologin() {
+        getSharedPreferences("seen_intro", MODE_PRIVATE).edit().
+                putBoolean("have_seen_intro", true).apply();
+        Intent intent = new Intent(getApplicationContext(), login.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

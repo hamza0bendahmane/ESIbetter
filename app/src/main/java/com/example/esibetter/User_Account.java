@@ -16,10 +16,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
-import java.util.Map;
 
 class User_Account {
     private Uri ImageUri;
@@ -28,7 +26,9 @@ class User_Account {
     private String Wilaya;
     private boolean IsMale;
     private String Birthday;
-
+    final HashMap<String, Object> map = new HashMap<>();
+    DatabaseReference refe = FirebaseDatabase.getInstance().getReference().child("users");
+    DatabaseReference ref = refe.child(FirebaseAuth.getInstance().getCurrentUser().getUid());
     public User_Account(Uri imageUrl, String name, String status, String wilaya, boolean isMale, String birthday) throws URISyntaxException {
         ImageUri = imageUrl;
         Name = name;
@@ -87,11 +87,9 @@ class User_Account {
         Birthday = birthday;
     }
 
-    public boolean SaveData(FirebaseUser user, User_Account user_account) throws MalformedURLException {
-        DatabaseReference refe = FirebaseDatabase.getInstance().getReference().child("users");
-        DatabaseReference ref = refe.child(user.getUid());
-        final HashMap<String, Object> map = new HashMap<>();
-        map.put("name", user_account.getName());
+    public boolean SaveData(FirebaseUser user, final User_Account user_account) {
+
+
         FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
         StorageReference reference;
         HashMap<String, Object> data = new HashMap<>();
@@ -123,19 +121,15 @@ class User_Account {
                 .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful())
-                            map.put("image", task.getResult().getUploadSessionUri());
 
                     }
                 }).isSuccessful();
-        // Get a URL to the uploaded content
-        Map<String, Object> mapt = new HashMap<>();
-        mapt.put("token", FirebaseInstanceId.getInstance().getToken());
-        mapt.put("email", FirebaseAuth.getInstance().getCurrentUser().getEmail());
-        dataBase.collection("users_tokens").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .set(mapt);
-        if (photo_saved || data_saved)
+
+
+        map.put("name", user_account.getName());
+        map.put("token", FirebaseInstanceId.getInstance().getToken());
             ref.setValue(map);
+
 
         return photo_saved || data_saved;
     }
