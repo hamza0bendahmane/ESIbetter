@@ -9,6 +9,7 @@
     </style>
 
     <style name="AppTheme.NoActionBar">
+        <item name="android:windowDisablePreview">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
@@ -48,7 +49,7 @@
     </style>
 
     <style name="viewParent.headerText.settingsTextIcon" parent="settingsText">
-        <item name="android:drawableEnd">@drawable/ic_more</item>
+        <item name="android:drawableEnd">@drawable/ic_goback_to</item>
     </style>
 
 </resources>

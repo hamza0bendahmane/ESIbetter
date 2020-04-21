@@ -2,38 +2,62 @@ package com.example.esibetter.articles;
 
 class comment_item {
 
-    String commentBody ;
-    int Likes ;
-    String CommenterUid;
+    String comment;
+    Long likes;
+    String date;
+    String uid;
+    String commentId;
 
-    public comment_item(String commentBody, int likes, String commenterUid) {
-        this.commentBody = commentBody;
-        Likes = likes;
-        CommenterUid = commenterUid;
+    public comment_item(String comment, Long likes, String uid, String commentId) {
+        this.comment = comment;
+        this.likes = likes;
+        this.uid = uid;
+        this.commentId = commentId;
+
+    }
+
+    public comment_item() {
+
+    }
+
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(String commentId) {
+        this.commentId = commentId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
 
-    public String getCommentBody() {
-        return commentBody;
+    public String getComment() {
+        return comment;
     }
 
-    public void setCommentBody(String commentBody) {
-        this.commentBody = commentBody;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public int getLikes() {
-        return Likes;
+    public Long getLikes() {
+        return likes;
     }
 
-    public void setLikes(int likes) {
-        Likes = likes;
+    public void setLikes(Long likes) {
+        this.likes = likes;
     }
 
-    public String getCommenterUid() {
-        return CommenterUid;
+    public String getUid() {
+        return uid;
     }
 
-    public void setCommenterUid(String commenterUid) {
-        CommenterUid = commenterUid;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

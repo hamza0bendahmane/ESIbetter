@@ -1,4 +1,25 @@
 <resources>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email</string>
+    <string name="Reset_Password">Reset Password</string>
+    <string name="community">Community</string>
+    <string name="article">Ideas</string>
+    <string name="courses">Courses</string>
+    <string name="notification"> Notifications </string>
+
+    <string name="sign_out">Log Out</string>
+    <string name="Your_province">Your Province</string>
+    <string name="default_notification_channel_id">DEFAULT</string>
+    <string name="fcm_message">ESI better</string>
+    <string name="default_notification_channel_name">General Notifications</string>
+    <string name="community_notification_channel_id">COMMUNITY</string>
+    <string name="community_notification_channel_name">Community Notifications</string>
+    <string name="ideas_notification_channel_id">IDEAS</string>
+    <string name="ideas_notification_channel_name">IDEAS Notifications</string>
+    <string name="title_activity_article_activity">Article</string>
+
+
     <string name="app_name">ESI better</string>
     <string name="about_app">Share your ideas and make \n your School better</string>
     <string name="sign_in">SIGN IN</string>
@@ -15,122 +36,144 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_article">title</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="exchanging_ideas_and_n_articles_between_n_students">Exchanging ideas and \n  articles between \n  students</string>
+    <string name="exchanging_ideas_and_n_articles_between_n_students">Exchanging ideas and  articles between   students</string>
     <string name="password">Password</string>
-    <string name="email">Email</string>
-    <string name="title_activity_profile_">Profile_Activity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
 
-    <string name="community">Community</string>
-    <string name="article">Ideas</string>
-    <string name="courses">Courses</string>
-    <string name="notification">Notifications</string>
+    <string name="please_enter_your_email_adress">Please enter Email Address</string>
+    <string name="please_enter_avalid_email">please , enter a valid e-mail</string>
+    <string name="email_sent">email sent , please check your inbox    to reset your password</string>
+    <string name="error_sending_email">error sending email , check your email   then try again</string>
+    <string name="short_password">Password must be than 8 digit or more</string>
+    <string name="empty_password">password should not be empty</string>
+    <string name="empty_email">email should not be empty</string>
+    <string name="r_u_esist">Are you sure , you are a  student a ESI SBA !</string>
+    <string name="error">ERROR :</string>
+    <string name="login_successful">Login Successful</string>
+    <string name="u_should_be_esist">You should be from ESI SBA to sign in</string>
+    <string name="u_can_edit_profile">You can now edit your profile</string>
+    <string name="cant_upload_image">can\'t upload image, try again</string>
+    <string name="empty_name">Name should not be empty</string>
+    <string name="invalid_name">Name is not valid</string>
+    <string name="cant_update_your_profile">can\'t update your profile , try again</string>
+    <string name="pick_photo">Please pick a photo for your profile</string>
+    <string name="name_shd_cntain_lttrs">Name should contain only letters</string>
+    <string name="r_u_esist2">Are you sure , you are a \n student a ESI SBA !</string>
+    <string name="pswrd_mst_matches">Password must matches</string>
+    <string name="pls_pick_birth">please pick your Birthday</string>
+    <string name="register_successful">register successful</string>
+    <string name="cant_snd_email_vrf">error can\'t send email verification,  try again ..</string>
+    <string name="logout_rst_pswrd">Do you really want to log out and reset password ?</string>
+    <string name="cancel">cancel</string>
+    <string name="rst_pswrd">Reset Password</string>
+    <string name="we_snt_emai">we have sent you an email to reset password, check your inbox</string>
+    <string name="u_wnt_logout">Do you really want to log out ?</string>
+    <string name="vrf_yremail">Verify your email</string>
+    <string name="yremail_not_vrf">your email is not verified , please try again</string>
+    <string name="home">Home</string>
+    <string name="favoris">Favorites</string>
+    <string name="more">More</string>
+    <string name="about_us">About us</string>
+    <string name="settings">Settings</string>
+    <string name="replace_wiith_your_own_action">Replace with your own action</string>
+    <string name="on_date">On :</string>
+    <string name="by_poster">By :</string>
+    <string name="add_article">ADD Article</string>
+    <string name="please_enter_body_n_title">Please enter Title and Body :</string>
+    <string name="succes">success</string>
+    <string name="failed">failed</string>
+    <string name="please_describe_your_issue_here">please describe your issue here   you can illustrate it with screenshots if needed ...   and we will contact you soon ...  Respectfully .</string>
+    <string name="please_pick_an_app_to_send">Please pick an app to send your report</string>
+    <string name="notifications">Notifications</string>
+    <string name="are_enabled">are Enabled</string>
+    <string name="are_disabled">are Disabled</string>
+    <string name="internet_connection">Internet Connection</string>
+    <string name="u_dont_have_internet_connecion">You don\'t have internet connection</string>
+    <string name="u_can_now_edit_your_profile">You can now edit your profile</string>
+    <string name="image_uploaded">Image Uploaded</string>
+    <string name="cant_upload_image_try_again">can\'t upload image, try again</string>
+    <string name="empty_status">Status should not be empty</string>
+    <string name="short_status"><![CDATA[Status should be < 20 chars]]></string>
+    <string name="fields_updated_successfully">fields updated successfully</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="please_enter_your_email">Please enter your Email :</string>
+    <string name="done">Done</string>
+    <string name="authenticatin_failed">Authentication Failed.</string>
+    <string name="verify_your_email">Verify your email</string>
+    <string name="invrf_email">your email is not verified , please try again</string>
+    <string name="reading">Reading</string>
+    <string name="study">Study</string>
+    <string name="volunteer">Volunteer</string>
+    <string name="summaries">summaries</string>
+    <string name="tutorials">tutorials</string>
+    <string name="we_are_team">We are team of second year of ESI-SBA students consisting of six members: \'Bendahmane Hamza,Manaa Anouar,Boussaada Moustafa,Larbaoui Nour El Imene,Bouziane Djihane Boufeldja Manel\' we decided with cooperation between us to provide our application to our fellow students where our first and main goal was to serve and facilate your studies.</string>
+    <string name="since_we_are_students">Since we are students and we understand requirements of you and problems that you may encounter,we solved some of them and we created\'ESI better\'for university life better,that was supervised by the esteemed professor \'GHEID ZAKARIA\' who accompanied us and guided us throughout our work.</string>
+    <string name="help">Help</string>
+    <string name="the_main_idea_of_app">The main idea of the application is considered as any student who registers in the application can publish an idea or an article about a specific topic for the school that is subject to evaluation by the rest of the students and is voted on and any idea that gets the most admiration we can suggest to the administration and embody it on the ground in School potential framework.</string>
+    <string name="sharing_tutorials_n_courses">Sharing tutorials and courses :</string>
+    <string name="this_idea_is_represented">This idea is represented by sharing educational videos for all levels of the school that are broadcast by the students, as any competent student in a specific subject or a specific field publishes a video for a detailed explanation and this improves the benefit and the spirit of cooperation between students.</string>
+    <string name="find_astrudy_team">Find a study team to help you understand your lessons:</string>
+    <string name="the_research_on_the_review">The research on the review team is very interesting for that. We proposed this idea so that the student can find a team that helps him understand, prepare and motivate. .</string>
+    <string name="a_reading_community">A reading community where you can find book recomendations and feedbacks :</string>
+    <string name="the_idea_is_centererd">This idea is centered on establishing a reading club where any student can participate with his colleagues in browsing various types of books, by exchanging students the books available to them .</string>
+    <string name="report_a_problem">Report a problem</string>
+    <string name="forget_password">forget password ?</string>
+    <string name="not_a_member">Not a Member ?</string>
+    <string name="sign_up_now">sign up now</string>
+    <string name="skip">SKIP</string>
+    <string name="profile">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="language">Language</string>
+    <string name="logout">Logout</string>
+    <string name="name">Name</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="already_a_member">Already A Member ?</string>
+    <string name="birthday">Birthday</string>
+    <string name="favoris_amp_offline"><![CDATA[FAVORIS & OFFLINE]]></string>
+    <string name="see_more">See more</string>
+    <string name="join_us">Join us</string>
+    <string name="when_u_r_done_vrf">when you are done verifying your email click on the button</string>
+    <string name="enter">Enter</string>
+    <string name="your_name">your name</string>
+    <string name="status">Status</string>
+    <string name="your_status_here">Your status here</string>
+    <string name="wilaya">Wilaya</string>
+    <string name="save">Save</string>
+    <string name="the_name_of_the_user">the name of the user</string>
+    <string name="comment">Comment</string>
+    <string name="time">time</string>
+    <string name="reply">Reply</string>
+    <string name="large_text">large text</string>
+    <string name="trending">trending</string>
+    <string name="notifications_for_you"> for you</string>
+    <string name="notifications_shared_with_you"> shared with you</string>
+    <string name="share">Share</string>
+    <string name="report">Report</string>
+    <string name="facebook_app_id">527072144669508</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="on">On :</string>
+    <string name="log_out">log out</string>
+    <string name="our_story">OUR STORY</string>
+    <string name="send_email">Send Email</string>
+    <string name="like">like</string>
+    <string name="choose_your_language">Please choose language</string>
+    <string name="looking_for_som">Looking for something ?</string>
+    <string name="create_acc">Create Account</string>
+    <string name="email_reset_pass">we have sent you an email to reset password, check your inbox </string>
+    <string name="bestof">BEST OF</string>
+    <string name="news">NEW</string>
+    <string name="post_uploaded">Post Uploaded Successfully</string>
+    <string name="post_notuploaded">failed Posting , Try again</string>
+    <string name="add_comment">Add comment</string>
+    <string name="delete_post">Delete </string>
+    <string name="delete_post_title">Delete the post</string>
+    <string name="edit_article_title">Edit The Article</string>
+    <string name="post_updated">Post Updated Successfully</string>
+    <string name="post_notupdated">Failed Updating Post</string>
+    <string name="are_us_sure_delte_post">Are You sure You Want To Delete Your Post</string>
 
-    <string name="sign_out">Log Out</string>
-    <string name="title_activity_user_navigation">User Navigation</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="Your_province">Your Province</string>
-    <string name="default_notification_channel_id">DEFAULT</string>
-    <string name="fcm_message">ESI better</string>
-    <string name="default_notification_channel_name">General Notifications</string>
-    <string name="community_notification_channel_id">COMMUNITY</string>
-    <string name="community_notification_channel_name">Community Notifications</string>
-    <string name="ideas_notification_channel_id">IDEAS</string>
-    <string name="ideas_notification_channel_name">IDEAS Notifications</string>
-    <string name="title_activity_article_activity">Article</string>
-    <string name="large_text">
-        "Material is the metaphor.\n\n"
 
-        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
-        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
-        "technologically advanced and open to imagination and magic.\n"
-        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
-        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
-        "flexibility of the material creates new affordances that supercede those in the physical "
-        "world, without breaking the rules of physics.\n"
-        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
-        "interact, and exist in space and in relation to each other. Realistic lighting shows "
-        "seams, divides space, and indicates moving parts.\n\n"
-
-        "Bold, graphic, intentional.\n\n"
-
-        "The foundational elements of print based design typography, grids, space, scale, color, "
-        "and use of imagery guide visual treatments. These elements do far more than please the "
-        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
-        "imagery, large scale typography, and intentional white space create a bold and graphic "
-        "interface that immerse the user in the experience.\n"
-        "An emphasis on user actions makes core functionality immediately apparent and provides "
-        "waypoints for the user.\n\n"
-
-        "Motion provides meaning.\n\n"
-
-        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
-        "inflection points that initiate motion, transforming the whole design.\n"
-        "All action takes place in a single environment. Objects are presented to the user without "
-        "breaking the continuity of experience even as they transform and reorganize.\n"
-        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
-        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
-
-        "3D world.\n\n"
-
-        "The material environment is a 3D space, which means all objects have x, y, and z "
-        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
-        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
-        "position along the z-axis and has a standard 1dp thickness.\n"
-        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
-        "emulated by manipulating the y-axis.\n\n"
-
-        "Light and shadow.\n\n"
-
-        "Within the material environment, virtual lights illuminate the scene. Key lights create "
-        "directional shadows, while ambient light creates soft shadows from all angles.\n"
-        "Shadows in the material environment are cast by these two light sources. In Android "
-        "development, shadows occur when light sources are blocked by sheets of material at "
-        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
-        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
-
-        "Resting elevation.\n\n"
-
-        "All material objects, regardless of size, have a resting elevation, or default elevation "
-        "that does not change. If an object changes elevation, it should return to its resting "
-        "elevation as soon as possible.\n\n"
-
-        "Component elevations.\n\n"
-
-        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
-        "does not vary from 6dp in one app to 16dp in another app).\n"
-        "Components may have different resting elevations across platforms, depending on the depth "
-        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
-
-        "Responsive elevation and dynamic elevation offsets.\n\n"
-
-        "Some component types have responsive elevation, meaning they change elevation in response "
-        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
-        "changes are consistently implemented using dynamic elevation offsets.\n"
-        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
-        "to the component’s resting state. They ensure that elevation changes are consistent "
-        "across actions and component types. For example, all components that lift on press have "
-        "the same elevation change relative to their resting elevation.\n"
-        "Once the input event is completed or cancelled, the component will return to its resting "
-        "elevation.\n\n"
-
-        "Avoiding elevation interference.\n\n"
-
-        "Components with responsive elevations may encounter other components as they move between "
-        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
-        "through other material, components avoid interfering with one another any number of ways, "
-        "whether on a per component basis or using the entire app layout.\n"
-        "On a component level, components can move or be removed before they cause interference. "
-        "For example, a floating action button (FAB) can disappear or move off screen before a "
-        "user picks up a card, or it can move if a snackbar appears.\n"
-        "On the layout level, design your app layout to minimize opportunities for interference. "
-        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
-        "when a user tries to pick up one of cards.\n\n"
-    </string>
 </resources>

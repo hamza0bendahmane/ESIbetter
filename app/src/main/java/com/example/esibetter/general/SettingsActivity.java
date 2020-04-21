@@ -1,7 +1,10 @@
 package com.example.esibetter.general;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -21,6 +24,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Locale;
+
 public class SettingsActivity extends AppCompatActivity {
     LinearLayout edit_profile;
     private Switch notification;
@@ -30,6 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocal();
         setContentView(R.layout.general_activity_settings);
         // initializing vars ....
         notification = findViewById(R.id.setNotification);
@@ -50,11 +56,11 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 saveData();
-                String not = "Notifications ";
+                String not = getString(R.string.notifications) + " ";
                 if (notificationState)
-                    not += "are Enabled";
+                    not += getString(R.string.are_enabled);
                 else
-                    not += "are Disabled";
+                    not += getString(R.string.are_disabled);
                 Toast.makeText(SettingsActivity.this, not,
                         Toast.LENGTH_SHORT).show();
             }
@@ -75,13 +81,13 @@ public class SettingsActivity extends AppCompatActivity {
         // password reset
 
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this).setTitle("Reset Password").
-                setMessage("Do you really want to log out and reset password ?")
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                setMessage(getString(R.string.logout_rst_pswrd))
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
-                }).setPositiveButton(" Reset Password ", new DialogInterface.OnClickListener() {
+                }).setPositiveButton(getString(R.string.reset_password), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         updatePassword();
@@ -97,8 +103,7 @@ public class SettingsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Snackbar.make(findViewById(R.id.gender), "we have sent you an email" +
-                                    " to reset password, check your inbox ", Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(findViewById(R.id.gender), getString(R.string.email_reset_pass), Snackbar.LENGTH_LONG).show();
                             firebaseAuth.signOut();
                             startActivity(new Intent(SettingsActivity.this, login.class));
                             finish();
@@ -109,13 +114,14 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void signOutAndgoTologin(View item) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this).setTitle("Sign out").setMessage("Do you really want to log out ?")
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this).setTitle(getString(R.string.sign_out)).
+                setMessage(getString(R.string.u_wnt_logout))
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
-                }).setPositiveButton("log out", new DialogInterface.OnClickListener() {
+                }).setPositiveButton(getString(R.string.logout), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         FirebaseAuth.getInstance().signOut();
@@ -126,8 +132,26 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void changeLanguage(View view) {
-        //TODO : WALID BOUSSAADA ..
-        Toast.makeText(this, "for walid", Toast.LENGTH_SHORT).show();
+        final String[] listItem = {"English", "Arabic"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+        builder.setTitle(getString(R.string.choose_your_language));
+        builder.setSingleChoiceItems(listItem, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (i == 0) {
+                    setLocale("");
+                    recreate();
+                } else if (i == 1) {
+                    setLocale("ar");
+                    recreate();
+                }
+
+                //dimiss alert when language is selected
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog mDialog = builder.create();
+        mDialog.show();
 
 
     }
@@ -137,4 +161,36 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), Profile_Activity.class));
         finish();
     }
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+
+
+        getBaseContext().getResources().
+                updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+        //save data in shared preferences
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_lang", lang);
+        editor.apply();
+    }
+
+
+    public void loadLocal() {
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String Language = prefs.getString("My_lang", "");
+        setLocale(Language);
+    }
+
+
+
+
+
+
+
+
+
 }

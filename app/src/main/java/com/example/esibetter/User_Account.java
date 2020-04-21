@@ -38,7 +38,7 @@ class User_Account {
         Birthday = birthday;
     }
 
-
+    // should not forget to put for every user A as a picture
     public Uri getImageUri() {
         return ImageUri;
     }

@@ -22,6 +22,7 @@ public class splashScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         boolean introSeen = getSharedPreferences("seen_intro", MODE_PRIVATE).getBoolean("have_seen_intro", true);
         if (!introSeen) {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -29,11 +30,11 @@ public class splashScreen extends AppCompatActivity {
         }
         setContentView(R.layout.general_splash_screen);
         if (introSeen) {
-            if (isWorkingInternetPersent()) {
+            if (isWorkingInternet()) {
                 splash();
             } else {
-                showAlertDialog(splashScreen.this, "Internet Connection",
-                        "You don't have internet connection");
+                showAlertDialog(splashScreen.this, getString(R.string.internet_connection),
+                        getString(R.string.u_dont_have_internet_connecion));
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -52,9 +53,9 @@ public class splashScreen extends AppCompatActivity {
                 try {
 
                     ImageView imageView = findViewById(R.id.splash_photo);
-                    Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein);
+                    Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.frombottom);
                     imageView.setAnimation(animation);
-                    sleep(2000);
+                    sleep(500);
                     Intent intent;
                     if (FirebaseAuth.getInstance().getCurrentUser() == null) {
                         intent = new Intent(getApplicationContext(), login.class);
@@ -75,7 +76,7 @@ public class splashScreen extends AppCompatActivity {
         timerTread.start();
     }
 
-    public boolean isWorkingInternetPersent() {
+    public boolean isWorkingInternet() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getBaseContext()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
@@ -108,4 +109,6 @@ public class splashScreen extends AppCompatActivity {
         // Showing Alert Message
         alertDialog.show();
     }
+
+
 }

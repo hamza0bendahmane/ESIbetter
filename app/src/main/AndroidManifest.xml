@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:installLocation="auto"
-    package="com.example.esibetter">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.esibetter"
+    android:installLocation="auto">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="ANDROID.PERMISSION.READ_EXTERNAL_STORAGE" />
@@ -15,6 +16,7 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".FacebookActivity"></activity>
         <activity
             android:name=".general.splashScreen"
             android:label="@string/app_name"
@@ -26,19 +28,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".general.favoris_offline"
-
-            />
+        <activity android:name=".general.favoris_offline" />
         <activity
             android:name=".general.MainActivity"
-
             android:screenOrientation="portrait" />
         <activity android:name=".articles.Article_activity" />
         <activity android:name=".general.about_us" />
         <activity android:name=".general.HelpActivity" />
         <activity android:name=".general.User_Profile" />
-        <activity
-            android:name=".notifications.Profile_Activity" />
+        <activity android:name=".notifications.Profile_Activity" />
         <activity
             android:name=".general.SettingsActivity"
             android:screenOrientation="portrait"
@@ -49,6 +47,7 @@
         <activity
             android:name=".login"
             android:screenOrientation="portrait" />
+        <activity android:name=".notifications.Notifications" />
 
         <service android:name=".notifications.FirebaseMessaging_Service">
             <intent-filter>
@@ -62,6 +61,16 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorPrimary" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider527072144669508"
+            android:exported="true" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"
+            tools:replace="android:value" />
     </application>
 
 </manifest>

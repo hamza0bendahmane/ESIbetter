@@ -1,5 +1,7 @@
 package com.example.esibetter.articles;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,26 +15,20 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.esibetter.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 
 public class Articles extends Fragment {
-
+    public static onFabClicked mlistener;
+    public static boolean isopen = false;
+    public static FloatingActionButton fabArticle, fabInitiative, fab;
     public Articles() {
         // Required empty public constructor
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ViewPager pages = view.findViewById(R.id.viewPager);
-        TabLayout tabs = view.findViewById(R.id.tabLayout);
-        pages.setAdapter(new MyTabPagerAdapter(getChildFragmentManager()));
-        tabs.setupWithViewPager(pages);
-
-
-
-
-
+    public static void setonFabClicked(onFabClicked listener) {
+        mlistener = listener;
     }
 
 
@@ -43,7 +39,91 @@ public class Articles extends Fragment {
         return inflater.inflate(R.layout.ideas_fragment_articles, container, false);
     }
 
-    public static class MyTabPagerAdapter extends FragmentStatePagerAdapter {
+    @Override
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+        ViewPager pages = view.findViewById(R.id.viewPager);
+        TabLayout tabs = view.findViewById(R.id.tabLayout);
+        pages.setAdapter(new MyTabPagerAdapter(getChildFragmentManager()));
+        tabs.setupWithViewPager(pages);
+        fab = view.findViewById(R.id.fab);
+        fabArticle = view.findViewById(R.id.fab_article);
+        fabInitiative = view.findViewById(R.id.fab_event);
+        fabArticle.setVisibility(View.GONE);
+        fabInitiative.setVisibility(View.GONE);
+        // fabs ..manipulation ...
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isopen) {
+                    fabArticle.setVisibility(View.GONE);
+                    fabInitiative.setVisibility(View.GONE);
+                    fab.animate().setDuration(200)
+                            .setListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    super.onAnimationEnd(animation);
+                                }
+                            })
+                            .rotation(0f);
+                    isopen = false;
+                } else {
+
+                    fabArticle.setVisibility(View.VISIBLE);
+                    fabInitiative.setVisibility(View.VISIBLE);
+                    fab.animate().setDuration(200)
+                            .setListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    super.onAnimationEnd(animation);
+                                }
+                            })
+                            .rotation(135f);
+                    isopen = true;
+                }
+
+            }
+        });
+
+
+        // fab Action ...
+        fabArticle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mlistener != null) {
+                    mlistener.FabClicked();
+                }
+            }
+        });
+        fabInitiative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mlistener != null) {
+                    mlistener.FabEventClicked();
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    public interface onFabClicked {
+        void FabClicked();
+
+        void FabEventClicked();
+    }
+
+    public class MyTabPagerAdapter extends FragmentStatePagerAdapter {
         MyTabPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -53,11 +133,11 @@ public class Articles extends Fragment {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "NEW";
+                    return getString(R.string.news);
                 case 1:
-                    return "TRENDING";
+                    return getString(R.string.trending);
                 case 2:
-                    return "BEST OF";
+                    return getString(R.string.bestof);
                 default:
                     return null;
             }
@@ -85,14 +165,5 @@ public class Articles extends Fragment {
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
 
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
 }

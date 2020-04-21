@@ -1,5 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+TODO :for Walid add a switch for the language AR/EN
 
+ you decide where to add it here or
+ add it in the login layout
+ ask Anouar the designer for that ...
+
+-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -76,7 +82,7 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="10dp"
             android:padding="5dp"
-            android:text="SKIP"
+            android:text="@string/skip"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:padding="5dp"
-            android:src="@drawable/goback_to"
+            android:src="@drawable/ic_goback_to"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

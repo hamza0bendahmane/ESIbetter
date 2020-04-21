@@ -1,12 +1,10 @@
 package com.example.esibetter.notifications;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -16,33 +14,24 @@ import com.example.esibetter.R;
 import com.google.android.material.tabs.TabLayout;
 
 
-public class Notifications extends Fragment {
-
-
-    public Notifications() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.notifications_fragment, container, false);
-    }
+public class Notifications extends AppCompatActivity {
 
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ViewPager pages = view.findViewById(R.id.viewPager);
-        TabLayout tabs = view.findViewById(R.id.tabLayout);
-        MyTabPagerAdapter tabPager = new Notifications.MyTabPagerAdapter(getChildFragmentManager());
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.notifications_fragment);
+        ViewPager pages = findViewById(R.id.viewPager);
+        TabLayout tabs = findViewById(R.id.tabLayout);
+        MyTabPagerAdapter tabPager = new Notifications.MyTabPagerAdapter(getSupportFragmentManager());
         pages.setAdapter(tabPager);
         tabs.setupWithViewPager(pages);
 
+
     }
 
-
-    public static class MyTabPagerAdapter extends FragmentStatePagerAdapter {
+    public class MyTabPagerAdapter extends FragmentStatePagerAdapter {
         MyTabPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -52,9 +41,9 @@ public class Notifications extends Fragment {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "FOR YOU";
+                    return getString(R.string.notifications_for_you);
                 case 1:
-                    return "SHARED WITH YOU";
+                    return getString(R.string.notifications_shared_with_you);
                 default:
                     return null;
             }

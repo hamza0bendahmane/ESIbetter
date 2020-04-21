@@ -4,13 +4,10 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/notifications"
-            android:icon="@drawable/notification"
-            android:title="@string/notification" />
+
         <item
             android:id="@+id/courses"
-            android:icon="@drawable/ic_video_tutorial"
+            android:icon="@drawable/ic_tuto"
             android:title="@string/courses" />
 
         <item
@@ -20,7 +17,7 @@
 
         <item
             android:id="@+id/articles"
-            android:icon="@drawable/ic_addarticle"
+            android:icon="@drawable/ic_ideas"
             android:title="@string/article" />
 
     </group>

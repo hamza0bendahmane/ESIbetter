@@ -325,7 +325,7 @@ public class User_Profile extends AppCompatActivity {
         //.............7 CHANGE NAME
 
         EditText name = findViewById(R.id.name_user);
-        String names = name.getText().toString();
+        String names = name.getText().toString().trim();
         if (TextUtils.isEmpty(names)) {
             name.requestFocus();
             name.setError("Name should not be empty");

@@ -91,8 +91,8 @@ public class login extends AppCompatActivity {
 
     private void forget_password() {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("Reset Password");
-        dialog.setMessage("Please enter your Email :");
+        dialog.setTitle(getString(R.string.reset_password));
+        dialog.setMessage(getString(R.string.please_enter_your_email));
 
         LayoutInflater inflater = LayoutInflater.from(this);
         final View login_layout = inflater.inflate(R.layout.general_layout_forget_password, null);
@@ -107,10 +107,10 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(edtEmail.getText().toString())) {
-                    Toast.makeText(login.this, "Please enter Email Address", Toast.LENGTH_SHORT)
+                    Toast.makeText(login.this, getString(R.string.please_enter_your_email), Toast.LENGTH_SHORT)
                             .show();
                 } else if (!isValidEmail(edtEmail.getText().toString())) {
-                    Toast.makeText(login.this, "please , enter a valid e-mail", Toast.LENGTH_SHORT)
+                    Toast.makeText(login.this, getString(R.string.please_enter_avalid_email), Toast.LENGTH_SHORT)
                             .show();
                 } else {
                     firebaseAuth.sendPasswordResetEmail(edtEmail.getText().toString()).
@@ -119,12 +119,10 @@ public class login extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
 
-                                        Toast.makeText(login.this, "email sent , please check your inbox  \n" +
-                                                "to reset your password", Toast.LENGTH_SHORT)
+                                        Toast.makeText(login.this, getString(R.string.email_sent), Toast.LENGTH_SHORT)
                                                 .show();
                                     } else {
-                                        Toast.makeText(login.this, "error sending email , check your email \n" +
-                                                " then try again ", Toast.LENGTH_SHORT)
+                                        Toast.makeText(login.this, getString(R.string.error_sending_email), Toast.LENGTH_SHORT)
                                                 .show();
                                     }
                                 }
@@ -147,17 +145,17 @@ public class login extends AppCompatActivity {
 
         if (TextUtils.isEmpty(email)) {
             SignUpMail.requestFocus();
-            SignUpMail.setError("email should not be empty");
+            SignUpMail.setError(getString(R.string.empty_email));
         } else if (!isValidEmail(email)) {
             SignUpPass.requestFocus();
-            SignUpPass.setError("Are you sure , you are a \n student a ESI SBA !");
+            SignUpPass.setError(getString(R.string.r_u_esist2));
         }
         if (TextUtils.isEmpty(pass)) {
             SignUpPass.requestFocus();
-            SignUpPass.setError("password should not be empty");
+            SignUpPass.setError(getString(R.string.empty_password));
         } else if (!isValidPassword(pass)) {
             SignUpPass.requestFocus();
-            SignUpPass.setError("Password must be than 8 digit or more");
+            SignUpPass.setError(getString(R.string.short_password));
         } else if (isValidEmail(email) && isValidPassword(pass)) {
             firebaseAuth.signInWithEmailAndPassword(email, pass)
                     .addOnCompleteListener(login.this, new OnCompleteListener<AuthResult>() {
@@ -167,7 +165,7 @@ public class login extends AppCompatActivity {
                                 Toast.makeText(login.this, "ERROR :" + task.getException().getMessage(),
                                         Toast.LENGTH_LONG).show();
                             } else {
-                                Snackbar.make(signin, "Login Successful", Snackbar.LENGTH_LONG).show();
+                                Snackbar.make(signin, getString(R.string.login_successful), Snackbar.LENGTH_LONG).show();
                                 getSharedPreferences("user_data", 0).edit().putString("wordPass", pass).apply();
                                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                                 if (!user.isEmailVerified()) {
@@ -220,7 +218,7 @@ public class login extends AppCompatActivity {
                 if (account.getEmail().contains("@esi-sba.dz"))
                     firebaseAuthWithGoogle(account);
                 else
-                    Snackbar.make(forget_password, "You should be from ESI SBA to sign in", Snackbar.LENGTH_LONG);
+                    Snackbar.make(forget_password, getString(R.string.u_should_be_esist), Snackbar.LENGTH_LONG);
             } catch (ApiException e) {
                 Toast.makeText(this, "failed " + e.getCause(), Toast.LENGTH_SHORT).show();
             }
@@ -254,13 +252,13 @@ public class login extends AppCompatActivity {
                                 succ = newUser.SaveData(user, newUser);
 
                                 if (succ) {
-                                    Snackbar.make(signin, "Done", Snackbar.LENGTH_LONG).show();
+                                    Snackbar.make(signin, getString(R.string.done), Snackbar.LENGTH_LONG).show();
                                     goToProfile();
                                 }
                             }
                         } else {
                             // If sign in fails, display a message to the user.
-                            Snackbar.make(signin, "Authentication Failed.",
+                            Snackbar.make(signin, getString(R.string.authenticatin_failed),
                                     Snackbar.LENGTH_SHORT).show();
                         }
 
@@ -274,8 +272,8 @@ public class login extends AppCompatActivity {
             user.getUid();
             if (!user.isEmailVerified()) {
                 final AlertDialog dialog = new AlertDialog.Builder(login.this).create();
-                dialog.setTitle("Verify your email");
-                dialog.setMessage("we have sent you an email to verify your account , please check your inbox");
+                dialog.setTitle(getString(R.string.verify_your_email));
+                dialog.setMessage(getString(R.string.email_sent));
 
                 LayoutInflater inflater = LayoutInflater.from(login.this);
                 final View login_layout = inflater.inflate(R.layout.general_layout_verify_email, null);
@@ -288,7 +286,7 @@ public class login extends AppCompatActivity {
                     public void onClick(View v) {
                         firebaseAuth.getCurrentUser().reload();
                         if (!user.isEmailVerified()) {
-                            Snackbar.make(verify, "your email is not verified , please try again",
+                            Snackbar.make(verify, getString(R.string.yremail_not_vrf),
                                     Snackbar.LENGTH_LONG).show();
                         } else {
                             dialog.dismiss();

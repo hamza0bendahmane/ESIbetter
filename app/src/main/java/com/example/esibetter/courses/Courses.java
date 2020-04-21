@@ -41,7 +41,7 @@ public class Courses extends Fragment {
     }
 
 
-    public static class MyTabPagerAdapter extends FragmentStatePagerAdapter {
+    public class MyTabPagerAdapter extends FragmentStatePagerAdapter {
         MyTabPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -51,9 +51,9 @@ public class Courses extends Fragment {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "TUTORIALS";
+                    return getString(R.string.tutorials);
                 case 1:
-                    return "SUMMARIES";
+                    return getString(R.string.summaries);
                 default:
                     return null;
             }

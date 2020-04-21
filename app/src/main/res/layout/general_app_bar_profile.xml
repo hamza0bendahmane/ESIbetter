@@ -1,68 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".notifications.Profile_Activity">
 
     <include layout="@layout/general_content_profile_" />
-
-    <LinearLayout
-
-        android:layout_marginHorizontal="@dimen/fab_margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="80dp"
-        android:orientation="vertical">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_ideas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/fab_margin"
-            android:layout_marginBottom="16dp"
-            android:visibility="gone"
-            android:foregroundTint="#FAFAFA"
-            app:fabSize="mini"
-            app:srcCompat="@android:drawable/presence_audio_busy"
-            tools:ignore="VectorDrawableCompat" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_articl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/fab_margin"
-            android:visibility="gone"
-            android:layout_marginBottom="16dp"
-            app:fabSize="mini"
-            app:srcCompat="@android:drawable/ic_search_category_default"
-            tools:ignore="VectorDrawableCompat" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_event"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/fab_margin"
-            android:layout_marginBottom="16dp"
-            android:visibility="gone"
-            app:fabSize="mini"
-            app:layout_anchor="@+id/linearLayout"
-            app:layout_anchorGravity="center"
-            app:srcCompat="@android:drawable/ic_dialog_email"
-            tools:ignore="VectorDrawableCompat" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/fab_margin"
-            android:backgroundTint="@color/colorPrimary"
-            android:foregroundTint="#FAFAFAFA"
-            android:src="@drawable/ic_edit"
-            app:backgroundTint="#FAFAFAFA" />
-    </LinearLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

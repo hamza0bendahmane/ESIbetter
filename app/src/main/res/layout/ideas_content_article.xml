@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+<!--TODO : for Imen-->
+
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,11 +12,135 @@
     tools:context=".articles.Article_activity"
     tools:showIn="@layout/ideas_article_activity">
 
-    <TextView
-        android:id="@+id/body_post"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+
+        <RelativeLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:padding="8dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="10dp"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/dislike"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginVertical="8dp"
+                    android:background="@drawable/ic_thumb_down" />
+
+                <TextView
+                    android:id="@+id/dislikes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/dislike"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginVertical="5dp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/like_rel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="top"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/like"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginVertical="8dp"
+                    android:background="@drawable/ic_thumb_up" />
+
+                <TextView
+                    android:id="@+id/likes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/like"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginVertical="5dp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/body_post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:gravity="top"
+            android:minHeight="300dp" />
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/body_post"
+            android:layout_marginVertical="10dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="@dimen/fab_margin"
+                android:onClick="open_facebook"
+                app:layout_anchor="@id/app_bar"
+                app:layout_anchorGravity="bottom|right"
+                app:srcCompat="@android:drawable/ic_menu_share" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_commento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/post_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/body_post"
+                android:layout_gravity="center_horizontal"
+                android:layout_toRightOf="@id/add_commento"
+                android:onClick="add_comment"
+                android:text="@string/add_comment" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/comment_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linear"
+            android:layout_gravity="center_horizontal"
+            android:minHeight="300dp"
+            android:paddingHorizontal="10dp" />
+
+
+    </LinearLayout>
 </androidx.core.widget.NestedScrollView>

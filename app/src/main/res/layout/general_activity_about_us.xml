@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/goback_to" />
+            android:src="@drawable/ic_goback_to" />
 
         <ImageView
             android:id="@+id/AboutUsImage"
@@ -37,11 +37,11 @@
             <customfonts.MyTextView
                 android:id="@+id/textView26"
                 style="@style/viewParent.headerText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
-                android:text="OUR STORY"
+                android:text="@string/our_story"
                 android:textSize="40dp" />
 
             <customfonts.MyTextView
@@ -51,9 +51,7 @@
                 android:layout_margin="20dp"
                 android:fontFamily="sans-serif-black"
 
-                android:text="      We are team of second year of ESI-SBA students consisting of six members:
-'Bendahmane Hamza,Manaa Anouar,Boussaada Moustafa,Larbaoui Nour El Imene,Bouziane Djihane   Boufeldja Manel' we decided with cooperation between us to provide  our application to  our fellow students
-where our first and main goal was to serve and facilate your studies."
+                android:text="@string/we_are_team"
                 android:textSize="20dp" />
 
             <customfonts.MyTextView

@@ -152,7 +152,7 @@ public class signup extends AppCompatActivity {
                 ImageView prof_pic = findViewById(R.id.image_picker);
                 if (image_prof == null) {
 
-                    Toast.makeText(signup.this, "Please pick a photo for your profile", Toast.LENGTH_LONG).show();
+                    Toast.makeText(signup.this, getString(R.string.pick_photo), Toast.LENGTH_LONG).show();
                     if (male_radio.isChecked())
                         prof_pic.setImageResource(R.mipmap.male);
 
@@ -175,34 +175,34 @@ public class signup extends AppCompatActivity {
         final boolean isMale = male.isChecked();
         final String email = SignUpMail.getText().toString();
         final String pass = SignUpPass.getText().toString();
-        final String names = name.getText().toString();
+        final String names = name.getText().toString().trim();
         String rep_passs = rep_pass.getText().toString();
         if (TextUtils.isEmpty(names)) {
             name.requestFocus();
-            name.setError("Name should not be empty");
+            name.setError(getString(R.string.empty_name));
         } else if (!isValidName(names)) {
             name.requestFocus();
-            name.setError("Name should contain only letters");
+            name.setError(getString(R.string.name_shd_cntain_lttrs));
         }
         if (TextUtils.isEmpty(email)) {
             SignUpMail.requestFocus();
-            SignUpMail.setError("email should not be empty");
+            SignUpMail.setError(getString(R.string.empty_email));
         } else if (!isValidEmail(email)) {
             SignUpMail.requestFocus();
-            SignUpMail.setError("Are you sure , you are a \n student a ESI SBA !");
+            SignUpMail.setError(getString(R.string.r_u_esist2));
         }
         if (TextUtils.isEmpty(pass)) {
             SignUpPass.requestFocus();
-            SignUpPass.setError("password should not be empty");
+            SignUpPass.setError(getString(R.string.empty_password));
         } else if (!isValidPassword(pass)) {
             SignUpPass.requestFocus();
-            SignUpPass.setError("Password must be than 8 digit or more");
+            SignUpPass.setError(getString(R.string.short_password));
         } else if (!rep_passs.equals(pass)) {
             SignUpPass.requestFocus();
-            SignUpPass.setError("Password must matches ");
+            SignUpPass.setError(getString(R.string.pswrd_mst_matches));
         } else if (date_view.getText() == "Birthday") {
             date_view.requestFocus();
-            Snackbar.make(date_view, "please pick your Birthday", Snackbar.LENGTH_SHORT);
+            Snackbar.make(date_view, getString(R.string.pls_pick_birth), Snackbar.LENGTH_SHORT);
         } else if (isValidEmail(email) && isValidPassword(pass) && isValidName(names)) {
             STR = URL + email;
             DoesEmailExist user_mail = new DoesEmailExist();
@@ -219,15 +219,14 @@ public class signup extends AppCompatActivity {
                                     Toast.LENGTH_LONG).show();
 
                         } else {
-                            Toast.makeText(signup.this, "register successful", Toast.LENGTH_LONG).show();
+                            Toast.makeText(signup.this, getString(R.string.register_successful), Toast.LENGTH_LONG).show();
                             final FirebaseUser user = firebaseAuth.getCurrentUser();
                             //send email verification ..
                             user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull final Task<Void> task) {
                                     if (!task.isSuccessful()) {
-                                        Toast.makeText(signup.this, "error can't send email verification,\n" +
-                                                "try again ..", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(signup.this, getString(R.string.cant_snd_email_vrf), Toast.LENGTH_SHORT).show();
                                     }
 
                                 }

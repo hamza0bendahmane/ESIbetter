@@ -31,12 +31,9 @@ public class HelpActivity extends AppCompatActivity {
                 .setType("message/rfc822")
                 .addEmailTo("hamza0bendahmane@gmail.com")
                 .setSubject("Report issue (ESI better)")
-                .setText("please describe your issue here \n" +
-                        "you can illustrate it with screenshots if needed ... \n" +
-                        "and we will contact you soon ...\n" +
-                        "Respectfully .")
+                .setText(getString(R.string.please_describe_your_issue_here))
                 //.setHtmlText(body) //If you are using HTML in your body text
-                .setChooserTitle("Please pick an app to send your report")
+                .setChooserTitle(getString(R.string.please_pick_an_app_to_send))
                 .startChooser();
     }
 }

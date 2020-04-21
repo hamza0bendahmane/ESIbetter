@@ -73,7 +73,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="30dp"
             android:backgroundTint="@color/colorPrimary"
-            android:text="SIGN IN" />
+            android:text="@string/sign_in" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/forget_password"
@@ -85,7 +85,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="30dp"
-            android:text="forget password ?"
+            android:text="@string/forget_password"
             android:textColor="@color/colorPrimary"
             android:textSize="12sp" />
 
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:enabled="false"
-                android:text="Not a Member ?"
+                android:text="@string/not_a_member"
                 android:textAllCaps="false"
                 android:textColor="#777" />
 
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:layout_toEndOf="@id/not_member"
-                android:text="sign up now"
+                android:text="@string/sign_up_now"
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp" />
         </LinearLayout>

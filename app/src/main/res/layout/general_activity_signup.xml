@@ -16,9 +16,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:src="@drawable/goback_to" />
+            android:src="@drawable/ic_goback_to" />
 
-        <ImageView
+        <TextView
             android:id="@+id/logo_brand"
             style="@style/viewParent.headerText"
             android:layout_width="wrap_content"
@@ -26,7 +26,7 @@
             android:layout_below="@id/go_back"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:src="@drawable/create_account"
+            android:text="@string/create_acc"
             android:textColor="@color/colorPrimary" />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -52,7 +52,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
-            android:hint="Name"
+            android:hint="@string/name"
             android:textAlignment="center"
             app:hintEnabled="true"
             app:startIconDrawable="@drawable/name_icon">
@@ -149,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:paddingHorizontal="15dp"
-                android:text="Gender"
+                android:text="@string/gender"
                 android:textAllCaps="false"
                 android:textColor="#777"
                 android:textSize="16dp"
@@ -172,7 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/colorPrimary"
-                    android:text="Male"
+                    android:text="@string/male"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold" />
 
@@ -182,7 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:buttonTint="@color/colorPrimary"
-                    android:text="Female"
+                    android:text="@string/female"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold" />
             </RadioGroup>
@@ -199,7 +199,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="30dp"
             android:backgroundTint="@color/colorPrimary"
-            android:text="SIGN UP" />
+            android:text="@string/sign_up" />
 
 
         <LinearLayout
@@ -218,7 +218,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:text="Already A Member ?"
+                android:text="@string/already_a_member"
                 android:textAllCaps="false"
                 android:textColor="#777" />
 
@@ -228,7 +228,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/not_member"
-                android:text="sign in now"
+                android:text="@string/sign_in"
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -249,7 +249,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Birthday"
+                android:text="@string/birthday"
                 android:textAllCaps="false"
                 android:textColor="#777"
                 android:textSize="12sp"

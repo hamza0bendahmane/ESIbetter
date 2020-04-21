@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
-            android:text="Help"
+            android:text="@string/help"
             android:textColor="@android:color/black"
             android:textSize="35sp"
             android:textStyle="bold" />
@@ -29,9 +29,9 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:background="#11CFC5"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:paddingTop="8dp"
-            android:text="Exchaging ideas and articles bteween students:"
+            android:text="@string/exchanging_ideas_and_n_articles_between_n_students"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
         <ImageView
@@ -50,9 +50,8 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="sans-serif-light"
-            android:paddingLeft="16dp"
-            android:text="The main idea of the application is considered as any student who registers in the application can publish an idea or an article about a specific topic for the school that is subject to evaluation by the rest of the students and is voted on and any idea that gets the most admiration we can suggest to the administration and embody it on the ground in School potential framework.
-"
+            android:paddingStart="16dp"
+            android:text="@string/the_main_idea_of_app"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
@@ -65,10 +64,10 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:background="#11CFC5"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="Sharing tutorials and courses :"
+            android:text="@string/sharing_tutorials_n_courses"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 
@@ -89,10 +88,10 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="sans-serif-light"
-            android:paddingLeft="16dp"
+            android:paddingStart="16dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="This idea is represented by sharing educational videos for all levels of the school that are broadcast by the students, as any competent student in a specific subject or a specific field publishes a video for a detailed explanation and this improves the benefit and the spirit of cooperation between students."
+            android:text="@string/this_idea_is_represented"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
@@ -105,10 +104,10 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:background="#11CFC5"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="Find a study team to help you understand your lessons:"
+            android:text="@string/find_astrudy_team"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 
@@ -130,11 +129,10 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="sans-serif-light"
-            android:paddingLeft="16dp"
+            android:paddingStart="16dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="The research on the review team is very interesting for that. We proposed this idea so that the student can find a team that helps him understand, prepare and motivate.
- ."
+            android:text="@string/the_research_on_the_review"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
@@ -148,10 +146,10 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:background="#11CFC5"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="A reading community where you can find book recomendations and feedbacks :"
+            android:text="@string/a_reading_community"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 
@@ -172,10 +170,10 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="15dp"
             android:fontFamily="sans-serif-light"
-            android:paddingLeft="16dp"
+            android:paddingStart="16dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="This idea is centered on establishing a reading club where any student can participate with his colleagues in browsing various types of books, by exchanging students the books available to them ."
+            android:text="@string/the_idea_is_centererd"
             android:textColor="@android:color/black"
             android:textSize="15sp"
 
@@ -189,7 +187,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:onClick="emailReport"
-            android:text="Report a problem"
+            android:text="@string/report_a_problem"
             android:textColor="#ffffff"
             app:cornerRadius="5dp"
             app:icon="@drawable/ic_info" />

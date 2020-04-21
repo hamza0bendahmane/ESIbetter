@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".articles.Article_activity">
+    <!--TODO : for Imen
+
+    configure the layout
+    add back button and make the necessary changes ...
+    to simulate Anouar's Design
+    -->
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -30,79 +36,53 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <TextView
-                android:id="@+id/date_post"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_margin="15dp" />
-
-            <TextView
-                android:id="@+id/posterName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_margin="15dp" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imagePoster"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_gravity="end|center_vertical"
-                android:layout_margin="15dp"
-                app:civ_border_color="#FFF"
-                app:civ_border_width="2dp" />
-
             <LinearLayout
-                android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_gravity="left|top"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/date_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000"
+                    android:textStyle="bold" />
 
-                    <ImageButton
-                        android:id="@+id/dislike"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#FFF"
-                        android:src="@drawable/ic_thumb_down" />
+                <ImageView
+                    android:id="@+id/by"
+                    android:layout_width="35dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="5dp"
+                    android:background="@drawable/ic_by"
 
-                    <TextView
-                        android:id="@+id/dislikes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal" />
-                </LinearLayout>
+                    />
 
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/posterName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="5dp"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textStyle="bold" />
 
-                    <ImageButton
-                        android:id="@+id/like"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#FFF"
-                        android:src="@drawable/ic_thumb_up" />
-
-                    <TextView
-                        android:id="@+id/likes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal" />
-                </LinearLayout>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imagePoster"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@color/colorPrimary"
+                    app:civ_border_color="#666"
+                    app:civ_border_width="2dp" />
 
             </LinearLayout>
 
@@ -111,13 +91,14 @@
 
     <include layout="@layout/ideas_content_article" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_for_user"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:onClick="open_facebook"
+        android:src="@mipmap/male"
+        app:layout_anchorGravity="bottom|right" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

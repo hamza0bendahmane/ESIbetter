@@ -7,34 +7,34 @@
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_person"
-            android:title="Home" />
+            android:title="@string/home" />
 
         <item
             android:id="@+id/nav_hme"
             android:onClick="openFavoris"
             android:icon="@drawable/ic_star"
-            android:title="Favoris" />
+            android:title="@string/favoris" />
 
 
     </group>
 
-    <item android:title="More ">
+    <item android:title="@string/more">
         <menu tools:showIn="navigation_view">
             <item
                 android:id="@+id/nav_slidehow"
                 android:icon="@drawable/ic_info"
                 android:onClick="openAboutUs"
-                android:title="About us" />
+                android:title="@string/about_us" />
             <item
                 android:id="@+id/Help"
                 android:icon="@android:drawable/ic_menu_help"
                 android:onClick="openHelpLayout"
-                android:title="Help" />
+                android:title="@string/help" />
             <item
                 android:id="@+id/nav_gallry"
                 android:icon="@drawable/ic_settings"
                 android:onClick="openSettingsLayout"
-                android:title="Settings" />
+                android:title="@string/settings" />
             <item
                 android:id="@+id/nav_signout"
                 android:icon="@drawable/get_out"

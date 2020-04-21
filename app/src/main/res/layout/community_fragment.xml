@@ -16,6 +16,7 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
+            android:layoutDirection="ltr"
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
             app:tabTextColor="#7f7f7e" />

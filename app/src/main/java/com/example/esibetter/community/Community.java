@@ -42,7 +42,7 @@ public class Community extends Fragment {
         return inflater.inflate(R.layout.community_fragment, container, false);
     }
 
-    public static class MyTabPagerAdapter extends FragmentStatePagerAdapter {
+    public class MyTabPagerAdapter extends FragmentStatePagerAdapter {
         MyTabPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -52,11 +52,11 @@ public class Community extends Fragment {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "STUDY";
+                    return getString(R.string.study);
                 case 1:
-                    return "READING";
+                    return getString(R.string.reading);
                 case 2:
-                    return "VOLUNTEER";
+                    return getString(R.string.volunteer);
                 default:
                     return null;
             }

@@ -13,7 +13,6 @@ public class app extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         // notification ... SHARED PREFS ...
         if (!getSharedPreferences("seen_intro", MODE_PRIVATE).contains("have_seen_intro"))
             getSharedPreferences("seen_intro", MODE_PRIVATE).edit().putBoolean("have_seen_intro", false).apply();

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="titles">
+        <item>تبادل الأفكار  والمقالات بين الطلبة</item>
+        <item>ابحث عن فريق دراسة لمساعدتك على فهم دروسك</item>
+        <item>مشاركة الدروس والدورات</item>
+        <item>مجتمع القراءة حيث يمكنك العثور على توصيات كتب و انطباعات </item>
+
+    </string-array>
+    <string-array name="wilayas">
+        <item>Adrar-01</item>
+        <item>Chlef-02</item>
+        <item>Laghouat-03</item>
+        <item>Oum el-Bouaghi-04</item>
+        <item>Batna-05</item>
+        <item>Bejaia-06</item>
+        <item>Biskra-07</item>
+        <item>Bechar-08</item>
+        <item>Blida-09</item>
+        <item>Bouira-10</item>
+        <item>Tamanghasset-11</item>
+        <item>Tebessa-12</item>
+        <item>Tlemcen-13</item>
+        <item>Tiaret-14</item>
+        <item>Tizi Ouzou-15</item>
+        <item>Algiers-16</item>
+        <item>Djelfa-17</item>
+        <item>Jijel-18</item>
+        <item>Setif-19</item>
+        <item>Saida-20</item>
+        <item>Skikda-21</item>
+        <item>Sidi Bel Abbes-22</item>
+        <item>Annaba-23</item>
+        <item>Guelma-24</item>
+        <item>Constantine-25</item>
+        <item>Mdéa-26</item>
+        <item>Mostaganem-27</item>
+        <item>Msila-28</item>
+        <item>Mascara-29</item>
+        <item>Ouargla-30</item>
+        <item>Oran-31</item>
+        <item>El Bayadh-32</item>
+        <item>Illizi-33</item>
+        <item>Bordj Bou Arreridj-34</item>
+        <item>Boumerdes-35</item>
+        <item>El Taref-36</item>
+        <item>Tindouf-37</item>
+        <item>Tissemsilt-38</item>
+        <item>El Oued-39</item>
+        <item>Khenchela-40</item>
+        <item>Souk Ahras-41</item>
+        <item>Tipaza-42</item>
+        <item>Mila-43</item>
+        <item>Ain Defla-44</item>
+        <item>Naama-45</item>
+        <item>Ain Temouchent-46</item>
+        <item>Ghardaia-47</item>
+        <item>Relizane-48</item>
+
+
+    </string-array>
+    <string-array name="gender">
+        <item>ذكر</item>
+        <item>أنثى</item>
+    </string-array>
+</resources>

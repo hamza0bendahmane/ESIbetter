@@ -2,23 +2,19 @@ package com.example.esibetter.articles;
 
 import android.net.Uri;
 
-import java.util.ArrayList;
-
 public class Article_item {
     private String uid;
     private String title;
     private String body;
-    private int likes;
-    private int dislikes;
-    private ArrayList<comment_item> Comments;
+    private Long likes;
+    private Long dislikes;
     private Uri image;
     private String Date;
 
-    public Article_item(String uid, String title, String body, ArrayList<comment_item> comments, Uri image, String date, int likes, int disikes) {
+    public Article_item(String uid, String title, String body, String date, Long likes, Long disikes) {
         this.uid = uid;
         this.title = title;
         this.body = body;
-        this.Comments=comments;
         this.image = image;
         this.Date = date;
         this.likes = likes;
@@ -28,7 +24,7 @@ public class Article_item {
     public Article_item() {
     }
 
-    public Article_item(String uid, String title, String body, Uri image, String date, int likes, int disikes) {
+    public Article_item(String uid, String title, String body, Uri image, String date, Long likes, Long disikes) {
         this.uid = uid;
         this.title = title;
         this.body = body;
@@ -38,13 +34,7 @@ public class Article_item {
         this.dislikes = disikes;
     }
 
-    public ArrayList<comment_item> getComments() {
-        return Comments;
-    }
 
-    public void setComments(ArrayList<comment_item> comments) {
-        Comments = comments;
-    }
 
     public String getUid() {
         return uid;
@@ -54,19 +44,19 @@ public class Article_item {
         uid = posterName;
     }
 
-    public int getLikes() {
+    public Long getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(Long likes) {
         this.likes = likes;
     }
 
-    public int getDislikes() {
+    public Long getDislikes() {
         return dislikes;
     }
 
-    public void setDislikes(int dislikes) {
+    public void setDislikes(Long dislikes) {
         this.dislikes = dislikes;
     }
 
@@ -100,4 +90,5 @@ public class Article_item {
     public void setDate(String date) {
         Date = date;
     }
+
 }

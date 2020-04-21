@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
         android:layout_marginTop="10dp"
-        android:text="when you are done verifying your email click on the button"
+        android:text="@string/when_u_r_done_vrf"
         android:textAlignment="center"
         android:textSize="20dp" />
 
@@ -24,5 +24,5 @@
         android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="Enter" />
+        android:text="@string/enter" />
 </RelativeLayout>

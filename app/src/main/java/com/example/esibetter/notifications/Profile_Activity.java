@@ -1,7 +1,10 @@
 package com.example.esibetter.notifications;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,9 +41,7 @@ import com.example.esibetter.login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -49,11 +50,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Locale;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Profile_Activity extends AppCompatActivity {
 
-    public static int TOTAL_PAGES = 4;
+    public static int TOTAL_PAGES = 3;
     public static StorageReference images_url;
     public static TextView user_name, status;
     public static CircleImageView image_user;
@@ -66,28 +69,19 @@ public class Profile_Activity extends AppCompatActivity {
     public static BottomNavigationView bottomNavigationView;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String l = loadLocal();
+
         setContentView(R.layout.general_activity_profile);
 
-              /*  String languageToLoad  = "ar"; // your language
-                Toast.makeText(Profile_Activity.this, "click", Toast.LENGTH_SHORT).show();
-                Locale locale = new Locale(languageToLoad);
-                Locale.setDefault(locale);
-                Configuration config = new Configuration();
-                config.locale = locale;
-                getBaseContext().getResources().updateConfiguration(config,
-                        getBaseContext().getResources().getDisplayMetrics());*/
 
         // ini vars ...
         drawer = findViewById(R.id.drawer_layout);
         logo = findViewById(R.id.logo);
         mPager = findViewById(R.id.bottom_pager);
         final NavigationView navigationView = findViewById(R.id.nav_view);
-        FloatingActionButton fab = findViewById(R.id.fab);
         Toolbar toolbar = findViewById(R.id.toolbar);
         bottomNavigationView = findViewById(R.id.bottom_nav);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -99,19 +93,8 @@ public class Profile_Activity extends AppCompatActivity {
 
         // actions ...
 
-        BadgeDrawable badgeDrawable = bottomNavigationView.getOrCreateBadge(R.id.notifications);
-        badgeDrawable.setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));
-        badgeDrawable.setNumber(3);
-        badgeDrawable.setBadgeTextColor(getResources().getColor(android.R.color.white));
-        badgeDrawable.setVisible(true);
 
-        // fab Action ...
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(Profile_Activity.this, "fab is ckicked", Toast.LENGTH_SHORT).show();
-            }
-        });
+
         // logo ---> Navigation view ..
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,19 +142,17 @@ public class Profile_Activity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.notifications:
-                        mPager.setCurrentItem(0);
-                        break;
+
                     case R.id.courses:
-                        mPager.setCurrentItem(1);
+                        mPager.setCurrentItem(0);
                         break;
 
                     case R.id.community:
-                        mPager.setCurrentItem(2);
+                        mPager.setCurrentItem(1);
                         break;
 
                     case R.id.articles:
-                        mPager.setCurrentItem(3);
+                        mPager.setCurrentItem(2);
                         break;
                     default:
                         return false;
@@ -246,13 +227,13 @@ public class Profile_Activity extends AppCompatActivity {
 
     public void signOutAndgoTologin(MenuItem item) {
         drawer.closeDrawer(GravityCompat.START);
-        AlertDialog.Builder builder = new AlertDialog.Builder(Profile_Activity.this).setTitle("Sign out").setMessage("Do you really want to log out ?")
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Profile_Activity.this).setTitle(getString(R.string.sign_out)).setMessage(getString(R.string.u_wnt_logout))
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
-                }).setPositiveButton("log out", new DialogInterface.OnClickListener() {
+                }).setPositiveButton(getString(R.string.log_out), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         firebaseAuth.signOut();
@@ -300,32 +281,24 @@ public class Profile_Activity extends AppCompatActivity {
         finish();
     }
 
-    private class IntroPagerAdapter extends FragmentStatePagerAdapter {
-        public IntroPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
+    public void openNotificationsLayout(View view) {
+        startActivity(new Intent(getApplicationContext(), Notifications.class));
+    }
 
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return new Notifications();
-                case 1:
-                    return new Courses();
-                case 2:
-                    return new Community();
-                case 3:
-                    return new Articles();
-                default:
-                    break;
-            }
-            return null;
-        }
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
 
-        @Override
-        public int getCount() {
-            return TOTAL_PAGES;
-        }
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+
+
+        getBaseContext().getResources().
+                updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+        //save data in shared preferences
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_lang", lang);
+        editor.apply();
     }
 
     @Override
@@ -340,4 +313,41 @@ public class Profile_Activity extends AppCompatActivity {
                 finish();
             }*/
     }
+
+    public String loadLocal() {
+
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String Language = prefs.getString("My_lang", "");
+        setLocale(Language);
+        return Language;
+    }
+
+    private class IntroPagerAdapter extends FragmentStatePagerAdapter {
+        public IntroPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+
+                case 0:
+                    return new Courses();
+                case 1:
+                    return new Community();
+                case 2:
+                    return new Articles();
+                default:
+                    break;
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return TOTAL_PAGES;
+        }
+    }
+
+
 }
