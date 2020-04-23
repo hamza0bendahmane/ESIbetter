@@ -83,7 +83,6 @@
                 android:padding="4dp"
                 android:text="100"
                 android:textColor="#FFF" />
-
             <customfonts.MyTextView
                 android:id="@+id/reply"
                 android:layout_width="wrap_content"

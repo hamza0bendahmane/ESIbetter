@@ -42,7 +42,6 @@
                         android:layout_height="35dp"
                         android:layout_margin="8dp"
                         android:background="@drawable/ic_by"
-
                         />
 
                     <TextView
