@@ -10,18 +10,17 @@
     android:layout_marginBottom="10dp"
     android:orientation="horizontal"
     >
-    <!--TODO : for Imen-->
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/picture_profile"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="#000"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        app:civ_border_color="@color/colorPrimary"
-        app:civ_border_width="2dp" />
+        android:layout_marginTop="8dp"
+        android:src="#000"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +28,7 @@
         android:layout_toRightOf="@+id/picture_profile"
         android:orientation="vertical">
 
-        <LinearLayout
+       <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -63,33 +62,34 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="15dp"
-            >
+            android:layout_marginStart="20dp"
+            android:orientation="horizontal">
 
-            <customfonts.MyTextView
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:lines="1"
-                android:text="@string/time" />
 
             <ImageButton
                 android:id="@+id/like_comm"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/ic_thumb_up"
-                android:backgroundTint="@color/nonSelected"
-                android:layout_height="wrap_content" />
+                android:backgroundTint="@color/nonSelected" />
+
+            <TextView
+                android:id="@+id/comm_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_not_on"
+                android:padding="4dp"
+                android:text="100"
+                android:textColor="#FFF" />
 
             <customfonts.MyTextView
                 android:id="@+id/reply"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginHorizontal="10dp"
-                android:layout_height="wrap_content"
                 android:text="@string/reply" />
 
         </LinearLayout>
@@ -97,16 +97,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/comm_likes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="5dp"
-        android:background="@drawable/ic_not_on"
-        android:padding="4dp"
-        android:text="100"
-        android:textColor="#FFF" />
+
 
 </RelativeLayout>
