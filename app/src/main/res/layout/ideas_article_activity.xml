@@ -29,47 +29,44 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="48dp"
-
-                    android:rotation="180"
-                    android:src="@drawable/ic_goback_to"
-                    android:tint="@color/browser_actions_bg_grey"></ImageView>
-
-                <TextView
-                    android:id="@+id/titleOfTheIdea"
+                    android:id="@+id/imageofpost"
                     style="@style/viewParent.headerText"
-                    android:layout_width="254dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimaryDark"
                     android:fontFamily="sans-serif"
                     android:text="the title of the ideas,the title of the ideas "
                     android:textColor="@color/browser_actions_bg_grey"
-                    android:textSize="30dp"></TextView>
-            </LinearLayout>
+                    android:textSize="30dp" />
 
+            <ImageButton
+                android:id="@+id/manipulate_post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/ic_menu"
+                android:backgroundTint="@color/colorPrimary"
+                android:onClick="manipulate_post"
 
+                />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imagePoster"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center|right"
+                android:layout_margin="@dimen/fab_margin"
+                android:onClick="open_facebook"
+                android:src="@mipmap/male"
+                app:layout_anchor="@id/app_bar" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/ideas_content_article" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imagePoster"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@id/app_bar"
-        android:onClick="open_facebook"
-        android:src="@mipmap/male"
-        app:layout_anchorGravity="bottom|right" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

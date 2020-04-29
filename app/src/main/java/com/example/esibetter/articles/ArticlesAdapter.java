@@ -1,5 +1,6 @@
 package com.example.esibetter.articles;
 
+import android.content.Context;
 import android.net.Uri;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -34,12 +35,28 @@ public class ArticlesAdapter extends FirestoreRecyclerAdapter<Article_item, Arti
 public static boolean UsersPost = false;
 
 
-    onItemClick mlistener;
+    static onItemClick mlistener;
+    Context cc;
+    FirestoreRecyclerOptions<Article_item> options;
 
-    public ArticlesAdapter(@NonNull FirestoreRecyclerOptions<Article_item> optioans) {
+    public ArticlesAdapter(@NonNull FirestoreRecyclerOptions<Article_item> optioans, Context cc) {
         super(optioans);
+        this.cc = cc;
+        this.options = optioans;
     }
 
+    public static void setOnitemClickListener(onItemClick listener) {
+        mlistener = listener;
+    }
+
+    @NonNull
+    @Override
+    public ArticlesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.ideas_list_article_item, parent, false);
+        return new ArticlesAdapter.ViewHolder(view, mlistener);
+    }
 
     @Override
     protected void onBindViewHolder(@NonNull final ArticlesAdapter.ViewHolder holder, final int position, @NonNull final Article_item model) {
@@ -53,11 +70,10 @@ public static boolean UsersPost = false;
             @Override
             public boolean onLongClick(View v) {
                 UsersPost = model.getUid().equals(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                int pos = position;
-                if (mlistener != null)
-                    if (pos != RecyclerView.NO_POSITION)
-                        mlistener.onLongClick(pos);
 
+                if (mlistener != null)
+                    if (position != RecyclerView.NO_POSITION)
+                        mlistener.onLongClick(position);
                 return false;
             }
         });
@@ -65,55 +81,6 @@ public static boolean UsersPost = false;
 
     }
 
-    @NonNull
-    @Override
-    public ArticlesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.ideas_list_article_item, parent, false);
-        return new ArticlesAdapter.ViewHolder(view, mlistener);
-    }
-
-    public void setOnitemClickListener(onItemClick listener) {
-        mlistener = listener;
-    }
-
-    /*
-        @Override
-        public Filter getFilter() {
-            return new Filter() {
-                @Override
-                protected FilterResults performFiltering(CharSequence charSequence) {
-                    String charString = charSequence.toString();
-                    if (charString.isEmpty()) {
-                        contactListFiltered = contactList;
-                    } else {
-                        List<Contact> filteredList = new ArrayList<>();
-                        for (Contact row : contactList) {
-
-                            // name match condition. this might differ depending on your requirement
-                            // here we are looking for name or phone number match
-                            if (row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getPhone().contains(charSequence)) {
-                                filteredList.add(row);
-                            }
-                        }
-
-                        contactListFiltered = filteredList;
-                    }
-
-                    FilterResults filterResults = new FilterResults();
-                    filterResults.values = contactListFiltered;
-                    return filterResults;
-                }
-
-                @Override
-                protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                    contactListFiltered = (ArrayList<Contact>) filterResults.values;
-                    notifyDataSetChanged();
-                }
-            };
-
-        }*/
     public interface onItemClick {
         void onClick(int position, Long itemId);
 

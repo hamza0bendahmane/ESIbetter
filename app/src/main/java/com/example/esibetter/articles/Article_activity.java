@@ -1,10 +1,14 @@
 package com.example.esibetter.articles;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.esibetter.FacebookActivity;
 import com.example.esibetter.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,7 +50,9 @@ public class Article_activity extends AppCompatActivity {
     static CircleImageView imagePoster;
     public static final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     public static String postId;
+    public static String posterUid;
     public static ImageButton like, dislike;
+    public static ImageView imageofpost;
     static TextView datee, posterName, bodye, likese, dislikese;
     public static boolean userHasEmotion;
     public static boolean userHasLikedThePost;
@@ -67,7 +74,7 @@ public class Article_activity extends AppCompatActivity {
         // initializing vars ...
 
         imagePoster = findViewById(R.id.imagePoster);
-        //imagePost = findViewById(R.id.imagePost);
+        imageofpost = findViewById(R.id.imageofpost);
         bodye = findViewById(R.id.body_post);
         posterName = findViewById(R.id.posterName);
         datee = findViewById(R.id.date_post);
@@ -223,10 +230,13 @@ public class Article_activity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String title =bundle.getString("title");
         String body = bundle.getString("body");
-        String posterUid = bundle.getString("uid");
+        posterUid = bundle.getString("uid");
         //        Uri imagePoste= Uri.parse(bundle.getString("imagePost"));
         String date = bundle.getString("date");
         // .....
+        Glide.with(getApplicationContext()).load(bundle.getString("image")).
+                diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imageofpost);
         Toolbar toolbar = findViewById(R.id.toolbar_art);
         setSupportActionBar(toolbar);
         toolbar.setTitle(title);
@@ -394,6 +404,55 @@ public class Article_activity extends AppCompatActivity {
 
 
     public void open_facebook(View view) {
-        //  startActivity(new Intent(getApplicationContext(), FacebookActivity.class));
+
+        startActivity(new Intent(getApplicationContext(), FacebookActivity.class));
+        //TODO( Walid ) : open intent to share the article via Facebook or email ...
+        // about facebook approximately it 's ready just make a little changes ...
+        // don't forget to do your last task the language switch < AR--EN > ..
+
+    }
+
+    public void manipulate_post(View view) {
+
+        ImageButton button = findViewById(R.id.manipulate_post);
+        PopupMenu popup = new PopupMenu(getApplicationContext(), button);
+
+        if (posterUid.equals(uid)) {  // the current user is the one who posted this Article...
+            popup.getMenuInflater().inflate(R.menu.user_menu, popup.getMenu());
+        } else { // the current user doesn't write this Article ...
+            popup.getMenuInflater().inflate(R.menu.anonym_menu, popup.getMenu());
+        }
+        popup.show();//showing popup menu
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.share_post:
+                        HandleMenu("share");
+                        return true;
+                    case R.id.edit_post:
+                        HandleMenu("edit");
+                        return true;
+                    case R.id.delete_post:
+                        HandleMenu("delete");
+                        return true;
+                    case R.id.report_post:
+                        HandleMenu("report");
+                        return true;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void HandleMenu(String action) {
+
+        // TODO(MANEL) :  add the action to item selected in the menu ....
+
+// you  can use switch(action ) ... like the  method above ...
+        //case "delete" :
+        // break ;
+        // ...ext
     }
 }

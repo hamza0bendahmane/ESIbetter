@@ -11,15 +11,6 @@ public class Article_item {
     private Uri image;
     private String Date;
 
-    public Article_item(String uid, String title, String body, String date, Long likes, Long disikes) {
-        this.uid = uid;
-        this.title = title;
-        this.body = body;
-        this.image = image;
-        this.Date = date;
-        this.likes = likes;
-        this.dislikes = disikes;
-    }
 
     public Article_item() {
     }
