@@ -7,18 +7,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginVertical="20dp"
-            android:onClick="add"
-            android:text="@string/add_article"
-            android:textStyle="bold" />
 
 
-        <!--TODO (Imane): configure it to make it similar to what Anouar have done ... -->
+        <!--TODO (Imane): configure it to make it similar to what Anouar have done ...
+        all drawables are ready :
+        @drawable/ic_....
+
+        you got all these drawable :
+        ic_subject_container
+        ic_order_number
+        ic_order_hyrachy
+        ic_italic_text
+        ic_bold_text
+        ic_color_picker
+        ic_cancel_container
+        ic_add_pictures
+        ic_add_cover
+
+    .... so use them directly ....
+    just NB : i see that u was using numbers for Height and width ..
+    don't do that instead use only wrap_content or match_parent
+    or if u want more organised work use layout_weight in a RelativeLayout ..
+
+        -->
 
 
     </RelativeLayout>
