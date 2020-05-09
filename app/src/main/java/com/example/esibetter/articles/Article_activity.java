@@ -225,10 +225,10 @@ public class Article_activity extends AppCompatActivity {
     }
 
 
-    public void UpdateUi(){
+    public void UpdateUi() {
 
         Bundle bundle = getIntent().getExtras();
-        String title =bundle.getString("title");
+        String title = bundle.getString("title");
         String body = bundle.getString("body");
         posterUid = bundle.getString("uid");
         //        Uri imagePoste= Uri.parse(bundle.getString("imagePost"));
@@ -247,8 +247,8 @@ public class Article_activity extends AppCompatActivity {
         datee.setText(date);
 
 
-
     }
+
     public void setImagePoster(String uid) {
         StorageReference reference = FirebaseStorage.getInstance().getReference("Images/" + uid);
         StorageReference photo = reference.child("/prof_pic.png");
@@ -266,9 +266,8 @@ public class Article_activity extends AppCompatActivity {
         });
 
 
-
-
     }
+
     public void setPosterName(String uid) {
         FirebaseDatabase ref = FirebaseDatabase.getInstance();
         ref.getReference("users/" + uid + "/name").addValueEventListener(new ValueEventListener() {
@@ -448,11 +447,25 @@ public class Article_activity extends AppCompatActivity {
 
     private void HandleMenu(String action) {
 
-        // TODO(MANEL) :  add the action to item selected in the menu ....
+        switch (action) {
 
-// you  can use switch(action ) ... like the  method above ...
-        //case "delete" :
-        // break ;
-        // ...ext
+            case "edit":
+                Articles.editPost(getApplicationContext(), 0, postId);
+                break;
+            case "delete":
+                Articles.deletePost(getApplicationContext(), postId);
+                break;
+            case "report":
+                Articles.reportPost(getApplicationContext(), null, postId);
+
+                break;
+            case "share":
+                Toast.makeText(getApplicationContext(), action + postId, Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+
+
+        }
     }
 }
