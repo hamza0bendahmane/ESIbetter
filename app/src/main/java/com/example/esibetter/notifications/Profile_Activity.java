@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -185,7 +184,6 @@ public class Profile_Activity extends AppCompatActivity {
                                 images_url.child("/prof_pic.png").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
-                                        Log.d("uriuri", "onSuccess: " + uri);
                                         Glide.with(getApplicationContext()).asBitmap()
                                                 .diskCacheStrategy(DiskCacheStrategy.ALL).load(uri).into(image_user);
                                     }

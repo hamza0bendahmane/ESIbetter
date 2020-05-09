@@ -34,11 +34,13 @@
 
     <EditText
         android:layout_width="match_parent"
+        android:id="@+id/articleTitle"
         android:layout_height="wrap_content"
         android:layout_below="@id/CreateArticle"
         android:layout_alignParentStart="true"
         android:layout_marginStart="100dp"
         android:layout_marginTop="15dp"
+        android:maxLength="25"
         android:layout_marginEnd="40dp"
         android:background="@drawable/ic_subject_container"
         android:hint="Subject..."
@@ -50,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:onClick="pick_image"
         android:layout_marginStart="42dp"
         android:layout_marginTop="154dp"
         app:srcCompat="@drawable/ic_add_cover"
@@ -123,20 +126,21 @@
 
 
         <customfonts.MyEditText
-            android:id="@+id/addBody"
+            android:id="@+id/articleBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="45dp"
+            android:maxLength="1000"
             android:layout_marginBottom="20dp"
             android:background="@null"
             android:hint="Add Body..."
-
-
             android:textSize="15dp" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/show_picked_image"
             android:layout_width="wrap_content"
+            android:maxWidth="48dp"
+            android:maxHeight="48dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="250dp"
@@ -147,7 +151,7 @@
     </RelativeLayout>
 
     <customfonts.MyTextView
-        android:id="@+id/myTextView2"
+        android:id="@+id/post_article"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/Body"
@@ -165,6 +169,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/Body"
+        android:onClick="cancel"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="127dp"

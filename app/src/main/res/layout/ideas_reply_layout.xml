@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:id="@+id/comment_container"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:layout_marginHorizontal="10dp"
@@ -10,32 +10,31 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/picture_profile"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
-        android:src="#000"
-        />
+        android:src="#000" />
 
     <LinearLayout
+        android:id="@+id/comment_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/comment_linear"
         android:layout_marginVertical="5dp"
         android:layout_toEndOf="@+id/picture_profile"
         android:orientation="vertical">
 
-       <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:padding="5dp"
             android:background="@drawable/bottom_navigation_background"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <customfonts.MyTextView
                 android:id="@+id/userName"
@@ -43,26 +42,28 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginHorizontal="5dp"
-                android:gravity="left"
                 android:fontFamily="sans-serif-black"
-                android:textColor="@color/colorPrimary" />
+                android:gravity="left"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp" />
 
             <customfonts.MyTextView
 
                 android:id="@+id/comment"
                 android:layout_width="match_parent"
-                android:layout_marginHorizontal="12dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
                 android:layout_marginStart="18dp"
-                android:text="Comment" />
+                android:text="Comment"
+                android:textSize="12sp" />
 
-       </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_marginVertical="5dp"
+            android:layout_marginStart="20dp"
             android:orientation="horizontal">
 
 
@@ -78,16 +79,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:layout_marginHorizontal="10dp"
                 android:background="@drawable/ic_not_on"
                 android:padding="4dp"
                 android:textColor="#FFF" />
-            <customfonts.MyTextView
-                android:id="@+id/reply"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginHorizontal="10dp"
-                android:text="@string/reply" />
+
 
             <customfonts.MyTextView
                 android:id="@+id/time"
@@ -96,27 +92,10 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginHorizontal="10dp" />
 
-            <ImageButton
-                android:id="@+id/show_replies"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/get_out" />
-
         </LinearLayout>
 
 
     </LinearLayout>
 
-    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/replies"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/comment_linear"
-        android:layout_marginLeft="80dp"
-        android:fastScrollAlwaysVisible="true"
-        android:nestedScrollingEnabled="true"
-        android:scrollbars="vertical"
-        android:visibility="gone" />
 
 </RelativeLayout>
