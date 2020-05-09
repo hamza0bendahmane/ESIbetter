@@ -1,11 +1,15 @@
 package com.example.esibetter.articles;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -13,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,13 +35,14 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -58,12 +64,14 @@ public class Article_activity extends AppCompatActivity {
     public static boolean userHasLikedThePost;
     public static boolean userHasDislikedThePost;
     static RecyclerView recyclerView;
+    public int menuClickedPosition = -1;
     private static RecyclerView.LayoutManager manager;
     private static comment_adapter adapter;
     public final HashMap<String, Long> likesMap = new HashMap<>();
     public Long likes, dislikes;
+    public Uri imageUri;
     public DocumentReference post_emotions, post;
-    public Long likes_count;
+    FirestoreRecyclerOptions<comment_item> options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +91,11 @@ public class Article_activity extends AppCompatActivity {
         likese = findViewById(R.id.likes);
         dislikese = findViewById(R.id.dislikes);
         postId = getIntent().getExtras().getString("postKey");
+        CollectionReference query = FirebaseFirestore.getInstance()
+                .collection("comments").document("posts").collection(postId);
+        options = new FirestoreRecyclerOptions.Builder<comment_item>()
+                .setQuery(query, comment_item.class).build();
+
         post_emotions = FirebaseFirestore.getInstance().collection("posts_emotions")
                 .document(postId);
         likes = Long.parseLong(getIntent().getExtras().getString("likes"));
@@ -96,7 +109,6 @@ public class Article_activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         UpdateUi();
         saveUserEmotion();
-
 
     }
 
@@ -231,14 +243,36 @@ public class Article_activity extends AppCompatActivity {
         String title = bundle.getString("title");
         String body = bundle.getString("body");
         posterUid = bundle.getString("uid");
-        //        Uri imagePoste= Uri.parse(bundle.getString("imagePost"));
         String date = bundle.getString("date");
         // .....
-        Glide.with(getApplicationContext()).load(bundle.getString("image")).
-                diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(imageofpost);
+
+        StorageReference ref = FirebaseStorage.getInstance().getReferenceFromUrl(bundle.getString("image"));
+        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                imageUri = uri;
+                Glide.with(getApplicationContext()).asBitmap().load(uri).centerCrop().
+                        diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(imageofpost);
+            }
+        });
+        imageofpost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast t = new Toast(Article_activity.this);
+                t.setDuration(Toast.LENGTH_LONG);
+                View view = LayoutInflater.from(Article_activity.this).inflate(R.layout.general_layout_image, null, false);
+                ImageView vv = view.findViewById(R.id.image_toast);
+                Glide.with(Article_activity.this).load(imageUri).into(vv);
+                t.setView(view);
+                t.show();
+
+
+            }
+        });
         Toolbar toolbar = findViewById(R.id.toolbar_art);
         setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(Color.BLUE);
         toolbar.setTitle(title);
         //imagePost.setImageURI(imagePoste);
         bodye.setText(body);
@@ -284,63 +318,98 @@ public class Article_activity extends AppCompatActivity {
     }
 
     public void setupRecyclerAdapter(final String postId) {
-        final Query query = FirebaseFirestore.getInstance()
+        final CollectionReference query = FirebaseFirestore.getInstance()
                 .collection("comments").document("posts").collection(postId);
 
 
         final FirestoreRecyclerOptions<comment_item> options =
                 new FirestoreRecyclerOptions.Builder<comment_item>()
                         .setQuery(query, comment_item.class).build();
-        manager = new LinearLayoutManager(getApplicationContext());
+        manager = new LinearLayoutManager(getApplicationContext()) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+        };
         recyclerView = findViewById(R.id.comment_recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(manager);
-        adapter = new comment_adapter(options);
+        adapter = new comment_adapter(options, Article_activity.this, postId);
         recyclerView.setAdapter(adapter);
+        comment_adapter.setOnLikedListner(new comment_adapter.onLikedListner() {
 
-
-        adapter.setOnLikedListner(new comment_adapter.onLikedListner() {
             @Override
-            public void onLiked(int position) {
-                //  likes_count = options.getSnapshots().get(position).getLikes();
-                //updateLikes(options.getSnapshots().get(position).commentId);
+            public void onLiked(int position, View itemView, comment_adapter.onLikedListner listner) {
+                Long likes_count = options.getSnapshots().get(position).getLikes();
+                String ss = options.getSnapshots().get(position).commentId;
+                itemView.findViewById(R.id.like_comm).setEnabled(false);
+                Articles.updateLikes(itemView, itemView.findViewById(R.id.like_comm), ss, likes_count, postId);
 
             }
-        });
 
-
-    }
-
-    private void updateLikes(String commentId) {
-        final DocumentReference query = FirebaseFirestore.getInstance()
-                .collection("comments").document("posts").collection(postId).document(commentId);
-        final DocumentReference comment_likes = FirebaseFirestore.getInstance().collection("comments_emotions")
-                .document("posts").collection(postId).document(commentId);
-        final HashMap<String, Object> map = new HashMap<>();
-        final HashMap<String, Object> comment = new HashMap<>();
-        comment_likes.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (!documentSnapshot.contains(uid)) {
-
-                    likes_count++;
-                    map.put(uid, "1");
-                    comment.put("likes", likes_count);
-                    comment_likes.set(map, SetOptions.merge());
+            public void onReplied(int adapterPosition, View itemView, comment_adapter.onLikedListner listner) {
+                final String commentId = options.getSnapshots().get(adapterPosition).commentId;
 
 
-                } else {
-                    likes_count--;
-                    map.put(uid, FieldValue.delete());
-                    comment.put("likes", likes_count);
-                    query.set(comment, SetOptions.merge());
-                    comment_likes.set(map, SetOptions.merge());
+                View layout = LayoutInflater.from(Article_activity.this).inflate(R.layout.general_edit_comment, null);
+                final EditText comment_editText = layout.findViewById(R.id.edit_comment);
+                final AlertDialog builder = new AlertDialog.Builder(Article_activity.this).setTitle("ADD a Reply").setPositiveButton(
+                        "Reply", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(final DialogInterface dialog, int which) {
+                                // manipulate the reply
 
+                                if (!TextUtils.isEmpty(comment_editText.getText().toString())) {
+                                    HashMap<String, Object> commMap = new HashMap<>();
+                                    String tex = comment_editText.getText().toString().trim();
+                                    Calendar cc = Calendar.getInstance();
+                                    String month = String.valueOf(cc.get(Calendar.MONTH) + 1);
+                                    String date = cc.get(Calendar.YEAR) + "/" + month + "/" + cc.get(Calendar.DAY_OF_MONTH);
+                                    commMap.put("uid", uid);
+                                    commMap.put("likes", 0);
+                                    commMap.put("date", date);
+                                    commMap.put("comment", tex);
+                                    String ss = cc.getTimeInMillis() + cc.get(Calendar.DAY_OF_MONTH) + month + cc.get(Calendar.YEAR);
+                                    commMap.put("commentId", ss);
+                                    final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("replies")
+                                            .child(postId).child(commentId);
+                                    reference.child(ss).setValue(commMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(Article_activity.this, getString(R.string.succes), Toast.LENGTH_SHORT).show();
+                                                dialog.dismiss();
 
-                }
-                query.set(comment, SetOptions.merge());
+                                            } else {
+                                                Toast.makeText(Article_activity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                                dialog.dismiss();
+
+                                            }
+                                        }
+
+                                    });
+                                }
+
+                                // dismiss ....
+                            }
+                        }
+                ).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).setView(layout).show();
+
 
             }
+
+
         });
 
 
@@ -351,19 +420,20 @@ public class Article_activity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         adapter.startListening();
+
     }
 
     @Override
     public void onStop() {
         super.onStop();
         adapter.stopListening();
+
     }
 
     public void add_comment(View view) {
 
 
         final TextInputEditText addtext = findViewById(R.id.add_commento);
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         if (!TextUtils.isEmpty(addtext.getText().toString())) {
             FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
             HashMap<String, Object> commMap = new HashMap<>();
@@ -392,7 +462,6 @@ public class Article_activity extends AppCompatActivity {
 
             });
             addtext.setText("");
-            adapter.startListening();
             adapter.notifyDataSetChanged();
 
 
@@ -468,4 +537,9 @@ public class Article_activity extends AppCompatActivity {
 
         }
     }
+    // chandling comments ....
+
+
+
+
 }

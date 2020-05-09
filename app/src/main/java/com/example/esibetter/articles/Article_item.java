@@ -1,21 +1,19 @@
 package com.example.esibetter.articles;
 
-import android.net.Uri;
-
 public class Article_item {
     private String uid;
     private String title;
     private String body;
     private Long likes;
     private Long dislikes;
-    private Uri image;
+    private String image;
     private String Date;
 
 
     public Article_item() {
     }
 
-    public Article_item(String uid, String title, String body, Uri image, String date, Long likes, Long disikes) {
+    public Article_item(String uid, String title, String body, String image, String date, Long likes, Long disikes) {
         this.uid = uid;
         this.title = title;
         this.body = body;
@@ -67,11 +65,11 @@ public class Article_item {
         this.body = body;
     }
 
-    public Uri getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Uri image) {
+    public void setImage(String image) {
         this.image = image;
     }
     public String getDate() {

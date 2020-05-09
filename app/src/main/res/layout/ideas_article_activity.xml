@@ -37,8 +37,6 @@
                     android:layout_height="match_parent"
                     android:background="@color/colorPrimaryDark"
                     android:fontFamily="sans-serif"
-                    android:text="the title of the ideas,the title of the ideas "
-                    android:textColor="@color/browser_actions_bg_grey"
                     android:textSize="30dp" />
 
             <ImageButton
@@ -47,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:layout_marginTop="20dp"
                 android:layout_marginHorizontal="10dp"
                 android:background="@drawable/ic_menu"
                 android:backgroundTint="@color/colorPrimary"
@@ -60,8 +59,10 @@
                 android:layout_height="96dp"
                 android:layout_gravity="center|right"
                 android:layout_margin="@dimen/fab_margin"
+                android:src="@color/nonSelected"
+                app:civ_border_color="@color/colorPrimary"
                 android:onClick="open_facebook"
-                android:src="@mipmap/male"
+                app:civ_border_width="3dp"
                 app:layout_anchor="@id/app_bar" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>

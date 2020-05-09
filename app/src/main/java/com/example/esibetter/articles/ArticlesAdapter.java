@@ -66,15 +66,15 @@ public static boolean UsersPost = false;
         holder.setPosterName(model.getUid());
         holder.setLikesNUm(Long.toString(model.getLikes()));
         holder.setDislikesNum(Long.toString(model.getDislikes()));
-        holder.root.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 UsersPost = model.getUid().equals(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
                 if (mlistener != null)
                     if (position != RecyclerView.NO_POSITION)
                         mlistener.onLongClick(position);
                 return false;
+
             }
         });
 
@@ -122,6 +122,8 @@ public static class ViewHolder extends RecyclerView.ViewHolder implements View.O
         txtTitle = itemView.findViewById(R.id.title_art);
         imagePoster = itemView.findViewById(R.id.poster_image);
         like = itemView.findViewById(R.id.like);
+
+
         poster_name = itemView.findViewById(R.id.poster_name);
         likesNUm = itemView.findViewById(R.id.likesNUm);
         dislike = itemView.findViewById(R.id.dislike);

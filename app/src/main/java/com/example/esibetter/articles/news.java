@@ -34,7 +34,6 @@ public class news extends Fragment {
     public final CollectionReference reference = FirebaseFirestore.getInstance()
             .collection("posts");
     public int menuClickedPosition = -1;
-    String posterName, reporterName;
     Query query = reference.orderBy("date", Query.Direction.DESCENDING);
     public final FirestoreRecyclerOptions<Article_item> options =
             new FirestoreRecyclerOptions.Builder<Article_item>()
@@ -76,7 +75,6 @@ public class news extends Fragment {
 
             @Override
             public void FabEventClicked() {
-                Toast.makeText(getContext(), "clicked ", Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();
                 bundle.putString("type", "add");
                 bundle.putString("category", "event");
@@ -106,7 +104,7 @@ public class news extends Fragment {
                 b.putString("uid", item.getUid());
                 b.putString("date", item.getDate());
                 b.putString("likes", String.valueOf(item.getLikes()));
-                b.putString("image", String.valueOf(item.getImage()));
+                b.putString("image", item.getImage());
                 b.putString("dislikes", String.valueOf(item.getDislikes()));
                 b.putString("postKey", options.getSnapshots().getSnapshot(position).getId());
                 Intent i = new Intent(getContext(), Article_activity.class);
@@ -151,29 +149,29 @@ public class news extends Fragment {
     }
 
     private void HandleMenu(String action) {
+        if (menuClickedPosition != -1 && menuClickedPosition != options.getSnapshots().size()) {
+            switch (action) {
 
-        switch (action) {
+                case "edit":
+                    Articles.editPost(getContext(), menuClickedPosition,
+                            options.getSnapshots().getSnapshot(menuClickedPosition).getId());
+                    break;
+                case "delete":
+                    Articles.deletePost(getContext(),
+                            options.getSnapshots().getSnapshot(menuClickedPosition).getId());
+                    break;
+                case "report":
+                    Articles.reportPost(getContext(), options.getSnapshots().get(menuClickedPosition),
+                            options.getSnapshots().getSnapshot(menuClickedPosition).getId());
+                    break;
+                case "share":
+                    Toast.makeText(getContext(), action + menuClickedPosition, Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
 
-            case "edit":
-                Articles.editPost(getContext(), menuClickedPosition,
-                        options.getSnapshots().getSnapshot(menuClickedPosition).getId());
-                break;
-            case "delete":
-                Articles.deletePost(getContext(),
-                        options.getSnapshots().getSnapshot(menuClickedPosition).getId());
-                break;
-            case "report":
-                Articles.reportPost(getContext(), options.getSnapshots().get(menuClickedPosition),
-                        options.getSnapshots().getSnapshot(menuClickedPosition).getId());
-                break;
-            case "share":
-                Toast.makeText(getContext(), action + menuClickedPosition, Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                break;
-
+            }
         }
-
 
     }
 
