@@ -163,6 +163,7 @@
     <string name="post_updated">تم تحديث المنشور بنجاح</string>
     <string name="post_notupdated">فشل تحديث المنشور </string>
     <string name="are_us_sure_delte_post">هل أنت متأكد من أنك تريد حذف هذا المنشور</string>
+    <string name="languagename">العربية</string>
 
 
 </resources>

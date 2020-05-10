@@ -1,5 +1,13 @@
 <resources>
 
+
+    <string-array name="languages">
+        <item>English</item>
+        <item>العربية</item>
+
+
+    </string-array>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="email">Email</string>
     <string name="Reset_Password">Reset Password</string>
@@ -11,13 +19,13 @@
     <string name="sign_out">Log Out</string>
     <string name="Your_province">Your Province</string>
     <string name="default_notification_channel_id">DEFAULT</string>
-    <string name="fcm_message">ESI better</string>
+    <string name="fcm_message" translatable="false">ESI better</string>
     <string name="default_notification_channel_name">General Notifications</string>
     <string name="community_notification_channel_id">COMMUNITY</string>
     <string name="community_notification_channel_name">Community Notifications</string>
     <string name="ideas_notification_channel_id">IDEAS</string>
     <string name="ideas_notification_channel_name">IDEAS Notifications</string>
-    <string name="title_activity_article_activity">Article</string>
+    <string name="title_activity_article_activity" translatable="false">Article</string>
 
 
     <string name="app_name">ESI better</string>
@@ -28,7 +36,7 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_sign_in_short" translatable="false">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
@@ -174,6 +182,7 @@
     <string name="post_updated">Post Updated Successfully</string>
     <string name="post_notupdated">Failed Updating Post</string>
     <string name="are_us_sure_delte_post">Are You sure You Want To Delete Your Post</string>
+    <string name="languagename">English</string>
 
 
 </resources>

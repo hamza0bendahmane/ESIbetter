@@ -1,11 +1,17 @@
 package com.example.esibetter;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,12 +36,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.net.URISyntaxException;
+import java.util.Locale;
 
 public class login extends AppCompatActivity {
     public static final int RC_SIGN_IN = 1;
     public static SignInButton signin_google;
     static FirebaseAuth firebaseAuth;
     static Button signin, signup, forget_password;
+    private Spinner languageSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +62,37 @@ public class login extends AppCompatActivity {
         signup = findViewById(R.id.signup_button);
         signin_google = findViewById(R.id.signin_google);
         forget_password = findViewById(R.id.forget_password);
+        languageSpinner = findViewById(R.id.languageSpinner);
+
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.languages, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        languageSpinner.setAdapter(adapter);
+        languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String choise = adapterView.getItemAtPosition(i).toString();
+
+                if (choise.equals("English")) {
+                    setLocale("");
+                    //recreate();
+                    return;
+                } else if (choise.equals("العربية")) {
+                    setLocale("ar");
+                    //recreate();
+                    return;
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
 
         // set actions on click the buttons ..
         signin.setOnClickListener(new View.OnClickListener() {
@@ -305,6 +344,30 @@ public class login extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         verify_your_email(FirebaseAuth.getInstance().getCurrentUser());
+    }
+
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+
+
+        getBaseContext().getResources().
+                updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+        //save data in shared preferences
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_lang", lang);
+        editor.apply();
+    }
+
+
+    public void loadLocal() {
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String Language = prefs.getString("My_lang", "");
+        setLocale(Language);
     }
 
 }
