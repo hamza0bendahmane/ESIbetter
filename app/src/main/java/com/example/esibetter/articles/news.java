@@ -2,6 +2,7 @@ package com.example.esibetter.articles;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.esibetter.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,16 +25,18 @@ import com.google.firebase.firestore.Query;
 
 public class news extends Fragment {
 
-
-    static RecyclerView recyclerView;
-    public static final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    private static RecyclerView.LayoutManager manager;
+    private static int menuClickedPosition = -1;
     public static String name;
-    private static ArticlesAdapter adapter;
     public final CollectionReference reference = FirebaseFirestore.getInstance()
             .collection("posts");
-    public int menuClickedPosition = -1;
-    Query query = reference.orderBy("date", Query.Direction.DESCENDING);
+    public final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    final Query query = reference.orderBy("date", Query.Direction.DESCENDING);
+    RecyclerView recyclerView;
+    String TAG = "hbhb";
+
+
+    private RecyclerView.LayoutManager manager;
+    private ArticlesAdapter adapter;
     public final FirestoreRecyclerOptions<Article_item> options =
             new FirestoreRecyclerOptions.Builder<Article_item>()
                     .setQuery(query, Article_item.class).build();
@@ -51,39 +53,26 @@ public class news extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.ideas_fragment_news, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View va, @Nullable Bundle savedInstanceState) {
         setupRecyclerAdapter();
-        FloatingActionButton fabArt = getActivity().findViewById(R.id.fab_article);
-        FloatingActionButton fabInit = getActivity().findViewById(R.id.fab_event);
-        fabArt.setVisibility(View.GONE);
-        fabInit.setVisibility(View.GONE);
 
         // open activity to ad articles ...
         Articles.setonFabClicked(new Articles.onFabClicked() {
-            @Override
-            public void FabClicked() {
-
-                Bundle bundle = new Bundle();
-                bundle.putString("type", "add");
-                bundle.putString("category", "article");
-                Intent intent = new Intent(getContext(), Add_Articles.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-
-            }
 
             @Override
             public void FabEventClicked() {
                 Bundle bundle = new Bundle();
                 bundle.putString("type", "add");
-                bundle.putString("category", "event");
                 Intent intent = new Intent(getContext(), Add_Articles.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
-        Articles.setUpTheRefresh(va, adapter);
+        Articles.setUpTheRefresh(va.findViewById(R.id.swipper), adapter);
+
+
     }
 
 
@@ -94,7 +83,7 @@ public class news extends Fragment {
         recyclerView.setLayoutManager(manager);
         adapter = new ArticlesAdapter(options, getContext());
         recyclerView.setAdapter(adapter);
-        ArticlesAdapter.setOnitemClickListener(new ArticlesAdapter.onItemClick() {
+        adapter.setOnitemClickListener(new ArticlesAdapter.onItemClick() {
             @Override
             public void onClick(int position, Long l) {
                 Bundle b = new Bundle();
@@ -115,6 +104,7 @@ public class news extends Fragment {
 
             @Override
             public void onLongClick(int position) {
+
                 menuClickedPosition = position;
             }
 
@@ -124,31 +114,46 @@ public class news extends Fragment {
 
     }
 
+    private void search(String field) {
+        Query query1 = reference.whereGreaterThanOrEqualTo("title", field).
+                whereLessThanOrEqualTo("title", field + "\uf8ff");
+        FirestoreRecyclerOptions<Article_item> options1 =
+                new FirestoreRecyclerOptions.Builder<Article_item>()
+                        .setQuery(query1, Article_item.class).build();
+        adapter.updateOptions(options1);
+    }
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.share_post:
-                HandleMenu("share");
-                return true;
-            case R.id.edit_post:
-                HandleMenu("edit");
-                return true;
-            case R.id.delete_post:
-                HandleMenu("delete");
-                return true;
-            case R.id.report_post:
-                HandleMenu("report");
-                return true;
-            default:
-                break;
+        adapter.notifyDataSetChanged();
+
+        if (getUserVisibleHint()) {
+            switch (item.getItemId()) {
+                case R.id.share_post:
+                    HandleMenu("share");
+                    return true;
+                case R.id.edit_post:
+                    HandleMenu("edit");
+                    return true;
+                case R.id.delete_post:
+                    HandleMenu("delete");
+                    return true;
+                case R.id.report_post:
+                    HandleMenu("report");
+                    return true;
+                default:
+                    break;
 
 
+            }
         }
-        return false;
+        return super.onContextItemSelected(item);
 
     }
 
     private void HandleMenu(String action) {
+        Log.d(TAG, "HandleMenu: news");
+        adapter.notifyDataSetChanged();
+
         if (menuClickedPosition != -1 && menuClickedPosition != options.getSnapshots().size()) {
             switch (action) {
 
@@ -159,6 +164,7 @@ public class news extends Fragment {
                 case "delete":
                     Articles.deletePost(getContext(),
                             options.getSnapshots().getSnapshot(menuClickedPosition).getId());
+                    adapter.notifyDataSetChanged();
                     break;
                 case "report":
                     Articles.reportPost(getContext(), options.getSnapshots().get(menuClickedPosition),
@@ -166,6 +172,7 @@ public class news extends Fragment {
                     break;
                 case "share":
                     Toast.makeText(getContext(), action + menuClickedPosition, Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "HandleMenu: news" + menuClickedPosition);
                     break;
                 default:
                     break;
@@ -196,6 +203,8 @@ public class news extends Fragment {
     public void onStart() {
         super.onStart();
         adapter.startListening();
+        adapter.notifyDataSetChanged();
+
     }
 
     @Override

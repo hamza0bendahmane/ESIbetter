@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:scrollbars="vertical">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
             android:id="@+id/describe_report"
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -63,14 +63,14 @@
         android:gravity="bottom|center_horizontal"
         android:orientation="horizontal">
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/cancel_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:text="@string/cancel" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/submit_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

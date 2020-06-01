@@ -30,12 +30,12 @@ import com.google.firebase.storage.StorageReference;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ArticlesAdapter extends FirestoreRecyclerAdapter<Article_item, ArticlesAdapter.ViewHolder> /*implements
-        Filterable */ {
-public static boolean UsersPost = false;
+public class ArticlesAdapter extends FirestoreRecyclerAdapter<Article_item, ArticlesAdapter.ViewHolder> {
+
+    public boolean UsersPost = false;
 
 
-    static onItemClick mlistener;
+    onItemClick mlistener;
     Context cc;
     FirestoreRecyclerOptions<Article_item> options;
 
@@ -43,11 +43,13 @@ public static boolean UsersPost = false;
         super(optioans);
         this.cc = cc;
         this.options = optioans;
+
     }
 
-    public static void setOnitemClickListener(onItemClick listener) {
+    public void setOnitemClickListener(onItemClick listener) {
         mlistener = listener;
     }
+
 
     @NonNull
     @Override
@@ -70,9 +72,14 @@ public static boolean UsersPost = false;
             @Override
             public boolean onLongClick(View v) {
                 UsersPost = model.getUid().equals(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                if (mlistener != null)
-                    if (position != RecyclerView.NO_POSITION)
+                if (mlistener != null) {
+                    if (position != RecyclerView.NO_POSITION) {
                         mlistener.onLongClick(position);
+
+                    }
+
+                }
+
                 return false;
 
             }
@@ -81,6 +88,7 @@ public static boolean UsersPost = false;
 
     }
 
+
     public interface onItemClick {
         void onClick(int position, Long itemId);
 
@@ -88,7 +96,17 @@ public static boolean UsersPost = false;
 
     }
 
-public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return Long.valueOf(position);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
 
     Uri imageUri = null;
@@ -104,7 +122,6 @@ public static class ViewHolder extends RecyclerView.ViewHolder implements View.O
 
     public ViewHolder(final View itemView, final onItemClick list) {
         super(itemView);
-
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,13 +134,12 @@ public static class ViewHolder extends RecyclerView.ViewHolder implements View.O
 
                 }
             }
+
         });
         root = itemView.findViewById(R.id.lin);
         txtTitle = itemView.findViewById(R.id.title_art);
         imagePoster = itemView.findViewById(R.id.poster_image);
         like = itemView.findViewById(R.id.like);
-
-
         poster_name = itemView.findViewById(R.id.poster_name);
         likesNUm = itemView.findViewById(R.id.likesNUm);
         dislike = itemView.findViewById(R.id.dislike);
@@ -139,6 +155,7 @@ public static class ViewHolder extends RecyclerView.ViewHolder implements View.O
                 inflater.inflate(R.menu.user_menu, menu);
             else
                 inflater.inflate(R.menu.anonym_menu, menu);
+
 
         }
 
@@ -195,7 +212,9 @@ public static class ViewHolder extends RecyclerView.ViewHolder implements View.O
         });
         return name;
     }
-}
+
+
+    }
 
 
 }

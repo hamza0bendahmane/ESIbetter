@@ -16,7 +16,10 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".articles.Add_Articles" />
+        <activity
+            android:name=".articles.Add_Articles"
+            android:label="Add Article"
+            android:theme="@style/RTE_ToolbarBaseThemeLight" />
         <activity android:name=".FacebookActivity" />
         <activity
             android:name=".general.splashScreen"
@@ -34,6 +37,9 @@
             android:name=".general.MainActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".articles.Article_activity" />
+        <activity android:name="com.onegravity.rteditor.media.choose.MediaChooserActivity" />
+
+        <activity android:name="com.onegravity.rteditor.media.crop.CropImageActivity" />
         <activity android:name=".general.about_us" />
         <activity android:name=".general.HelpActivity" />
         <activity android:name=".general.User_Profile" />

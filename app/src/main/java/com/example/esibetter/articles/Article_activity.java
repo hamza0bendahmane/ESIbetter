@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -275,7 +276,7 @@ public class Article_activity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.BLUE);
         toolbar.setTitle(title);
         //imagePost.setImageURI(imagePoste);
-        bodye.setText(body);
+        bodye.setText(Html.fromHtml(body));
         setImagePoster(posterUid);
         setPosterName(posterUid);
         datee.setText(date);
@@ -519,13 +520,17 @@ public class Article_activity extends AppCompatActivity {
         switch (action) {
 
             case "edit":
-                Articles.editPost(getApplicationContext(), 0, postId);
+                Articles.editPost(Article_activity.this, 0, postId);
                 break;
             case "delete":
-                Articles.deletePost(getApplicationContext(), postId);
+                Articles.deletePost(this, Article_activity.this, postId);
                 break;
             case "report":
-                Articles.reportPost(getApplicationContext(), null, postId);
+                Articles.reportPost(Article_activity.this,
+                        new Article_item(getIntent().getExtras().getString("uid"), getIntent().getExtras().getString("title"),
+                                getIntent().getExtras().getString("body"), getIntent().getExtras().getString("image"),
+                                getIntent().getExtras().getString("date"), Long.parseLong(getIntent().getExtras().getString("likes")),
+                                Long.parseLong(getIntent().getExtras().getString("dislikes"))), postId);
 
                 break;
             case "share":
@@ -537,9 +542,4 @@ public class Article_activity extends AppCompatActivity {
 
         }
     }
-    // chandling comments ....
-
-
-
-
 }

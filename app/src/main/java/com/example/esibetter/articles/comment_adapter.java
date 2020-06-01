@@ -60,6 +60,16 @@ public class comment_adapter extends FirestoreRecyclerAdapter<comment_item, comm
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return Long.valueOf(position);
+    }
+
+    @Override
     protected void onBindViewHolder(@NonNull final comment_adapter.ViewHolder holder,
                                     final int position, @NonNull final comment_item model) {
         final DocumentReference comment_likes = FirebaseFirestore.getInstance().collection("comments_emotions")
@@ -200,7 +210,7 @@ public class comment_adapter extends FirestoreRecyclerAdapter<comment_item, comm
                 @Override
                 public void onClick(View v) {
 
-                    if (lv.getVisibility() == 0) {
+                    if (lv.getVisibility() == View.VISIBLE) {
                         lv.setVisibility(View.GONE);
                         show_replies.animate().setDuration(200)
                                 .setListener(new AnimatorListenerAdapter() {

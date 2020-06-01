@@ -72,6 +72,15 @@ public class reply_adapter extends FirebaseListAdapter<reply_item> {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return Long.valueOf(position);
+    }
+    @Override
     protected void populateView(@NonNull final View itemView, @NonNull final reply_item model, final int position) {
         final String uid = model.getUid();
         final RelativeLayout root = itemView.findViewById(R.id.comment_container);

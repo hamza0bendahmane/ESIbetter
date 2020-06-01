@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -33,10 +34,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -58,8 +61,9 @@ public class Articles extends Fragment {
     public static boolean isopen = false;
     public static final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     public static String posterName, reporterName;
-    public static FloatingActionButton fabArticle, fabInitiative, fab;
-
+    public static FloatingActionButton fab;
+    public static SearchView searchView;
+    String TAG = "hbhb";
 
     public Articles() {
         // Required empty public constructor
@@ -69,8 +73,7 @@ public class Articles extends Fragment {
         mlistener = listener;
     }
 
-    public static void setUpTheRefresh(View v, final ArticlesAdapter adapter) {
-        final SwipeRefreshLayout swipeRefreshLayout = v.findViewById(R.id.swipper);
+    public static void setUpTheRefresh(final SwipeRefreshLayout swipeRefreshLayout, final ArticlesAdapter adapter) {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -87,11 +90,10 @@ public class Articles extends Fragment {
     }
 
     public static void reportPost(final Context cc, final Article_item item, final String post_Id) {
-
         final AlertDialog dialog = new AlertDialog.Builder(cc).create();
         dialog.setTitle(cc.getString(R.string.report));
         final View report_layout = LayoutInflater.from(cc).inflate(R.layout.general_report_layout, null);
-        final TextInputEditText describe_report = report_layout.findViewById(R.id.describe_report);
+        final EditText describe_report = report_layout.findViewById(R.id.describe_report);
         final Button report = report_layout.findViewById(R.id.submit_report);
         final Button cancel = report_layout.findViewById(R.id.cancel_report);
         final HashMap<String, Object> report_map = new HashMap<>();
@@ -168,12 +170,52 @@ public class Articles extends Fragment {
         bundle.putInt("position", position);
         bundle.putString("postId", postId);
         Intent intent = new Intent(cc, Add_Articles.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtras(bundle);
         cc.startActivity(intent);
 
 
     }
 
+    public static void deletePost(Activity activity, final Context cc, final String postId) {
+
+        AlertDialog.Builder builder = new AlertDialog.
+                Builder(cc).setTitle(cc.getString(R.string.delete_post_title)).
+                setMessage(cc.getString(R.string.are_us_sure_delte_post))
+                .setNegativeButton(cc.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).setPositiveButton(cc.getString(R.string.delete_post), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        final CollectionReference query = FirebaseFirestore.getInstance()
+                                .collection("comments").document("posts").collection(postId);
+                        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                                    Articles.deleteComment(cc, postId, document.get("commentId").toString());
+                                }
+                            }
+
+                        });
+
+                        final StorageReference Photos = FirebaseStorage.getInstance().
+                                getReference("Images/" + uid + "/" + postId);
+                        Photos.child("post_pic.png").delete();
+                        reference.document(postId)
+                                .delete();
+
+                        activity.onBackPressed();
+
+                    }
+                });
+        builder.show();
+
+    }
     public static void deletePost(final Context cc, final String postId) {
 
         AlertDialog.Builder builder = new AlertDialog.
@@ -207,7 +249,6 @@ public class Articles extends Fragment {
                                 .delete();
 
 
-
                     }
                 });
         builder.show();
@@ -218,20 +259,14 @@ public class Articles extends Fragment {
 
         View bottomNav = cc.findViewById(R.id.bottom_nav);
         View fab = cc.findViewById(R.id.fab);
-        View fabArt = cc.findViewById(R.id.fab_article);
-        View fabInit = cc.findViewById(R.id.fab_event);
 
         if (dy > 0) {
             fadeOut(bottomNav);
             fadeOut(fab);
-            fadeOut(fabArt);
-            fadeOut(fabInit);
 
         } else {
             fadeIn(bottomNav);
             fadeIn(fab);
-            fadeIn(fabArt);
-            fadeIn(fabInit);
 
         }
 
@@ -328,7 +363,7 @@ public class Articles extends Fragment {
         final AlertDialog dialog = new AlertDialog.Builder(applicationContext).create();
         dialog.setTitle(applicationContext.getString(R.string.report));
         final View report_layout = LayoutInflater.from(applicationContext).inflate(R.layout.general_report_layout, null);
-        final TextInputEditText describe_report = report_layout.findViewById(R.id.describe_report);
+        final EditText describe_report = report_layout.findViewById(R.id.describe_report);
         final Button report = report_layout.findViewById(R.id.submit_report);
         final Button cancel = report_layout.findViewById(R.id.cancel_report);
         final HashMap<String, Object> report_map = new HashMap<>();
@@ -558,7 +593,7 @@ public class Articles extends Fragment {
         final AlertDialog dialog = new AlertDialog.Builder(applicationContext).create();
         dialog.setTitle(applicationContext.getString(R.string.report));
         final View report_layout = LayoutInflater.from(applicationContext).inflate(R.layout.general_report_layout, null);
-        final TextInputEditText describe_report = report_layout.findViewById(R.id.describe_report);
+        final EditText describe_report = report_layout.findViewById(R.id.describe_report);
         final Button report = report_layout.findViewById(R.id.submit_report);
         final Button cancel = report_layout.findViewById(R.id.cancel_report);
         final HashMap<String, Object> report_map = new HashMap<>();
@@ -677,130 +712,34 @@ public class Articles extends Fragment {
         return inflater.inflate(R.layout.ideas_fragment_articles, container, false);
     }
 
-    @Override
-    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
-        ViewPager pages = view.findViewById(R.id.viewPager);
-        TabLayout tabs = view.findViewById(R.id.tabLayout);
-        pages.setAdapter(new MyTabPagerAdapter(getChildFragmentManager()));
-        tabs.setupWithViewPager(pages);
-        fab = view.findViewById(R.id.fab);
-        fabArticle = view.findViewById(R.id.fab_article);
-        fabInitiative = view.findViewById(R.id.fab_event);
-        fabArticle.setVisibility(View.GONE);
-        fabInitiative.setVisibility(View.GONE);
-        // fabs ..manipulation ...
-        fab.setOnClickListener(new View.OnClickListener() {
+    public static void getNames(String posterUid) {
+
+        FirebaseDatabase ref = FirebaseDatabase.getInstance();
+        ref.getReference("users/" + posterUid + "/name").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                posterName = dataSnapshot.getValue().toString();
+            }
 
-                if (isopen) {
-                    fabArticle.setVisibility(View.GONE);
-                    fabInitiative.setVisibility(View.GONE);
-                    fab.animate().setDuration(200)
-                            .setListener(new AnimatorListenerAdapter() {
-                                @Override
-                                public void onAnimationEnd(Animator animation) {
-                                    super.onAnimationEnd(animation);
-                                }
-                            })
-                            .rotation(0f);
-                    isopen = false;
-                } else {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    fabArticle.setVisibility(View.VISIBLE);
-                    fabInitiative.setVisibility(View.VISIBLE);
-                    fab.animate().setDuration(200)
-                            .setListener(new AnimatorListenerAdapter() {
-                                @Override
-                                public void onAnimationEnd(Animator animation) {
-                                    super.onAnimationEnd(animation);
-                                }
-                            })
-                            .rotation(135f);
-                    isopen = true;
-                }
+            }
+        });
+
+        ref.getReference("users/" + uid + "/name").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                reporterName = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
 
-        // fab Action ...
-        fabArticle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mlistener != null) {
-                    mlistener.FabClicked();
-                }
-            }
-        });
-        fabInitiative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mlistener != null) {
-                    mlistener.FabEventClicked();
-                }
-            }
-        });
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    public interface onFabClicked {
-        void FabClicked();
-
-        void FabEventClicked();
-    }
-
-    public class MyTabPagerAdapter extends FragmentStatePagerAdapter {
-        MyTabPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Nullable
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return getString(R.string.news);
-                case 1:
-                    return getString(R.string.trending);
-                case 2:
-                    return getString(R.string.bestof);
-                default:
-                    return null;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return 3;
-        }
-
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return new news();
-                case 1:
-                    return new trending();
-                case 2:
-                    return new bestOf();
-                default:
-                    break;
-            }
-            return null;
-        }
     }
 
     public static void fadeIn(final View loadingView) {
@@ -827,19 +766,65 @@ public class Articles extends Fragment {
                 });
     }
 
-    public static void getNames(String posterUid) {
-        FirebaseFirestore.getInstance().collection("users").document(posterUid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    @Override
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+        ViewPager pages = view.findViewById(R.id.viewPager);
+        TabLayout tabs = view.findViewById(R.id.tabLayout);
+        pages.setAdapter(new MyTabPagerAdapter(getChildFragmentManager()));
+        tabs.setupWithViewPager(pages);
+        fab = view.findViewById(R.id.fab);
+        // fabs ..manipulation ...
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                posterName = documentSnapshot.getData().get("name").toString();
+            public void onClick(View v) {
+                mlistener.FabEventClicked();
+
             }
         });
 
-        FirebaseFirestore.getInstance().collection("users").document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                reporterName = documentSnapshot.getData().get("name").toString();
+
+    }
+
+    public interface onFabClicked {
+
+        void FabEventClicked();
+    }
+
+    public class MyTabPagerAdapter extends FragmentStatePagerAdapter {
+        MyTabPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return getString(R.string.news);
+                case 1:
+                    return getString(R.string.bestof);
+                default:
+                    return null;
             }
-        });
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new news();
+                case 1:
+                    return new bestOf();
+                default:
+                    break;
+            }
+            return null;
+        }
     }
 }
