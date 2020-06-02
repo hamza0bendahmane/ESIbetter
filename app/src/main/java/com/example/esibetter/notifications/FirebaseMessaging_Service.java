@@ -13,7 +13,6 @@ import androidx.core.app.TaskStackBuilder;
 
 import com.example.esibetter.R;
 import com.example.esibetter.articles.news;
-import com.example.esibetter.community.Study;
 import com.example.esibetter.courses.Tutorials;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -58,9 +57,7 @@ public class FirebaseMessaging_Service extends FirebaseMessagingService {
 
         Intent intent;
         switch (chanel_id) {
-            case "COMMUNITY":
-                intent = new Intent(this, Study.class);
-                break;
+
             case "IDEAS":
                 intent = new Intent(this, news.class);
                 break;

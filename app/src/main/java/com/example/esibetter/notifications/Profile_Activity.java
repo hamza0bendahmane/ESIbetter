@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -30,12 +29,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.esibetter.R;
 import com.example.esibetter.articles.Articles;
-import com.example.esibetter.community.Community;
 import com.example.esibetter.courses.Courses;
 import com.example.esibetter.general.HelpActivity;
 import com.example.esibetter.general.SettingsActivity;
 import com.example.esibetter.general.about_us;
-import com.example.esibetter.general.favoris_offline;
 import com.example.esibetter.login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -55,7 +52,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Profile_Activity extends AppCompatActivity {
 
-    public static int TOTAL_PAGES = 3;
+    public static int TOTAL_PAGES = 2;
     public static StorageReference images_url;
     public static TextView user_name, status;
     public static CircleImageView image_user;
@@ -145,13 +142,8 @@ public class Profile_Activity extends AppCompatActivity {
                     case R.id.courses:
                         mPager.setCurrentItem(0);
                         break;
-
-                    case R.id.community:
-                        mPager.setCurrentItem(1);
-                        break;
-
                     case R.id.articles:
-                        mPager.setCurrentItem(2);
+                        mPager.setCurrentItem(1);
                         break;
                     default:
                         return false;
@@ -214,9 +206,6 @@ public class Profile_Activity extends AppCompatActivity {
         super.onResume();
         // Check if user is signed in (non-null) and update UI accordingly.
         updateUI(FirebaseAuth.getInstance().getCurrentUser());
-        // TODO : Anoura Manaa
-        Toast.makeText(this, "Animations FOR Anouar", Toast.LENGTH_SHORT).show();
-
         // add  animations for the views that u think that they need animations ..
         // just to say that u are not going to put animations here .. this is just to drive u carsy
         // hell yeah when you are done delete the toast
@@ -274,10 +263,6 @@ public class Profile_Activity extends AppCompatActivity {
     }
 
 
-    public void openFavoris(MenuItem item) {
-        startActivity(new Intent(getApplicationContext(), favoris_offline.class));
-        finish();
-    }
 
     public void openNotificationsLayout(View view) {
         startActivity(new Intent(getApplicationContext(), Notifications.class));
@@ -332,8 +317,6 @@ public class Profile_Activity extends AppCompatActivity {
                 case 0:
                     return new Courses();
                 case 1:
-                    return new Community();
-                case 2:
                     return new Articles();
                 default:
                     break;

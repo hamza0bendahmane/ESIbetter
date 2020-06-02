@@ -29,7 +29,7 @@ public class HelpActivity extends AppCompatActivity {
     public void emailReport(View view) {
         ShareCompat.IntentBuilder.from(HelpActivity.this)
                 .setType("message/rfc822")
-                .addEmailTo("hamza0bendahmane@gmail.com")
+                .addEmailTo("h.bendahmane@esi-sba.dz")
                 .setSubject("Report issue (ESI better)")
                 .setText(getString(R.string.please_describe_your_issue_here))
                 //.setHtmlText(body) //If you are using HTML in your body text

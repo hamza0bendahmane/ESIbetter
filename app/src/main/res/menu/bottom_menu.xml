@@ -10,10 +10,6 @@
             android:icon="@drawable/ic_tuto"
             android:title="@string/courses" />
 
-        <item
-            android:id="@+id/community"
-            android:icon="@drawable/ic_meeting"
-            android:title="@string/community" />
 
         <item
             android:id="@+id/articles"

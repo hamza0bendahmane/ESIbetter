@@ -1,8 +1,6 @@
 package com.example.esibetter.articles;
 
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
@@ -20,13 +18,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.esibetter.FacebookActivity;
 import com.example.esibetter.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -60,7 +56,7 @@ public class Article_activity extends AppCompatActivity {
     public static String posterUid;
     public static ImageButton like, dislike;
     public static ImageView imageofpost;
-    static TextView datee, posterName, bodye, likese, dislikese;
+    static TextView datee, posterName, bodye, likese, dislikese, titleofpost;
     public static boolean userHasEmotion;
     public static boolean userHasLikedThePost;
     public static boolean userHasDislikedThePost;
@@ -87,6 +83,7 @@ public class Article_activity extends AppCompatActivity {
         bodye = findViewById(R.id.body_post);
         posterName = findViewById(R.id.posterName);
         datee = findViewById(R.id.date_post);
+        titleofpost = findViewById(R.id.titleofpost);
         like = findViewById(R.id.like);
         dislike = findViewById(R.id.dislike);
         likese = findViewById(R.id.likes);
@@ -106,8 +103,6 @@ public class Article_activity extends AppCompatActivity {
         setupRecyclerAdapter(postId);
         //
         update(likesMap);
-        Toolbar toolbar = findViewById(R.id.toolbar_art);
-        setSupportActionBar(toolbar);
         UpdateUi();
         saveUserEmotion();
 
@@ -253,8 +248,8 @@ public class Article_activity extends AppCompatActivity {
             public void onSuccess(Uri uri) {
                 imageUri = uri;
                 Glide.with(getApplicationContext()).asBitmap().load(uri).centerCrop().
-                        diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(imageofpost);
+                        diskCacheStrategy(DiskCacheStrategy.ALL).into(imageofpost);
+
             }
         });
         imageofpost.setOnClickListener(new View.OnClickListener() {
@@ -271,10 +266,7 @@ public class Article_activity extends AppCompatActivity {
 
             }
         });
-        Toolbar toolbar = findViewById(R.id.toolbar_art);
-        setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(Color.BLUE);
-        toolbar.setTitle(title);
+        titleofpost.setText(title);
         //imagePost.setImageURI(imagePoste);
         bodye.setText(Html.fromHtml(body));
         setImagePoster(posterUid);
@@ -472,14 +464,6 @@ public class Article_activity extends AppCompatActivity {
     }
 
 
-    public void open_facebook(View view) {
-
-        startActivity(new Intent(getApplicationContext(), FacebookActivity.class));
-        //TODO( Walid ) : open intent to share the article via Facebook or email ...
-        // about facebook approximately it 's ready just make a little changes ...
-        // don't forget to do your last task the language switch < AR--EN > ..
-
-    }
 
     public void manipulate_post(View view) {
 
