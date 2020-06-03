@@ -24,7 +24,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
@@ -768,7 +768,7 @@ public class Articles extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
-        ViewPager pages = view.findViewById(R.id.viewPager);
+        ViewPager pages = view.findViewById(R.id.viewPager_fragment);
         TabLayout tabs = view.findViewById(R.id.tabLayout);
         pages.setAdapter(new MyTabPagerAdapter(getChildFragmentManager()));
         tabs.setupWithViewPager(pages);
@@ -790,9 +790,9 @@ public class Articles extends Fragment {
         void FabEventClicked();
     }
 
-    public class MyTabPagerAdapter extends FragmentStatePagerAdapter {
+    public class MyTabPagerAdapter extends FragmentPagerAdapter {
         MyTabPagerAdapter(FragmentManager fm) {
-            super(fm);
+            super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         }
 
         @Nullable

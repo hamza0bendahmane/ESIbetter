@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <!-- TODO (Djihane): create the layout of the Notification layout
+
+            you can see the Facebook notifications to take
+            some ideas ....
+
+            NAME_OF_USER
+
+            and 21 others has liked/ commented your post  ...ext
+
+
+
+
+
+
+
+    -->
+
+
+</RelativeLayout>

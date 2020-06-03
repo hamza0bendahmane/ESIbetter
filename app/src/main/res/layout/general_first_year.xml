@@ -3,17 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="top|center"
-    android:gravity="top|center"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:background="#FFF"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="1st Year"
+        android:textColor="#000"
+        android:textSize="8pt"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_margin="3dp"
+        android:tint="#000"
+        app:srcCompat="@drawable/ic_divider" />
 
 
     <RelativeLayout
-        android:id="@+id/click_first"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="20dp"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="10dp"
         android:orientation="horizontal">
 
 
@@ -24,7 +39,8 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginHorizontal="3dp"
-            app:srcCompat="@drawable/ic_one" />
+            android:tint="@color/colorPrimary"
+            app:srcCompat="@drawable/ic_youtube" />
 
         <TextView
             android:id="@+id/title_sub11"
@@ -34,7 +50,7 @@
             android:layout_marginHorizontal="10dp"
             android:layout_toEndOf="@id/icon_year1"
             android:gravity="center_vertical"
-            android:text="st Year"
+            android:text="ALL Tutorials"
             android:textColor="#000"
             android:textSize="8pt"
             android:textStyle="bold" />
@@ -47,26 +63,28 @@
 
             android:layout_marginHorizontal="10dp"
             android:layout_toEndOf="@id/title_sub11"
-            android:tint="#faa419"
+            android:tint="@color/colorPrimary"
             app:srcCompat="@drawable/ic_goback_to" />
 
     </RelativeLayout>
 
 
     <Gallery
-        android:id="@+id/first_year_recycler"
+        android:id="@+id/horizontal_gallery"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_marginVertical="10dp"
+        android:layout_marginVertical="5dp"
         android:gravity="left"
         android:orientation="horizontal" />
 
+
     <RelativeLayout
-        android:id="@+id/click_second"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="20dp"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="10dp"
         android:orientation="horizontal">
 
 
@@ -77,7 +95,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginHorizontal="3dp"
-            app:srcCompat="@drawable/ic_222" />
+            app:srcCompat="@drawable/ic_modules" />
 
         <TextView
             android:id="@+id/title_sub1"
@@ -87,7 +105,7 @@
             android:layout_marginHorizontal="10dp"
             android:layout_toEndOf="@id/icon_year"
             android:gravity="center_vertical"
-            android:text="nd Year"
+            android:text="Modules"
             android:textColor="#000"
             android:textSize="8pt"
             android:textStyle="bold" />
@@ -100,19 +118,20 @@
 
             android:layout_marginHorizontal="10dp"
             android:layout_toEndOf="@id/title_sub1"
-            android:tint="#58842c"
+            android:tint="#ff7f2a"
             app:srcCompat="@drawable/ic_goback_to" />
 
     </RelativeLayout>
 
 
-    <Gallery
-        android:id="@+id/second_year_recycler"
+    <GridView
+        android:id="@+id/grid_modules"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginVertical="10dp"
-        android:gravity="left"
+        android:layout_gravity="center_vertical"
+        android:layout_marginVertical="5dp"
+        android:gravity="center"
+        android:numColumns="3"
         android:orientation="horizontal" />
 
 

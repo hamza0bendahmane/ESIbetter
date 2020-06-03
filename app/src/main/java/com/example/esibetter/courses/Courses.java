@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.esibetter.R;
@@ -32,7 +32,7 @@ public class Courses extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ViewPager pages = view.findViewById(R.id.viewPager);
+        ViewPager pages = view.findViewById(R.id.viewPager_fragment);
         TabLayout tabs = view.findViewById(R.id.tabLayout);
         MyTabPagerAdapter tabPager = new Courses.MyTabPagerAdapter(getChildFragmentManager());
         pages.setAdapter(tabPager);
@@ -41,10 +41,11 @@ public class Courses extends Fragment {
     }
 
 
-    public class MyTabPagerAdapter extends FragmentStatePagerAdapter {
+    public class MyTabPagerAdapter extends FragmentPagerAdapter {
         MyTabPagerAdapter(FragmentManager fm) {
-            super(fm);
+            super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         }
+
 
         @Nullable
         @Override
@@ -77,6 +78,8 @@ public class Courses extends Fragment {
             }
             return null;
         }
+
     }
+
 
 }

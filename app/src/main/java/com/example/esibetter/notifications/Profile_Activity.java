@@ -20,7 +20,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -84,7 +84,7 @@ public class Profile_Activity extends AppCompatActivity {
         final FirebaseUser user = firebaseAuth.getCurrentUser();
         images_url = FirebaseStorage.getInstance().getReference("Images/" + user.getUid());
         setSupportActionBar(toolbar);
-        mPagerAdapter = new IntroPagerAdapter(getSupportFragmentManager());
+        mPagerAdapter = new MyTabPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
 
         // actions ...
@@ -305,9 +305,9 @@ public class Profile_Activity extends AppCompatActivity {
         return Language;
     }
 
-    private class IntroPagerAdapter extends FragmentStatePagerAdapter {
-        public IntroPagerAdapter(FragmentManager fm) {
-            super(fm);
+    public class MyTabPagerAdapter extends FragmentPagerAdapter {
+        MyTabPagerAdapter(FragmentManager fm) {
+            super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         }
 
         @Override

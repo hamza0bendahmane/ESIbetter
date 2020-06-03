@@ -163,9 +163,8 @@ android:orientation="vertical">
 
                 <customfonts.MyTextView
                     android:id="@+id/fbook"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:background="#0000"
                     android:gravity="start"
                     android:maxLength="12"
@@ -185,8 +184,8 @@ android:orientation="vertical">
                     android:hint="@string/your_status_here"
                     android:textAlignment="viewEnd"
                     android:inputType="textShortMessage"
-                    android:maxEms="20"
-                    android:maxLength="20"
+                    android:maxEms="30"
+                    android:maxLength="30"
                     android:padding="16dp"
                     android:textColor="#181737"
                     android:textColorHint="#1b193b"

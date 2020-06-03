@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/colorPrimary"
-        android:textSize="16pt"
+        android:textSize="14pt"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="first_modules_titles">
+        <item>ANALYSE 1</item>
+        <item>ALGO 1</item>
+        <item>ALGEBRE 1</item>
+        <item>ARCHI 1</item>
+        <item>SYST 1</item>
+        <item>ELECTRI</item>
+        <item>FR 1</item>
+
+
+        <item>ENG 1</item>
+        <item>MECHA</item>
+        <item>ANALYSE 2</item>
+        <item>ALGEBRE 2</item>
+        <item>SYST 2</item>
+        <item>ALGO 2</item>
+        <item>ELECTRO 1</item>
+        <item>FR 2</item>
+
+
+    </string-array>
+    <integer-array name="first_modules_images">
+        <item>@drawable/ic_ana1</item>
+        <item>@drawable/ic_algo1</item>
+        <item>@drawable/ic_alge1</item>
+        <item>@drawable/ic_archi1</item>
+        <item>@drawable/ic_syst1</item>
+        <item>@drawable/ic_elect</item>
+        <item>@drawable/ic_fr1</item>
+
+        <item>@drawable/ic_eng1</item>
+        <item>@drawable/ic_mechan</item>
+        <item>@drawable/ic_ana2</item>
+        <item>@drawable/ic_alge2</item>
+        <item>@drawable/ic_syst2</item>
+        <item>@drawable/ic_algo2</item>
+        <item>@drawable/ic_electro1</item>
+        <item>@drawable/ic_fr2</item>
+
+
+    </integer-array>
+    <integer-array name="second_modules_images">
+        <item>@drawable/ic_proba1</item>
+        <item>@drawable/ic_sfd</item>
+        <item>@drawable/ic_ana3</item>
+        <item>@drawable/ic_alge3</item>
+        <item>@drawable/ic_econ</item>
+        <item>@drawable/ic_archi2</item>
+        <item>@drawable/ic_eng2</item>
+        <item>@drawable/ic_electro2</item>
+
+        <item>@drawable/ic_eng3</item>
+        <item>@drawable/ic_logiq</item>
+        <item>@drawable/ic_optiq</item>
+        <item>@drawable/ic_poo</item>
+        <item>@drawable/ic_isi</item>
+        <item>@drawable/ic_proba2</item>
+        <item>@drawable/ic_ana4</item>
+
+
+    </integer-array>
+
+
+    <string-array name="second_modules_titles">
+        <item>PROBA 1</item>
+        <item>SFD</item>
+        <item>ANALYSE 3</item>
+        <item>ALGEBRE 3</item>
+        <item>ECONOMY </item>
+        <item>ARCHI 2</item>
+        <item>ENG 2</item>
+        <item>ELECTR 2</item>
+
+        <item>ENG 3</item>
+        <item>LOGIQUE</item>
+        <item>OPTIQUE</item>
+        <item>POO</item>
+        <item>ISI</item>
+        <item>PROBA 2</item>
+        <item>ANALYSE 4</item>
+
+
+    </string-array>
+</resources>

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Gallery;
+import android.widget.GridView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,79 +17,83 @@ import androidx.fragment.app.Fragment;
 import com.example.esibetter.R;
 
 
-public class Summaries extends Fragment {
+public class FirstYear extends Fragment {
+
     ComponentAdapter adapter, adapter2;
-    TypedArray first_modules;
-    TypedArray second_modules;
-    public Summaries() {
+    int what_yearIs;
+    TypedArray modules;
+    String[] modules_names;
+
+    public FirstYear() {
         // Required empty public constructor
     }
 
+    public FirstYear(int what_year) {
+        // Required empty public constructor
+        what_yearIs = what_year;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.courses_fragment_summaries, container, false);
+        return inflater.inflate(R.layout.general_first_year, container, false);
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        first_modules = getResources().obtainTypedArray(R.array.first_modules_images);
-        second_modules = getResources().obtainTypedArray(R.array.second_modules_images);
+
+
         setUpModules(getView(), getContext());
+
+
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     private void setUpModules(View view, Context context) {
 
-        Gallery recyclerView = view.findViewById(R.id.first_year_recycler);
+
+        // set up the RecyclerView
+        Gallery recyclerView = view.findViewById(R.id.horizontal_gallery);
         adapter = new ComponentAdapter(getContext(), "1");
         recyclerView.setAdapter(adapter);
         recyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                open1stYear();
+                openAll(1, "all");
             }
         });
 
-        Gallery recyclerView2 = view.findViewById(R.id.second_year_recycler);
-        adapter2 = new ComponentAdapter(context, "2");
+
+        // set up the RecyclerView
+        GridView recyclerView2 = view.findViewById(R.id.grid_modules);
+        adapter2 = new ComponentAdapter(context, "1");
         recyclerView2.setAdapter(adapter2);
         recyclerView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                open2ndYear();
-            }
-        });
-        getView().findViewById(R.id.click_second).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                open2ndYear();
-            }
-        });
-        getView().findViewById(R.id.click_first).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                open1stYear();
+
+                String mod = context.getResources().getStringArray(R.array.first_modules_titles)[position];
+                openAll(1, mod);
             }
         });
 
 
     }
 
-    private void open1stYear() {
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .remove(new Courses()).replace(R.id.fragment_container_view_tag, new FirstYear(1)).addToBackStack(null).commit();
-
-
-    }
-
-
-    private void open2ndYear() {
+    private void openAll(int k, String m) {
 
         getActivity().getSupportFragmentManager().beginTransaction()
-                .remove(new Courses()).replace(R.id.fragment_container_view_tag, new SecondYear(2)).addToBackStack(null).commit();
+                .remove(new Courses()).replace(R.id.fragment_container_view_tag, new showAll(k, m)).addToBackStack(null).commit();
 
 
     }
+
+
 }

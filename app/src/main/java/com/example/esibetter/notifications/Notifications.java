@@ -22,7 +22,7 @@ public class Notifications extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.notifications_fragment);
-        ViewPager pages = findViewById(R.id.viewPager);
+        ViewPager pages = findViewById(R.id.viewPager_fragment);
         TabLayout tabs = findViewById(R.id.tabLayout);
         MyTabPagerAdapter tabPager = new Notifications.MyTabPagerAdapter(getSupportFragmentManager());
         pages.setAdapter(tabPager);
