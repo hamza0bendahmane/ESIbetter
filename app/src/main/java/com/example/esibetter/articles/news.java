@@ -2,11 +2,14 @@ package com.example.esibetter.articles;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,21 +28,19 @@ import com.google.firebase.firestore.Query;
 
 public class news extends Fragment {
 
-    private static int menuClickedPosition = -1;
-    public static String name;
-    public final CollectionReference reference = FirebaseFirestore.getInstance()
+    public String name;
+    public CollectionReference reference = FirebaseFirestore.getInstance()
             .collection("posts");
-    public final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    final Query query = reference.orderBy("date", Query.Direction.DESCENDING);
+    public String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    public FirestoreRecyclerOptions<Article_item> options;
+    Query query;
     RecyclerView recyclerView;
     String TAG = "hbhb";
 
 
     private RecyclerView.LayoutManager manager;
     private ArticlesAdapter adapter;
-    public final FirestoreRecyclerOptions<Article_item> options =
-            new FirestoreRecyclerOptions.Builder<Article_item>()
-                    .setQuery(query, Article_item.class).build();
+    private int menuClickedPosition = -1;
 
 
     public news() {
@@ -56,6 +57,9 @@ public class news extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View va, @Nullable Bundle savedInstanceState) {
+        query = reference.orderBy("date", Query.Direction.DESCENDING);
+        options = new FirestoreRecyclerOptions.Builder<Article_item>()
+                .setQuery(query, Article_item.class).build();
         setupRecyclerAdapter();
 
         // open activity to ad articles ...
@@ -73,8 +77,43 @@ public class news extends Fragment {
         Articles.setUpTheRefresh(va.findViewById(R.id.swipper), adapter);
 
 
+        // open activity to ad articles ...
+        ((EditText) getActivity().findViewById(R.id.searchbarview)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.d(TAG, "search:111 " + s);
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.d(TAG, "search: 111" + s);
+                if (!s.toString().trim().isEmpty())
+                    SearchFor(s.toString().trim());
+                else
+                    adapter.updateOptions(options);
+
+
+            }
+        });
+
+
     }
 
+    private void SearchFor(String field) {
+        Query query1 = reference.whereGreaterThanOrEqualTo("title", field).
+                whereLessThanOrEqualTo("title", field + "\uf8ff");
+        FirestoreRecyclerOptions<Article_item> options1 =
+                new FirestoreRecyclerOptions.Builder<Article_item>()
+                        .setQuery(query1, Article_item.class).build();
+        adapter.updateOptions(options1);
+
+
+    }
 
     private void setupRecyclerAdapter() {
         manager = new LinearLayoutManager(getContext());
@@ -87,7 +126,8 @@ public class news extends Fragment {
             @Override
             public void onClick(int position, Long l) {
                 Bundle b = new Bundle();
-                Article_item item = options.getSnapshots().get(position);
+                //       if (position != -1 &&  options!=null && options.getSnapshots()!=null && position< options.getSnapshots().size()) {
+                Article_item item = adapter.getItem(position);
                 b.putString("title", item.getTitle());
                 b.putString("body", item.getBody());
                 b.putString("uid", item.getUid());
@@ -95,7 +135,7 @@ public class news extends Fragment {
                 b.putString("likes", String.valueOf(item.getLikes()));
                 b.putString("image", item.getImage());
                 b.putString("dislikes", String.valueOf(item.getDislikes()));
-                b.putString("postKey", options.getSnapshots().getSnapshot(position).getId());
+                b.putString("PostId", item.getPostId());
                 Intent i = new Intent(getContext(), Article_activity.class);
                 i.putExtras(b);
                 startActivity(i);
@@ -114,61 +154,56 @@ public class news extends Fragment {
 
     }
 
-    private void search(String field) {
-        Query query1 = reference.whereGreaterThanOrEqualTo("title", field).
-                whereLessThanOrEqualTo("title", field + "\uf8ff");
-        FirestoreRecyclerOptions<Article_item> options1 =
-                new FirestoreRecyclerOptions.Builder<Article_item>()
-                        .setQuery(query1, Article_item.class).build();
-        adapter.updateOptions(options1);
-    }
+
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         adapter.notifyDataSetChanged();
+        if (menuClickedPosition != RecyclerView.NO_POSITION) {
 
-        if (getUserVisibleHint()) {
-            switch (item.getItemId()) {
-                case R.id.share_post:
-                    HandleMenu("share");
-                    return true;
-                case R.id.edit_post:
-                    HandleMenu("edit");
-                    return true;
-                case R.id.delete_post:
-                    HandleMenu("delete");
-                    return true;
-                case R.id.report_post:
-                    HandleMenu("report");
-                    return true;
-                default:
-                    break;
+            if (getUserVisibleHint()) {
+                switch (item.getItemId()) {
+                    case R.id.share_post:
+                        HandleMenu("share", adapter.getItem(menuClickedPosition));
+                        return true;
+                    case R.id.edit_post:
+                        HandleMenu("edit", adapter.getItem(menuClickedPosition));
+                        return true;
+                    case R.id.delete_post:
+                        HandleMenu("delete", adapter.getItem(menuClickedPosition));
+                        return true;
+                    case R.id.report_post:
+                        HandleMenu("report", adapter.getItem(menuClickedPosition));
+                        return true;
+                    default:
+                        break;
 
 
+                }
             }
         }
         return super.onContextItemSelected(item);
 
     }
 
-    private void HandleMenu(String action) {
+    private void HandleMenu(String action, Article_item item) {
         Log.d(TAG, "HandleMenu: news");
         adapter.notifyDataSetChanged();
 
-        if (menuClickedPosition != -1 && menuClickedPosition != options.getSnapshots().size()) {
+        if (menuClickedPosition != -1) {
             switch (action) {
 
                 case "edit":
                     Articles.editPost(getContext(), menuClickedPosition,
-                            options.getSnapshots().getSnapshot(menuClickedPosition).getId());
+                            item.getPostId());
                     break;
                 case "delete":
                     Articles.deletePost(getContext(),
-                            options.getSnapshots().getSnapshot(menuClickedPosition).getId());
+                            item.getPostId());
                     adapter.notifyDataSetChanged();
                     break;
                 case "report":
-                    Articles.reportPost(getContext(), options.getSnapshots().get(menuClickedPosition),
-                            options.getSnapshots().getSnapshot(menuClickedPosition).getId());
+                    Articles.reportPost(getContext(), item,
+                            item.getPostId());
                     break;
                 case "share":
                     Toast.makeText(getContext(), action + menuClickedPosition, Toast.LENGTH_SHORT).show();
@@ -212,5 +247,6 @@ public class news extends Fragment {
         super.onStop();
         adapter.stopListening();
     }
+
 
 }

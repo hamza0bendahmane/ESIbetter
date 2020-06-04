@@ -88,7 +88,7 @@ public class Article_activity extends AppCompatActivity {
         dislike = findViewById(R.id.dislike);
         likese = findViewById(R.id.likes);
         dislikese = findViewById(R.id.dislikes);
-        postId = getIntent().getExtras().getString("postKey");
+        postId = getIntent().getExtras().getString("PostId");
         CollectionReference query = FirebaseFirestore.getInstance()
                 .collection("comments").document("posts").collection(postId);
         options = new FirestoreRecyclerOptions.Builder<comment_item>()
@@ -514,7 +514,8 @@ public class Article_activity extends AppCompatActivity {
                         new Article_item(getIntent().getExtras().getString("uid"), getIntent().getExtras().getString("title"),
                                 getIntent().getExtras().getString("body"), getIntent().getExtras().getString("image"),
                                 getIntent().getExtras().getString("date"), Long.parseLong(getIntent().getExtras().getString("likes")),
-                                Long.parseLong(getIntent().getExtras().getString("dislikes"))), postId);
+                                Long.parseLong(getIntent().getExtras().getString("dislikes")),
+                                postId), postId);
 
                 break;
             case "share":
