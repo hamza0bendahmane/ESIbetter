@@ -2,11 +2,14 @@ package com.example.esibetter.articles;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,22 +27,23 @@ import com.google.firebase.firestore.Query;
 
 
 public class bestOf extends Fragment {
-    RecyclerView recyclerView;
-    public static String name;
-    private RecyclerView.LayoutManager manager;
-    private static int clickedPosition = -1;
-    private ArticlesAdapter adapter;
-    //
-    public final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    public final CollectionReference reference = FirebaseFirestore.getInstance()
+
+
+    public String name;
+    public CollectionReference reference = FirebaseFirestore.getInstance()
             .collection("posts");
-    final Query query = FirebaseFirestore.getInstance()
-            .collection("posts")
-            .orderBy("likes", Query.Direction.DESCENDING).orderBy("dislikes", Query.Direction.ASCENDING);
-    final FirestoreRecyclerOptions<Article_item> options =
-            new FirestoreRecyclerOptions.Builder<Article_item>()
-                    .setQuery(query, Article_item.class).build();
+    public String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    public FirestoreRecyclerOptions<Article_item> options;
+    RecyclerView recyclerView;
+    Query query;
+
+
+    private RecyclerView.LayoutManager manager;
+    private ArticlesAdapter adapter;
     String TAG = "hbhb";
+    private int clickedPosition = -1;
+
+
     //
 
     public bestOf() {
@@ -56,6 +60,12 @@ public class bestOf extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        query = FirebaseFirestore.getInstance()
+                .collection("posts")
+                .orderBy("likes", Query.Direction.DESCENDING).orderBy("dislikes", Query.Direction.ASCENDING);
+        options =
+                new FirestoreRecyclerOptions.Builder<Article_item>()
+                        .setQuery(query, Article_item.class).build();
         setupRecyclerAdapter();
 
         // open activity to ad articles ...
@@ -72,28 +82,58 @@ public class bestOf extends Fragment {
         });
         Articles.setUpTheRefresh(view.findViewById(R.id.swipper_bestof), adapter);
 
+        // open activity to ad articles ...
+        ((EditText) getActivity().findViewById(R.id.searchbarview)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.d(TAG, "search:111 " + s);
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.d(TAG, "search: 111" + s);
+                if (!s.toString().trim().isEmpty())
+                    SearchFor(s.toString().trim());
+                else
+                    adapter.updateOptions(options);
+
+
+            }
+        });
 
 
 
     }
 
+    private void SearchFor(String field) {
+        Query query1 = reference.whereGreaterThanOrEqualTo("title", field).
+                whereLessThanOrEqualTo("title", field + "\uf8ff");
+        FirestoreRecyclerOptions<Article_item> options1 =
+                new FirestoreRecyclerOptions.Builder<Article_item>()
+                        .setQuery(query1, Article_item.class).build();
+        adapter.updateOptions(options1);
+
+
+    }
 
     private void setupRecyclerAdapter() {
-
-
         manager = new LinearLayoutManager(getContext());
         recyclerView = getView().findViewById(R.id.bestof_recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(manager);
         adapter = new ArticlesAdapter(options, getContext());
         recyclerView.setAdapter(adapter);
-
         adapter.setOnitemClickListener(new ArticlesAdapter.onItemClick() {
             @Override
             public void onClick(int position, Long l) {
                 Bundle b = new Bundle();
-                Article_item item = options.getSnapshots().get(position);
-
+                //       if (position != -1 &&  options!=null && options.getSnapshots()!=null && position< options.getSnapshots().size()) {
+                Article_item item = adapter.getItem(position);
                 b.putString("title", item.getTitle());
                 b.putString("body", item.getBody());
                 b.putString("uid", item.getUid());
@@ -101,7 +141,7 @@ public class bestOf extends Fragment {
                 b.putString("likes", String.valueOf(item.getLikes()));
                 b.putString("image", item.getImage());
                 b.putString("dislikes", String.valueOf(item.getDislikes()));
-                b.putString("postKey", options.getSnapshots().getSnapshot(position).getId());
+                b.putString("PostId", item.getPostId());
                 Intent i = new Intent(getContext(), Article_activity.class);
                 i.putExtras(b);
                 startActivity(i);
@@ -110,17 +150,14 @@ public class bestOf extends Fragment {
 
             @Override
             public void onLongClick(int position) {
-                Log.d(TAG, "HandleMenu: best of00000" + clickedPosition);
 
                 clickedPosition = position;
-                Log.d(TAG, "HandleMenu: best ofLLLLLL" + clickedPosition);
-
             }
 
 
         });
-
         interactiveScroll();
+
     }
 
     private void interactiveScroll() {
@@ -139,63 +176,60 @@ public class bestOf extends Fragment {
     public void onStart() {
         super.onStart();
         adapter.startListening();
-        adapter.notifyDataSetChanged();
 
 
     }
-
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        Log.d(TAG, "onContextItemSelected: bestof");
         adapter.notifyDataSetChanged();
 
-        switch (item.getItemId()) {
-            case R.id.share_post:
-                HandleMenu("share");
-                return true;
-            case R.id.edit_post:
-                HandleMenu("edit");
-                return true;
-            case R.id.delete_post:
-                HandleMenu("delete");
-                return true;
-            case R.id.report_post:
-                HandleMenu("report");
-                return true;
-            default:
-                break;
+        if (getUserVisibleHint()) {
+            switch (item.getItemId()) {
+                case R.id.share_post:
+                    HandleMenu("share", adapter.getItem(clickedPosition));
+                    return true;
+                case R.id.edit_post:
+                    HandleMenu("edit", adapter.getItem(clickedPosition));
+                    return true;
+                case R.id.delete_post:
+                    HandleMenu("delete", adapter.getItem(clickedPosition));
+                    return true;
+                case R.id.report_post:
+                    HandleMenu("report", adapter.getItem(clickedPosition));
+                    return true;
+                default:
+                    break;
 
 
+            }
         }
         return super.onContextItemSelected(item);
 
     }
 
-    private void HandleMenu(String action) {
+    private void HandleMenu(String action, Article_item item) {
+        Log.d(TAG, "HandleMenu: news");
         adapter.notifyDataSetChanged();
 
-        Log.d(TAG, "HandleMenu: bestof");
-        if (clickedPosition != -1 && clickedPosition != options.getSnapshots().size()) {
+        if (clickedPosition != -1) {
             switch (action) {
 
                 case "edit":
                     Articles.editPost(getContext(), clickedPosition,
-                            options.getSnapshots().getSnapshot(clickedPosition).getId());
+                            item.getPostId());
                     break;
                 case "delete":
                     Articles.deletePost(getContext(),
-                            options.getSnapshots().getSnapshot(clickedPosition).getId());
+                            item.getPostId());
                     adapter.notifyDataSetChanged();
-
                     break;
                 case "report":
-                    Articles.reportPost(getContext(), options.getSnapshots().get(clickedPosition),
-                            options.getSnapshots().getSnapshot(clickedPosition).getId());
+                    Articles.reportPost(getContext(), item,
+                            item.getPostId());
                     break;
                 case "share":
                     Toast.makeText(getContext(), action + clickedPosition, Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "HandleMenu: best of" + clickedPosition);
-
+                    Log.d(TAG, "HandleMenu: news" + clickedPosition);
                     break;
                 default:
                     break;

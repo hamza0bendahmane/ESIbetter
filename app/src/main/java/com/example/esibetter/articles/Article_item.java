@@ -5,6 +5,7 @@ public class Article_item {
     private String title;
     private String body;
     private Long likes;
+    private String PostId;
     private Long dislikes;
     private String image;
     private String Date;
@@ -13,7 +14,7 @@ public class Article_item {
     public Article_item() {
     }
 
-    public Article_item(String uid, String title, String body, String image, String date, Long likes, Long disikes) {
+    public Article_item(String uid, String title, String body, String image, String date, Long likes, Long disikes, String PostId) {
         this.uid = uid;
         this.title = title;
         this.body = body;
@@ -21,6 +22,15 @@ public class Article_item {
         this.Date=date;
         this.likes = likes;
         this.dislikes = disikes;
+        this.PostId = PostId;
+    }
+
+    public String getPostId() {
+        return PostId;
+    }
+
+    public void setPostId(String postId) {
+        PostId = postId;
     }
 
 

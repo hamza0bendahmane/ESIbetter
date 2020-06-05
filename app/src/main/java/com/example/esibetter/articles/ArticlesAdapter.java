@@ -37,12 +37,12 @@ public class ArticlesAdapter extends FirestoreRecyclerAdapter<Article_item, Arti
 
     onItemClick mlistener;
     Context cc;
-    FirestoreRecyclerOptions<Article_item> options;
+    static FirestoreRecyclerOptions<Article_item> options;
 
     public ArticlesAdapter(@NonNull FirestoreRecyclerOptions<Article_item> optioans, Context cc) {
         super(optioans);
         this.cc = cc;
-        this.options = optioans;
+        options = optioans;
 
     }
 
@@ -201,8 +201,10 @@ public class ArticlesAdapter extends FirestoreRecyclerAdapter<Article_item, Arti
         ref.getReference("users/" + uid + "/name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                name = dataSnapshot.getValue().toString();
-                poster_name.setText(dataSnapshot.getValue().toString());
+                if (dataSnapshot.getValue() != null) {
+                    name = dataSnapshot.getValue().toString();
+                    poster_name.setText(dataSnapshot.getValue().toString());
+                }
             }
 
             @Override

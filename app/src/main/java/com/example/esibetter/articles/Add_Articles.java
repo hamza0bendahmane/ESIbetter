@@ -108,7 +108,7 @@ public class Add_Articles extends AppCompatActivity {
         // setting view for user ....
 
         if (type.equals("edit")) {
-            String postId = getIntent().getExtras().getString("postId");
+            String postId = getIntent().getExtras().getString("PostId");
             final StorageReference Photos = FirebaseStorage.getInstance().
                     getReference("Images/" + uid + "/" + postId);
             DocumentReference post_ref = reference.document(postId);
@@ -188,7 +188,7 @@ public class Add_Articles extends AppCompatActivity {
 
                     } else if (type.equals("edit")) {
                         // edit Article ....
-                        managePost(photoArt, dialog, getIntent().getExtras().getString("postId"));
+                        managePost(photoArt, dialog, getIntent().getExtras().getString("PostId"));
 
 
                     }
@@ -259,6 +259,7 @@ public class Add_Articles extends AppCompatActivity {
         map.put("image", image.toString());
         map.put("likes", Long.parseLong(likes));
         map.put("dislikes", Long.parseLong(dislikes));
+        map.put("PostId", keyDocument);
         ref.set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

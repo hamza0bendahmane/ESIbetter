@@ -11,17 +11,18 @@
         android:layout_alignParentStart="true"
         app:srcCompat="@drawable/logo_brand" />
 
-    <androidx.appcompat.widget.SearchView
+    <EditText
         android:id="@+id/searchbarview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hint="Looking for something ?"
+        android:maxWidth="300dp"
+        android:maxEms="15"
+        android:maxLength="15"
         android:layout_centerHorizontal="true"
-        android:autofillHints="@string/looking_for_som"
         android:gravity="center_horizontal"
-        android:maxWidth="200dp"
-        android:minWidth="100dp"
-        app:defaultQueryHint="@string/looking_for_som"
-        app:queryHint="@string/looking_for_som" />
+        android:maxLines="1"
+        android:minWidth="200dp" />
 
     <ImageView
         android:id="@+id/search_bar"

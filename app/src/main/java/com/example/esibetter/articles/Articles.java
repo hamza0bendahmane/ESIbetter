@@ -21,7 +21,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -61,10 +60,27 @@ public class Articles extends Fragment {
     public static boolean isopen = false;
     public static final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     public static String posterName, reporterName;
+    public static searchable onsearchListner;
     public static FloatingActionButton fab;
-    public static SearchView searchView;
     String TAG = "hbhb";
 
+    public static void setSearchable(searchable onsearstner) {
+        onsearchListner = onsearstner;
+
+    }
+
+    public static void editPost(Context cc, int position, String postId) {
+        Bundle bundle = new Bundle();
+        bundle.putString("type", "edit");
+        bundle.putInt("position", position);
+        bundle.putString("PostId", postId);
+        Intent intent = new Intent(cc, Add_Articles.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtras(bundle);
+        cc.startActivity(intent);
+
+
+    }
     public Articles() {
         // Required empty public constructor
     }
@@ -164,16 +180,8 @@ public class Articles extends Fragment {
 
     }
 
-    public static void editPost(Context cc, int position, String postId) {
-        Bundle bundle = new Bundle();
-        bundle.putString("type", "edit");
-        bundle.putInt("position", position);
-        bundle.putString("postId", postId);
-        Intent intent = new Intent(cc, Add_Articles.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtras(bundle);
-        cc.startActivity(intent);
-
+    public interface searchable {
+        void search(CharSequence serachText, Context context);
 
     }
 
@@ -781,8 +789,6 @@ public class Articles extends Fragment {
 
             }
         });
-
-
     }
 
     public interface onFabClicked {
@@ -827,4 +833,5 @@ public class Articles extends Fragment {
             return null;
         }
     }
+
 }
