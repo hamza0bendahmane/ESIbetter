@@ -1,9 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#eee"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="25dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/ic_edit_profile"
+        app:civ_border_color="#ffffff"
+        app:civ_border_width="4dp" />
 
+    <customfonts.MyTextView
+
+        android:id="@+id/tt1_text_view"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@+id/image"
+        android:background="#11CFC5"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="title:"
+        android:textColor="@android:color/white"
+        android:textSize="25sp" />
+
+
+    <customfonts.MyTextView
+
+        android:id="@+id/tt2_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tt1_text_view"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="100dp"
+        android:fontFamily="sans-serif-light"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text=" NAME_OF_USER
+     has added a tutorial/ course to the module that you are following ."
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tt2_text_view"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+
+        >
+
+        <customfonts.MyTextView
+            android:id="@+id/but1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tt2_text_view"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/ic_post_container"
+            android:gravity="center"
+            android:text="Ok"
+            android:textColor="@color/browser_actions_bg_grey"
+            android:textSize="15sp" />
+
+        <customfonts.MyTextView
+            android:id="@+id/but2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/ic_cancel_container"
+            android:gravity="center"
+            android:onClick="cancel"
+            android:text="cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/browser_actions_bg_grey"
+            android:textSize="15sp" />
+    </LinearLayout>
     <!-- TODO (Manel): create the layout of the Notification layout of modules
 
 when someone is following a module or a year ...
