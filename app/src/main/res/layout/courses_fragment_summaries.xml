@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+<LinearLayout
+    android:layout_width="match_parent"
     android:layout_gravity="top|center"
-    android:gravity="top|center"
+    android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp">
 
 
     <RelativeLayout
-        android:id="@+id/click_first"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="20dp"
@@ -40,7 +51,6 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/icon_to1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -53,17 +63,17 @@
     </RelativeLayout>
 
 
-    <Gallery
-        android:id="@+id/first_year_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginVertical="10dp"
-        android:gravity="left"
-        android:orientation="horizontal" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/first_year_summar"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:scrollbars="horizontal"
+            android:layout_height="wrap_content"
+          />
+
 
     <RelativeLayout
-        android:id="@+id/click_second"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="20dp"
@@ -93,7 +103,6 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/icon_to"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -106,20 +115,33 @@
     </RelativeLayout>
 
 
-    <Gallery
-        android:id="@+id/second_year_recycler"
-        android:layout_width="match_parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/second_year_summar"
+        android:layout_width="wrap_content"
+        android:scrollbars="horizontal"
+        android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginVertical="10dp"
-        android:gravity="left"
-        android:orientation="horizontal" />
+        />
 
 
 </LinearLayout>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="40dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:foregroundTint="#FAFAFAFA"
+            android:src="@android:drawable/ic_input_add"
+            app:backgroundTint="#FAFAFAFA"
+            android:layout_gravity="bottom|end" />
+    </FrameLayout>
 
 
+
+</ScrollView>
 
 
 

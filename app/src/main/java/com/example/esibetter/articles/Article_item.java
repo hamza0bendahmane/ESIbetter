@@ -4,6 +4,7 @@ public class Article_item {
     private String uid;
     private String title;
     private String body;
+
     private Long likes;
     private String PostId;
     private Long dislikes;

@@ -45,7 +45,6 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/by"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:layout_margin="8dp"
@@ -74,7 +73,6 @@
 
 
             <RelativeLayout
-                android:id="@+id/linear_emotions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -113,7 +111,6 @@
 
 
                 <RelativeLayout
-                    android:id="@+id/like_rel"
                     android:layout_width="wrap_content"
                     android:layout_toRightOf="@+id/rela_dislike"
                     android:layout_height="wrap_content"
@@ -161,7 +158,6 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/comment_layout"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="5"
@@ -185,7 +181,6 @@
                     android:textStyle="bold" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/post_comment"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -198,7 +193,6 @@
             </LinearLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

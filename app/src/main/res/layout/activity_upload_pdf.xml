@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_container_view_tag"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <customfonts.MyTextView
+            android:id="@+id/AddTutorial"
+            style="@style/viewParent.headerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="Add Summary "
+            android:textSize="30dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/picture"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:layout_below="@id/AddTutorial"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="15dp"
+            android:src="#000" />
+
+        <EditText
+            android:id="@+id/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AddTutorial"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/ic_subject_container"
+            android:hint="Title..."
+            android:maxLength="25"
+            android:maxLines="2"
+            android:padding="12dp"
+            android:textSize="20dp"/>
+
+        <ImageView
+            android:id="@+id/Add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="135dp"
+            app:srcCompat="@drawable/ic_add_cover"
+            tools:ignore="VectorDrawableCompat"
+            android:layout_below="@id/picture"/>
+        <LinearLayout
+            android:id="@+id/AttachFile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="35dp"
+            android:layout_below="@id/Add"
+            android:layout_marginEnd="60dp"
+            android:onClick="attach"
+            android:orientation="vertical"
+            android:background="@drawable/ic_oval_container">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                app:srcCompat="@drawable/ic_attach_file"
+                android:layout_marginTop="15dp"/>
+
+            <customfonts.MyTextView
+
+                android:id="@+id/myTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Attach File..."
+                android:textSize="20dp"
+                android:layout_marginBottom="15dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layoutt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/AttachFile"
+            android:layout_marginStart="20dp">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_tutorial_container"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <Spinner
+                    android:id="@+id/yearSpin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="1st Year"
+                    android:textSize="15dp"
+                    android:layout_marginEnd="15dp"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_tutorial_container"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <Spinner
+                    android:id="@+id/ModuleSpin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Module"
+                    android:textSize="15dp"
+                    android:layout_marginEnd="20dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_below="@id/AttachFile"
+            android:background="@drawable/ic_oval_container"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="20dp"
+            android:id="@+id/imageView6"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/layoutt"
+            android:layout_height="110dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/image_art"
+            />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutt"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            android:layout_alignParentBottom="true"
+
+            android:gravity="center"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutt"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            android:layout_alignParentBottom="true"
+
+            android:gravity="center"
+            android:orientation="horizontal">
+            <customfonts.MyTextView
+                android:id="@+id/post_Tutorial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_post_container"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="Post"
+                android:textColor="@color/browser_actions_bg_grey" />
+
+            <customfonts.MyTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:background="@drawable/ic_cancel_container"
+                android:gravity="center"
+                android:text="Cancel"
+                android:textColor="@color/browser_actions_bg_grey"
+                />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

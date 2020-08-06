@@ -35,7 +35,6 @@
             android:orientation="vertical">
 
             <customfonts.MyTextView
-                android:id="@+id/textView26"
                 style="@style/viewParent.headerText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,7 +44,6 @@
                 android:textSize="40dp" />
 
             <customfonts.MyTextView
-                android:id="@+id/textView27"
                 android:layout_width="match_parent"
                 android:layout_height="256dp"
                 android:layout_margin="20dp"
@@ -55,7 +53,6 @@
                 android:textSize="20dp" />
 
             <customfonts.MyTextView
-                android:id="@+id/textView28"
                 android:layout_width="wrap_content"
                 android:layout_height="237dp"
                 android:layout_margin="20dp"

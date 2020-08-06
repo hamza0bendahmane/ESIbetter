@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.esibetter.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -74,7 +75,7 @@ public class news extends Fragment {
                 startActivity(intent);
             }
         });
-        Articles.setUpTheRefresh(va.findViewById(R.id.swipper), adapter);
+        Articles.setUpTheRefresh((SwipeRefreshLayout) va.findViewById(R.id.swipper), adapter);
 
 
         // open activity to ad articles ...

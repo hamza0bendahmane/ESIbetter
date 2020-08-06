@@ -3,8 +3,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="10dp"
     android:gravity="center"
-    android:minWidth="120dp"
     android:orientation="horizontal"
 
 
@@ -21,8 +22,8 @@
 
         <ImageView
             android:id="@+id/module_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginBottom="5dp" />
 
         <customfonts.MyTextView

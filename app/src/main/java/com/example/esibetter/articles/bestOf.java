@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.esibetter.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -80,7 +81,7 @@ public class bestOf extends Fragment {
                 startActivity(intent);
             }
         });
-        Articles.setUpTheRefresh(view.findViewById(R.id.swipper_bestof), adapter);
+        Articles.setUpTheRefresh((SwipeRefreshLayout) view.findViewById(R.id.swipper_bestof), adapter);
 
         // open activity to ad articles ...
         ((EditText) getActivity().findViewById(R.id.searchbarview)).addTextChangedListener(new TextWatcher() {

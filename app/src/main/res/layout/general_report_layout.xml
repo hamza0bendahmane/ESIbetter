@@ -7,7 +7,6 @@
 
 
     <RadioGroup
-        android:id="@+id/radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="20dp"
@@ -33,7 +32,6 @@
             android:text="Wrong or bug" />
 
         <RadioButton
-            android:id="@+id/other"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"

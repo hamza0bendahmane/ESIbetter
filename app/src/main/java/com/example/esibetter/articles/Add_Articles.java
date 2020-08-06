@@ -82,7 +82,7 @@ public class Add_Articles extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ideas_add_articles);
         // init vars ......
-        String type = getIntent().getExtras().getString("type");
+     final    String type = getIntent().getExtras().getString("type");
 
         post_article = findViewById(R.id.post_article);
         photo = findViewById(R.id.photo);
@@ -103,7 +103,7 @@ public class Add_Articles extends AppCompatActivity {
         }
 
 // register editor & set text
-        RTEditText articleBody = findViewById(R.id.editor_view);
+       final RTEditText articleBody = findViewById(R.id.editor_view);
         mRTManager.registerEditor(articleBody, true);
         // setting view for user ....
 
@@ -201,7 +201,7 @@ public class Add_Articles extends AppCompatActivity {
 
     }
 
-    private void managePost(StorageReference photoArt, AlertDialog dialog, String keyDocument) {
+    private void managePost(final StorageReference photoArt,final AlertDialog dialog, final String keyDocument) {
         photoArt.putFile(image_art).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
             public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {

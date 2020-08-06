@@ -24,7 +24,6 @@ android:orientation="vertical">
             android:src="#eee" />
 
         <ImageButton
-            android:id="@+id/edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|top"
@@ -80,7 +79,6 @@ android:orientation="vertical">
                 android:orientation="horizontal">
 
                 <customfonts.MyTextView
-                    android:id="@+id/usrusr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -122,7 +120,6 @@ android:orientation="vertical">
                 android:orientation="horizontal">
 
                 <customfonts.MyTextView
-                    android:id="@+id/mail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -162,7 +159,6 @@ android:orientation="vertical">
                 android:orientation="horizontal">
 
                 <customfonts.MyTextView
-                    android:id="@+id/fbook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#0000"
@@ -203,7 +199,6 @@ android:orientation="vertical">
                 android:orientation="horizontal">
 
                 <customfonts.MyTextView
-                    android:id="@+id/goooogleee"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -239,7 +234,6 @@ android:orientation="vertical">
                 android:orientation="horizontal">
 
                 <customfonts.MyTextView
-                    android:id="@+id/fbookc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -278,7 +272,6 @@ android:orientation="vertical">
                 android:orientation="horizontal">
 
                 <customfonts.MyTextView
-                    android:id="@+id/fboofk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -324,7 +317,6 @@ android:orientation="vertical">
             android:visibility="gone">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/cancel_changes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -335,7 +327,6 @@ android:orientation="vertical">
                 android:textColor="@color/colorPrimary" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/commit_changes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

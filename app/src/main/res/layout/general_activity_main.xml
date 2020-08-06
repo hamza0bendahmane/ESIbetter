@@ -32,7 +32,6 @@ TODO :for Walid add a switch for the language AR/EN
         android:paddingBottom="10dp">
 
         <LinearLayout
-            android:id="@+id/slidePositionIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

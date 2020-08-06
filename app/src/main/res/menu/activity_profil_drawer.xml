@@ -5,7 +5,6 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_person"
             android:title="@string/home" />
 
@@ -15,22 +14,18 @@
     <item android:title="@string/more">
         <menu tools:showIn="navigation_view">
             <item
-                android:id="@+id/nav_slidehow"
                 android:icon="@drawable/ic_info"
                 android:onClick="openAboutUs"
                 android:title="@string/about_us" />
             <item
-                android:id="@+id/Help"
                 android:icon="@android:drawable/ic_menu_help"
                 android:onClick="openHelpLayout"
                 android:title="@string/help" />
             <item
-                android:id="@+id/nav_gallry"
                 android:icon="@drawable/ic_settings"
                 android:onClick="openSettingsLayout"
                 android:title="@string/settings" />
             <item
-                android:id="@+id/nav_signout"
                 android:icon="@drawable/get_out"
                 android:onClick="signOutAndgoTologin"
                 android:title="@string/sign_out" />

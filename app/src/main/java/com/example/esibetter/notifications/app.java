@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.os.Build;
 
 import com.example.esibetter.R;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class app extends Application {
     public static final String NOTIFICATION = "notification";
@@ -13,6 +14,7 @@ public class app extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+  FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         // notification ... SHARED PREFS ...
         if (!getSharedPreferences("seen_intro", MODE_PRIVATE).contains("have_seen_intro"))
             getSharedPreferences("seen_intro", MODE_PRIVATE).edit().putBoolean("have_seen_intro", false).apply();

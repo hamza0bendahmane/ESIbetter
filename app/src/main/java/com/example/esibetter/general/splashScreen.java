@@ -11,9 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.esibetter.R;
 import com.example.esibetter.login;
 import com.example.esibetter.notifications.Profile_Activity;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.wang.avi.AVLoadingIndicatorView;
 
 public class splashScreen extends AppCompatActivity {
+    private AVLoadingIndicatorView logo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,42 +28,46 @@ public class splashScreen extends AppCompatActivity {
             finish();
         }
         setContentView(R.layout.general_splash_screen);
+         logo = findViewById(R.id.logo);
         if (introSeen) {
-                splash();
+
+            Animation animation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.fadein);
+            logo.startAnimation(animation);
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+                                Intent intent = new Intent(getApplicationContext(), login.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                    } else if (FirebaseAuth.getInstance().getCurrentUser() != null && !FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()) {
+                        Intent iintent = new Intent(getApplicationContext(), login.class);
+                        iintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(iintent);
+                        finish();
+                    } else if (FirebaseAuth.getInstance().getCurrentUser() != null && FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()) {
+                        Intent iintent = new Intent(getApplicationContext(), Profile_Activity.class);
+                        iintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(iintent);
+                    }
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
 
         }
+
+
     }
-
-    public void splash() {
-        final Thread timerTread = new Thread() {
-            public void run() {
-                try {
-
-                    ImageView imageView = findViewById(R.id.splash_photo);
-                    Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.frombottom);
-                    imageView.setAnimation(animation);
-                    sleep(500);
-                    Intent intent;
-                    if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-                        intent = new Intent(getApplicationContext(), login.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    } else {
-                        intent = new Intent(getApplicationContext(), Profile_Activity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }
-                    finish();
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        timerTread.start();
-    }
-
-
-
-
 }
+
+
+

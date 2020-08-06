@@ -54,7 +54,6 @@ import java.util.HashMap;
 
 
 public class Articles extends Fragment {
-    public static onFabClicked mlistener;
     public static final CollectionReference reference = FirebaseFirestore.getInstance()
             .collection("posts");
     public static boolean isopen = false;
@@ -62,6 +61,8 @@ public class Articles extends Fragment {
     public static String posterName, reporterName;
     public static searchable onsearchListner;
     public static FloatingActionButton fab;
+    public static onFabClicked mlistener;
+
     String TAG = "hbhb";
 
     public static void setSearchable(searchable onsearstner) {
@@ -185,7 +186,7 @@ public class Articles extends Fragment {
 
     }
 
-    public static void deletePost(Activity activity, final Context cc, final String postId) {
+    public static void deletePost(final Activity activity, final Context cc, final String postId) {
 
         AlertDialog.Builder builder = new AlertDialog.
                 Builder(cc).setTitle(cc.getString(R.string.delete_post_title)).

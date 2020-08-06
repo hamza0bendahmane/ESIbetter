@@ -1,8 +1,11 @@
 package com.example.esibetter.courses;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +15,21 @@ import android.widget.Gallery;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.esibetter.R;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
-public class Tutorials extends Fragment {
+public class Tutorials extends Fragment  {
 
-    ComponentAdapter adapter, adapter2;
-    TypedArray first_modules;
-    TypedArray second_modules;
-
+    TutorialsAdapter firstAdapter, secondAdapter ;
     public Tutorials() {
         // Required empty public constructor
     }
@@ -37,69 +45,60 @@ public class Tutorials extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        first_modules = getResources().obtainTypedArray(R.array.first_modules_images);
-        second_modules = getResources().obtainTypedArray(R.array.second_modules_images);
+
         setUpModules(getView(), getContext());
+        view.findViewById(R.id.fab_one).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (getUserVisibleHint()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("type", "add");
+                    //    Intent intent = new Intent(getContext(), Add_Tutorial.class);
+                    Intent intent = new Intent(getContext(), Add_Tutorial.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            }
+
+        });
 
 
     }
 
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     private void setUpModules(View view, Context context) {
+        RecyclerView summ1st =view.findViewById(R.id.first_year_recycler);
+        RecyclerView summ2nd =view.findViewById(R.id.second_year_recycler);
+        summ1st.setHasFixedSize(true);
+        summ1st.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        summ2nd.setHasFixedSize(true);
+        summ2nd.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        firstAdapter =  new TutorialsAdapter(context, "1");
+        secondAdapter = new TutorialsAdapter(context, "2");
+        summ1st.setAdapter(firstAdapter);
+        summ2nd.setAdapter(secondAdapter);
+        firstAdapter.notifyDataSetChanged();
+        secondAdapter.notifyDataSetChanged();
 
-        Gallery recyclerView = view.findViewById(R.id.first_year_recycler);
-        adapter = new ComponentAdapter(getContext(), "1");
-        recyclerView.setAdapter(adapter);
-        recyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                open1stYear();
-            }
-        });
 
-        Gallery recyclerView2 = view.findViewById(R.id.second_year_recycler);
-        adapter2 = new ComponentAdapter(context, "2");
-        recyclerView2.setAdapter(adapter2);
-        recyclerView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                open2ndYear();
-            }
-        });
-        getView().findViewById(R.id.click_second).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                open2ndYear();
-            }
-        });
-        getView().findViewById(R.id.click_first).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                open1stYear();
-            }
-        });
 
 
     }
-
-    private void open1stYear() {
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .remove(new Courses()).replace(R.id.fragment_container_view_tag, new FirstYear(1)).addToBackStack(null).commit();
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        firstAdapter.notifyDataSetChanged();
+        secondAdapter.notifyDataSetChanged();
     }
 
-
-    private void open2ndYear() {
-
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .remove(new Courses()).replace(R.id.fragment_container_view_tag, new SecondYear(2)).addToBackStack(null).commit();
-
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        firstAdapter.notifyDataSetChanged();
+        secondAdapter.notifyDataSetChanged();
     }
+
 }

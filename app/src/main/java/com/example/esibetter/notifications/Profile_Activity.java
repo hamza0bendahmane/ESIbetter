@@ -255,7 +255,8 @@ public class Profile_Activity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (mPager.getCurrentItem() == 0) {
-            super.onBackPressed();
+
+        Courses.HandleBack();
         } else {
             mPager.setCurrentItem(mPager.getCurrentItem() - 1);
         }
