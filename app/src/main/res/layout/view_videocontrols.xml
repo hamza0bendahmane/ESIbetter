@@ -16,7 +16,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/fvl_selector_play" />
 
-    <TextView
+    <customfonts.MyTextView
         android:id="@+id/vcv_txt_elapsed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/fvl_selector_fullscreen" />
 
-    <TextView
+    <customfonts.MyTextView
         android:id="@+id/vcv_txt_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

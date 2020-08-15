@@ -8,51 +8,51 @@
    >
 
    <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
 
-    <customfonts.MyTextView
-        android:id="@+id/AddTutorial"
-        style="@style/viewParent.headerText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="Add Tutorial "
-        android:textSize="30dp" />
+       <customfonts.MyTextView
+           android:id="@+id/AddTutorial"
+           style="@style/viewParent.headerText"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_centerHorizontal="true"
+           android:layout_marginTop="15dp"
+           android:text="@string/add_tuto"
+           android:textSize="30dp" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/picture"
-        android:layout_width="47dp"
-        android:layout_height="47dp"
-        android:layout_below="@id/AddTutorial"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="15dp"
-        android:src="#000" />
+       <de.hdodenhof.circleimageview.CircleImageView
+           android:id="@+id/picture"
+           android:layout_width="47dp"
+           android:layout_height="47dp"
+           android:layout_below="@id/AddTutorial"
+           android:layout_alignParentStart="true"
+           android:layout_marginStart="42dp"
+           android:layout_marginTop="15dp"
+           android:src="#000" />
 
-    <EditText
-        android:id="@+id/Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/AddTutorial"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/ic_subject_container"
-        android:hint="Title..."
-        android:maxLength="25"
-        android:maxLines="2"
-        android:padding="12dp"
-        android:textSize="20dp"/>
+       <customfonts.MyEditText
+           android:id="@+id/Title"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/AddTutorial"
+           android:layout_alignParentStart="true"
+           android:layout_marginStart="100dp"
+           android:layout_marginTop="15dp"
+           android:layout_marginEnd="50dp"
+           android:background="@drawable/ic_subject_container"
+           android:hint="@string/subject"
+           android:maxLength="25"
+           android:maxLines="2"
+           android:padding="12dp"
+           android:textSize="20dp" />
 
-    <ImageView
-        android:id="@+id/Add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+       <ImageView
+           android:id="@+id/Add"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentStart="true"
+           android:layout_alignParentTop="true"
         android:layout_marginStart="42dp"
         android:layout_marginTop="135dp"
         app:srcCompat="@drawable/ic_add_cover"
@@ -83,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Attach File..."
+        android:text="@string/attach_file"
         android:textSize="20dp"
         android:layout_marginBottom="15dp"/>
 
@@ -178,7 +178,7 @@
             android:background="@drawable/ic_post_container"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:text="Post"
+            android:text="@string/post"
             android:textColor="@color/browser_actions_bg_grey" />
 
         <customfonts.MyTextView
@@ -188,7 +188,7 @@
             android:layout_margin="10dp"
             android:background="@drawable/ic_cancel_container"
             android:gravity="center"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:textColor="@color/browser_actions_bg_grey"
             />
     </LinearLayout>

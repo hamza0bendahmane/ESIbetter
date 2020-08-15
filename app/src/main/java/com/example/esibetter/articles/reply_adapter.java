@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -18,13 +19,11 @@ import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -32,9 +31,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class reply_adapter extends FirebaseListAdapter<reply_item> {
-    public static final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    public static boolean USersComment;
-    public static onLikedListner mlistner;
+    public final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    public boolean USersComment;
+    public onLikedListner mlistner;
     public Context cc;
     String postId, commentId;
     FirebaseListOptions<reply_item> options;
@@ -47,7 +46,7 @@ public class reply_adapter extends FirebaseListAdapter<reply_item> {
         this.commentId = commentId;
     }
 
-    public static void setOnLikedListner(onLikedListner listner) {
+    public void setOnLikedListner(onLikedListner listner) {
         mlistner = listner;
     }
 
@@ -183,18 +182,18 @@ public class reply_adapter extends FirebaseListAdapter<reply_item> {
     }
 
     public void setPosterName(String uid, final TextView poster_name) {
-        FirebaseDatabase ref = FirebaseDatabase.getInstance();
-        ref.getReference("users/" + uid + "/name").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                poster_name.setText(dataSnapshot.getValue().toString());
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+        FirebaseFirestore.getInstance().collection("users").document(
+                uid).
+                addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        poster_name.setText(value.getData().get("name").toString());
 
-            }
-        });
+                    }
+                });
+
+
     }
 
     public void setLikedStatus(Long likes, TextView likesNUm) {

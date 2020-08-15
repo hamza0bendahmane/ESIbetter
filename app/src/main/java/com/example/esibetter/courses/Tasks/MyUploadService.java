@@ -3,7 +3,6 @@ package com.example.esibetter.courses.Tasks;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
-import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.esibetter.R;
-import com.example.esibetter.courses.Add_Tutorial;
 import com.example.esibetter.notifications.Profile_Activity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,47 +21,43 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 public class MyUploadService extends MyBaseTaskService {
 
 
-
-    public static String description ;
-    public static Uri thumbnail;
-    public static final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    public static String module;
-    private static double pdfsize;
-    private static String uploaddate;
-    public static String pdfkey;
-    public static String pdfname;
-    public static String year , date;
+    /**
+     * Intent Actions
+     **/
+    public static final String ACTION_UPLOAD = "action_upload";
+    /**
+     * Intent Extras
+     **/
+    public static final String EXTRA_FILE_URI = "extra_file_uri";
+    public final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    public final String UPLOAD_COMPLETED = "upload_completed";
+    public final String UPLOAD_ERROR = "upload_error";
+    public final String EXTRA_DOWNLOAD_URL = "extra_download_url";
+    private final String TAG = "MyUploadService";
+    public String description;
+    public Uri thumbnail;
 
     public StorageReference mStorageRef;
     public DatabaseReference dbref;
-    private static final String TAG = "MyUploadService";
-
-    /** Intent Actions **/
-    public static final String ACTION_UPLOAD = "action_upload";
-    public static final String UPLOAD_COMPLETED = "upload_completed";
-    public static final String UPLOAD_ERROR = "upload_error";
-    boolean isPdf ;
-    /** Intent Extras **/
-    public static final String EXTRA_FILE_URI = "extra_file_uri";
+    public String module;
+    public String pdfkey;
+    public String pdfname;
+    public String year, date;
+    boolean isPdf;
+    private double pdfsize;
     public static final String EXTRA_IMAGE_URI = "extra_image_uri";
-
-    public static final String EXTRA_DOWNLOAD_URL = "extra_download_url";
+    private String uploaddate;
 
     // [START declare_ref]
     // [END declare_ref]
@@ -108,7 +102,7 @@ public class MyUploadService extends MyBaseTaskService {
 
         // [START_EXCLUDE]
         taskStarted();
-        showProgressNotification("progress_uploading", 0, 0);
+        showProgressNotification(getString(R.string.progress_uploading), 0, 0);
         // [END_EXCLUDE]
 
         // [START get_child_ref]
@@ -128,7 +122,7 @@ public class MyUploadService extends MyBaseTaskService {
                 addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        showProgressNotification("progress_uploading",
+                        showProgressNotification(getString(R.string.progress_uploading),
                                 taskSnapshot.getBytesTransferred(),
                                 taskSnapshot.getTotalByteCount());
                     }
@@ -175,16 +169,13 @@ public class MyUploadService extends MyBaseTaskService {
                                     taskCompleted();
 
 
-                                    Toast.makeText(MyUploadService.this, "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MyUploadService.this, R.string.failed + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 } else {
 
-                                    Toast.makeText(MyUploadService.this, "00000", Toast.LENGTH_SHORT).show();
-                                    final  DatabaseReference ref =  isPdf ? FirebaseDatabase.getInstance().getReference()
-                                            .child("Summaries").child(year).push() :
-                                           FirebaseDatabase.getInstance().getReference()
-                                            .child("Tutorials").child(year).push();
-
-
+                                    final DatabaseReference ref = isPdf ? FirebaseDatabase.getInstance().getReference()
+                                            .child("Summaries").child(year).child(module).push() :
+                                            FirebaseDatabase.getInstance().getReference()
+                                                    .child("Tutorials").child(year).child(module).push();
 
 
                                     HashMap<String, Object> map = new HashMap<>();
@@ -205,12 +196,10 @@ public class MyUploadService extends MyBaseTaskService {
                                                 Toast.makeText(getApplicationContext(), getString(R.string.post_uploaded), Toast.LENGTH_SHORT).show();
                                                 broadcastUploadFinished(downloadUri, fileUri);
                                                 showUploadFinishedNotification(downloadUri, fileUri);
-                                                Toast.makeText(MyUploadService.this, "33333", Toast.LENGTH_SHORT).show();
                                                 Log.d(TAG, "uploadFromUri: success");
 
                                                 taskCompleted();
                                             } else {
-                                                Toast.makeText(MyUploadService.this, "22222", Toast.LENGTH_SHORT).show();
                                                 Log.d(TAG, "uploadFromUri: getDownloadUri fail" + task.getException().getMessage());
                                                 Log.d(TAG, "uploadFromUri: getDownloadUri fail" + task.getException().getCause());
 
@@ -242,8 +231,6 @@ public class MyUploadService extends MyBaseTaskService {
                     public void onFailure(@NonNull Exception exception) {
                         // Upload failed
                         Log.w(TAG, "uploadFromUri:onFailure", exception);
-                        Toast.makeText(MyUploadService.this, "111111", Toast.LENGTH_SHORT).show();
-
                         // [START_EXCLUDE]
                         broadcastUploadFinished(null, fileUri);
                         showUploadFinishedNotification(null, fileUri);
@@ -288,7 +275,7 @@ public class MyUploadService extends MyBaseTaskService {
         showFinishedNotification(caption, intent, success);
     }
 
-    public static IntentFilter getIntentFilter() {
+    public IntentFilter getIntentFilter() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(UPLOAD_COMPLETED);
         filter.addAction(UPLOAD_ERROR);

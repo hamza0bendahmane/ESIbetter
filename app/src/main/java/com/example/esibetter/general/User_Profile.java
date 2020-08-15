@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -22,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -51,16 +53,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class User_Profile extends AppCompatActivity {
 
-    public static TextView date_view;
-    public static String date;
-    public static boolean wilaya_isChanged, date_isChanged, gender_isChanged;
-    public static int Edit_pointer = 0;
-    public static Uri Image_picked = null;
-    static StorageReference reference;
-    static FirebaseFirestore database;
-    static DatePickerDialog.OnDateSetListener mDateSetListener;
-    static FirebaseUser user;
-    static Spinner wilaya_spinner, gender;
+    public static boolean date_isChanged;
+    public TextView date_view;
+    public String date;
+    public boolean wilaya_isChanged;
+    public boolean gender_isChanged;
+    public int Edit_pointer = 0;
+    public Uri Image_picked = null;
+    StorageReference reference;
+    FirebaseFirestore database;
+    DatePickerDialog.OnDateSetListener mDateSetListener;
+    FirebaseUser user;
+    Spinner wilaya_spinner, gender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +87,7 @@ public class User_Profile extends AppCompatActivity {
 
         // open date picker
         date_view.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
 
@@ -209,7 +214,7 @@ public class User_Profile extends AppCompatActivity {
             v.setEnabled(true);
 
         }
-        Snackbar.make(findViewById(R.id.gender), "You can now edit your profile", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(R.id.gender), R.string.you_can_now, Snackbar.LENGTH_SHORT).show();
     }
 
 
@@ -277,9 +282,9 @@ public class User_Profile extends AppCompatActivity {
                 @Override
                 public void onComplete(@Nonnull Task<UploadTask.TaskSnapshot> task) {
                     if (task.isSuccessful()) {
-                        Snackbar.make(date_view, "Image Uploaded ", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(date_view, R.string.image_uploaded, Snackbar.LENGTH_LONG).show();
                     } else Toast.makeText(User_Profile.this,
-                            "can't upload image, try again", Toast.LENGTH_SHORT).show();
+                            R.string.cant_upload, Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -310,10 +315,10 @@ public class User_Profile extends AppCompatActivity {
 
         if (TextUtils.isEmpty(statuss)) {
             status.requestFocus();
-            status.setError("Status should not be empty");
+            status.setError(getString(R.string.status_shouldnot));
         } else if (statuss.length() > 20) {
             status.requestFocus();
-            status.setError("Status should be < 20 chars ");
+            status.setError(getString(R.string.status_shouldbe));
         } else {
 
             statuss = status.getText().toString();
@@ -328,10 +333,10 @@ public class User_Profile extends AppCompatActivity {
         String names = name.getText().toString().trim();
         if (TextUtils.isEmpty(names)) {
             name.requestFocus();
-            name.setError("Name should not be empty");
+            name.setError(getString(R.string.name_shouldnot_empty));
         } else if (!isValidName(names)) {
             name.requestFocus();
-            name.setError("Name is not valid");
+            name.setError(getString(R.string.name_not_valid));
 
         } else {
             // Name is valid save it ....
@@ -349,9 +354,9 @@ public class User_Profile extends AppCompatActivity {
             @Override
             public void onComplete(@Nonnull Task<Void> task) {
                 if (task.isSuccessful())
-                    Snackbar.make(date_view, "fields updated successfully ", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(date_view, R.string.fields_updated_succ, Snackbar.LENGTH_LONG).show();
                 else
-                    Toast.makeText(User_Profile.this, "can't update your profile , try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(User_Profile.this, R.string.cant_update_prof, Toast.LENGTH_SHORT).show();
 
             }
         });

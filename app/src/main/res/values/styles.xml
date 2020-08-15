@@ -50,7 +50,7 @@
     </style>
 
     <style name="viewParent.headerText.settingsTextIcon" parent="settingsText">
-        <item name="android:drawableEnd">@drawable/ic_goback_to</item>
+        <item name="android:drawableEnd">@drawable/enter_to</item>
     </style>
 
 </resources>

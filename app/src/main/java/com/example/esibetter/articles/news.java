@@ -1,6 +1,8 @@
 package com.example.esibetter.articles;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+
+import java.util.Locale;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class news extends Fragment {
@@ -58,6 +63,7 @@ public class news extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View va, @Nullable Bundle savedInstanceState) {
+        loadLocal();
         query = reference.orderBy("date", Query.Direction.DESCENDING);
         options = new FirestoreRecyclerOptions.Builder<Article_item>()
                 .setQuery(query, Article_item.class).build();
@@ -105,6 +111,30 @@ public class news extends Fragment {
 
     }
 
+    public String loadLocal() {
+
+        SharedPreferences prefs = getContext().getSharedPreferences("Settings", MODE_PRIVATE);
+        String Language = prefs.getString("My_lang", "");
+        setLocale(Language);
+        return Language;
+    }
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+
+
+        getContext().getResources().
+                updateConfiguration(configuration, getContext().getResources().getDisplayMetrics());
+        //save data in shared preferences
+        SharedPreferences.Editor editor = getContext().getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_lang", lang);
+        editor.apply();
+    }
+
     private void SearchFor(String field) {
         Query query1 = reference.whereGreaterThanOrEqualTo("title", field).
                 whereLessThanOrEqualTo("title", field + "\uf8ff");
@@ -117,7 +147,7 @@ public class news extends Fragment {
     }
 
     private void setupRecyclerAdapter() {
-        manager = new LinearLayoutManager(getContext());
+        manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView = getView().findViewById(R.id.news_recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(manager);
@@ -163,9 +193,7 @@ public class news extends Fragment {
 
             if (getUserVisibleHint()) {
                 switch (item.getItemId()) {
-                    case R.id.share_post:
-                        HandleMenu("share", adapter.getItem(menuClickedPosition));
-                        return true;
+
                     case R.id.edit_post:
                         HandleMenu("edit", adapter.getItem(menuClickedPosition));
                         return true;
@@ -205,10 +233,6 @@ public class news extends Fragment {
                 case "report":
                     Articles.reportPost(getContext(), item,
                             item.getPostId());
-                    break;
-                case "share":
-                    Toast.makeText(getContext(), action + menuClickedPosition, Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "HandleMenu: news" + menuClickedPosition);
                     break;
                 default:
                     break;

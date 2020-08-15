@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            android:text="Add Summary "
+            android:text="@string/add_summ"
             android:textSize="30dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -31,7 +31,7 @@
             android:layout_marginTop="15dp"
             android:src="#000" />
 
-        <EditText
+        <customfonts.MyEditText
             android:id="@+id/Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="50dp"
             android:background="@drawable/ic_subject_container"
-            android:hint="Title..."
+            android:hint="@string/subject"
             android:maxLength="25"
             android:maxLines="2"
             android:padding="12dp"
@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Attach File..."
+                android:text="@string/attach_file"
                 android:textSize="20dp"
                 android:layout_marginBottom="15dp"/>
 
@@ -184,7 +184,7 @@
                 android:background="@drawable/ic_post_container"
                 android:layout_margin="10dp"
                 android:gravity="center"
-                android:text="Post"
+                android:text="@string/post"
                 android:textColor="@color/browser_actions_bg_grey" />
 
             <customfonts.MyTextView
@@ -194,7 +194,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/ic_cancel_container"
                 android:gravity="center"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 android:textColor="@color/browser_actions_bg_grey"
                 />
         </LinearLayout>

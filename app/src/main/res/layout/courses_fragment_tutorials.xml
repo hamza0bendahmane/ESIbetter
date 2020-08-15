@@ -1,157 +1,1026 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:background="#FFF"
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
 
         >
 
         <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="top|center"
-    android:gravity="top|center"
-    android:orientation="vertical"
-    android:padding="10dp">
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="top|center"
+            android:gravity="center"
+            android:orientation="vertical">
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="20dp"
-        android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:orientation="horizontal">
 
 
-        <ImageView
-            android:id="@+id/icon_year1"
+                <ImageView
+                    android:id="@+id/icon_year1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginHorizontal="3dp"
+                    app:srcCompat="@drawable/ic_one" />
+
+                <customfonts.MyTextView
+                    android:id="@+id/title_sub11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_toEndOf="@id/icon_year1"
+                    android:gravity="center_vertical"
+                    android:text="@string/st_year"
+                    android:textColor="#000"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_toEndOf="@id/title_sub11"
+                    android:tint="#faa419"
+                    app:srcCompat="@drawable/enter_to" />
+
+            </RelativeLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:scrollbars="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/pperson_proeperties"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/compo01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_ana1" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ANALYSE 1"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_algo1" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ALGO 1"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo03"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_alge1" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ALGEBRE 1"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_archi1" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ARCHI 1"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo05"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_syst1" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="SYST 1"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo06"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_elect" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ELECTRI"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo07"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_fr1" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="FR 1"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo08"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_eng1" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ENG 1"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo09"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_mechan" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="MECHA"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo010"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_ana2" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ANALYSE 2"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo011"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_alge2" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ALGEBRE 2"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo012"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_syst2" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="SYST 2"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo013"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_algo2" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ALGO 2"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo014"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_electro1" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ELECTRO 1"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo015"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_fr2" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="FR 2"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/icon_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginHorizontal="3dp"
+                    app:srcCompat="@drawable/ic_222" />
+
+                <TextView
+                    android:id="@+id/title_sub1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_toEndOf="@id/icon_year"
+                    android:gravity="center_vertical"
+                    android:text="@string/nd_year"
+                    android:textColor="#000"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_toEndOf="@id/title_sub1"
+                    android:tint="#58842c"
+                    app:srcCompat="@drawable/enter_to" />
+
+            </RelativeLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/person_proeperties"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/compo1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_proba1" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="PROBA 1"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_sfd" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="SFD"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_ana3" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ANALYSE 3"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_alge3" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ALGEBRE 3"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_econ" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ECONOMY"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_archi2" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ARCHI 2"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_eng2" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ENG 2"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_electro2" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ELECTR 2"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_eng3" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ENG 3"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_logiq" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="LOGIQUE"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_optiq" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="OPTIQUE"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_poo" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="POO"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_isi" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ISI"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_proba2" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="PROBA 2"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compo15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/ic_ana4" />
+
+                        <customfonts.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:gravity="center"
+                            android:text="ANALYSE 4"
+                            android:textSize="8pt"
+                            android:textStyle="bold"
+
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginHorizontal="3dp"
-            app:srcCompat="@drawable/ic_one" />
+            android:layout_gravity="bottom|end"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="40dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:foregroundTint="#FAFAFAFA"
+            android:src="@android:drawable/ic_input_add"
+            app:backgroundTint="#FAFAFAFA" />
 
-        <TextView
-            android:id="@+id/title_sub11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginHorizontal="10dp"
-            android:layout_toEndOf="@id/icon_year1"
-            android:gravity="center_vertical"
-            android:text="st Year"
-            android:textColor="#000"
-            android:textSize="8pt"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-
-            android:layout_marginHorizontal="10dp"
-            android:layout_toEndOf="@id/title_sub11"
-            android:tint="#faa419"
-            app:srcCompat="@drawable/ic_goback_to" />
-
-    </RelativeLayout>
+    </LinearLayout>
 
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/first_year_recycler"
-        android:layout_width="wrap_content"
-        android:clickable="true"
-        android:scrollbars="horizontal"
-        android:focusable="true"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        />
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="20dp"
-        android:orientation="horizontal">
-
-
-        <ImageView
-            android:id="@+id/icon_year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginHorizontal="3dp"
-            app:srcCompat="@drawable/ic_222" />
-
-        <TextView
-            android:id="@+id/title_sub1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginHorizontal="10dp"
-            android:layout_toEndOf="@id/icon_year"
-            android:gravity="center_vertical"
-            android:text="nd Year"
-            android:textColor="#000"
-            android:textSize="8pt"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-
-            android:layout_marginHorizontal="10dp"
-            android:layout_toEndOf="@id/title_sub1"
-            android:tint="#58842c"
-            app:srcCompat="@drawable/ic_goback_to" />
-
-    </RelativeLayout>
-
-
-    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/second_year_recycler"
-        android:layout_width="wrap_content"
-        android:clickable="true"
-        android:scrollbars="horizontal"
-        android:focusable="true"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        />
-
-
-</LinearLayout>
-
-
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-android:id="@+id/fab_one"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_marginHorizontal="16dp"
-android:layout_marginBottom="40dp"
-android:backgroundTint="@color/colorPrimary"
-android:foregroundTint="#FAFAFAFA"
-android:src="@android:drawable/ic_input_add"
-app:backgroundTint="#FAFAFAFA"
-android:layout_gravity="bottom|end" />
-    </FrameLayout>
-
-
-
-    </ScrollView>
-
-
-
-
+</ScrollView>
 
 
 

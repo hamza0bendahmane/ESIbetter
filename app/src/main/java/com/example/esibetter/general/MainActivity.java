@@ -24,9 +24,9 @@ import com.example.esibetter.login;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int TOTAL_PAGES = 4;
-    private static ViewPager mPager;
-    private static PagerAdapter mPagerAdapter;
+    private final int TOTAL_PAGES = 4;
+    private ViewPager mPager;
+    private PagerAdapter mPagerAdapter;
 
     @Override
     //intro_1

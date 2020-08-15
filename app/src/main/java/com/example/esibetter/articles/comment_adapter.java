@@ -3,9 +3,7 @@ package com.example.esibetter.articles;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,12 +15,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.esibetter.R;
-import com.example.esibetter.courses.ShowAllFiles;
 import com.firebase.ui.database.FirebaseListOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -35,7 +33,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -45,21 +45,21 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class comment_adapter extends FirestoreRecyclerAdapter<comment_item, comment_adapter.ViewHolder> {
-    public static final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    public static boolean USersComment;
-    public static Context cc;
-    public static onLikedListner mlistner;
-    static String postId;
+    public final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    public boolean USersComment;
+    public Context cc;
+    public onLikedListner mlistner;
+    String postId;
 
 
     public comment_adapter(@NonNull FirestoreRecyclerOptions<comment_item> options, Context cc, String postId) {
         super(options);
-        comment_adapter.cc = cc;
-        comment_adapter.postId = postId;
+        this.cc = cc;
+        this.postId = postId;
     }
 
-    public static void setOnLikedListner(onLikedListner listner) {
-        mlistner = listner;
+    public void setOnLikedListner(onLikedListner listner) {
+        this.mlistner = listner;
     }
 
     @Override
@@ -184,7 +184,7 @@ public class comment_adapter extends FirestoreRecyclerAdapter<comment_item, comm
         void onReplied(int adapterPosition, View itemView, onLikedListner listner);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         Uri imageUri = null;
         String name = "";
         TextView date;
@@ -302,21 +302,19 @@ public class comment_adapter extends FirestoreRecyclerAdapter<comment_item, comm
 
         }
 
-        public String setPosterName(String uid) {
-            FirebaseDatabase ref = FirebaseDatabase.getInstance();
-            ref.getReference("users/" + uid + "/name").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    name = dataSnapshot.getValue().toString();
-                    poster_name.setText(dataSnapshot.getValue().toString());
-                }
+        public void setPosterName(String uid) {
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+            FirebaseFirestore.getInstance().collection("users").document(
+                    uid).
+                    addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                            poster_name.setText(value.getData().get("name").toString());
 
-                }
-            });
-            return name;
+                        }
+                    });
+
+
         }
 
 

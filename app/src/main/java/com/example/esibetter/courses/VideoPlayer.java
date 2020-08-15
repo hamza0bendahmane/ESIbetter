@@ -1,9 +1,5 @@
 package com.example.esibetter.courses;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,9 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,11 +16,13 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.esibetter.R;
-
 import com.github.rtoshiro.view.video.FullscreenVideoLayout;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,7 +44,7 @@ public class VideoPlayer extends AppCompatActivity {
     CircleImageView imageofpost ;
     String posterUid;
     String linkString , ref;
-    public static final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    public final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,17 +178,17 @@ public class VideoPlayer extends AppCompatActivity {
                 break;
             case "delete":
                 AlertDialog.Builder builder = new AlertDialog.Builder(VideoPlayer.this);
-                builder.setTitle("Deleting Summary!!")
-                        .setMessage("Are you sure you want to delete this Summary ?")
+                builder.setTitle(R.string.deleting_video)
+                        .setMessage(R.string.are_you_sure_delte_video)
                         .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 deletethis();
                                 dialog.dismiss();
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();

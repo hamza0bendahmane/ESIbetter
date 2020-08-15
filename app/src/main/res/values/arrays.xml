@@ -62,13 +62,14 @@
 
 
     <string-array name="year">
-        <item>Choose a year</item>
-        <item>1 CPI</item>
-        <item>2 CPI</item>
+        <item>@string/choose_year_pl</item>
+        <item>@string/cp1</item>
+        <item>@string/cp2</item>
     </string-array>
 
     <string-array name="gender">
-        <item>Male</item>
-        <item>Female</item>
+        <item>@string/male</item>
+        <item>@string/female</item>
     </string-array>
+
 </resources>

@@ -1,47 +1,41 @@
 package com.example.esibetter.courses;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.esibetter.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.firebase.ui.database.SnapshotParser;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.card.MaterialCardView;
-import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
+import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 public class ShowAllTutorials extends AppCompatActivity {
-
-    FirebaseRecyclerAdapter<File_item, ViewHolder> options1st;
-    Query query0 ;
-    static int what_yearIs;
-    static String moduleName;
+    public DatabaseReference reference = null;
+    int what_yearIs;
+    String moduleName;
+    Query query;
     FirebaseRecyclerAdapter<File_item, ViewHolder> adapter;
+    FirebaseRecyclerOptions<File_item> options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,28 +44,71 @@ public class ShowAllTutorials extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         if (b.isEmpty())
             onBackPressed();
-        else{
+        else {
             what_yearIs = b.getInt("year");
             moduleName = b.getString("name");
         }
 
+
         updateView();
+        query = FirebaseDatabase.getInstance()
+                .getReference().child("Summaries").child(String.valueOf(what_yearIs)).child(String.valueOf(moduleName));
+
+        options = new FirebaseRecyclerOptions.Builder<File_item>()
+                .setQuery(query, File_item.class)
+                .build();
 
         HandleTutos();
+
+        // open activity to ad articles ...
+        ((EditText) findViewById(R.id.searchbarview)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!s.toString().trim().isEmpty())
+                    SearchFor(s.toString().trim());
+                else
+                    adapter.updateOptions(options);
+
+
+            }
+        });
+
+    }
+
+    private void SearchFor(String field) {
+        com.google.firebase.database.Query query1 = query.startAt("title", field).
+                endAt("title", field + "\uf8ff");
+        FirebaseRecyclerOptions<File_item> options1 = new FirebaseRecyclerOptions.Builder<File_item>()
+                .setQuery(query1, File_item.class)
+                .build();
+        adapter.updateOptions(options1);
+
 
     }
 
 
-
-
-    private void updateView(){
+    private void updateView() {
         if (what_yearIs == 1) {
-            ((Toolbar) findViewById(R.id.toolbar)).setTitle("First Year "+ " > " +moduleName);
+            ((TextView) findViewById(R.id.title_sub11)).setText(R.string.st_year);
+            ((TextView) findViewById(R.id.title_mod)).setText(moduleName);
+            ((ImageView) findViewById(R.id.icon_year1)).setImageDrawable(getDrawable(R.drawable.ic_one));
+
 
         } else {
-            ((Toolbar) findViewById(R.id.toolbar)).setTitle("Second Year"+ " > " +moduleName);
-
+            ((ImageView) findViewById(R.id.icon_year1)).setImageDrawable(getDrawable(R.drawable.ic_222));
+            ((TextView) findViewById(R.id.title_sub11)).setText(R.string.st_year);
+            ((TextView) findViewById(R.id.title_mod)).setText(moduleName);
         }
+
 
     }
 

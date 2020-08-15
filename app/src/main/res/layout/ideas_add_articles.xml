@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="Create Article"
+        android:text="@string/create_art"
         android:textSize="30dp" />
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -31,7 +31,7 @@
         android:layout_marginTop="15dp"
         android:src="#000" />
 
-    <EditText
+    <customfonts.MyEditText
         android:layout_width="match_parent"
         android:id="@+id/articleTitle"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         android:maxLength="25"
         android:layout_marginEnd="40dp"
         android:background="@drawable/ic_subject_container"
-        android:hint="Subject..."
+        android:hint="@string/subject"
         android:padding="12dp" />
 
     <ImageView
@@ -120,7 +120,7 @@
         android:background="@drawable/ic_post_container"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:text="Post"
+        android:text="@string/post"
         android:textColor="@color/browser_actions_bg_grey" />
 
     <customfonts.MyTextView
@@ -131,7 +131,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/ic_cancel_container"
         android:gravity="center"
-        android:text="Cancel"
+        android:text="@string/cancel"
         android:textColor="@color/browser_actions_bg_grey"
         android:layout_marginBottom="30dp"/>
     </LinearLayout>

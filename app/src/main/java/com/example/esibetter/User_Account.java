@@ -6,12 +6,8 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -27,8 +23,6 @@ class User_Account {
     private boolean IsMale;
     private String Birthday;
     final HashMap<String, Object> map = new HashMap<>();
-    DatabaseReference refe = FirebaseDatabase.getInstance().getReference().child("users");
-    DatabaseReference ref = refe.child(FirebaseAuth.getInstance().getCurrentUser().getUid());
     public User_Account(Uri imageUrl, String name, String status, String wilaya, boolean isMale, String birthday) throws URISyntaxException {
         ImageUri = imageUrl;
         Name = name;
@@ -124,11 +118,6 @@ class User_Account {
 
                     }
                 }).isSuccessful();
-
-
-        map.put("name", user_account.getName());
-        map.put("token", FirebaseInstanceId.getInstance().getToken());
-            ref.setValue(map);
 
 
         return photo_saved || data_saved;

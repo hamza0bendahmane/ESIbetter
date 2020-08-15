@@ -13,12 +13,14 @@
     <string name="courses">Courses</string>
 
     <string name="sign_out">Log Out</string>
-    <string name="default_notification_channel_id">DEFAULT</string>
-    <string name="default_notification_channel_name">General Notifications</string>
-    <string name="community_notification_channel_id">COMMUNITY</string>
-    <string name="community_notification_channel_name">Community Notifications</string>
-    <string name="ideas_notification_channel_id">IDEAS</string>
-    <string name="ideas_notification_channel_name">IDEAS Notifications</string>
+    <string name="default_notification_channel_id" translatable="false">DEFAULT</string>
+    <string name="default_notification_channel_name" translatable="false">General Notifications</string>
+    <string name="community_notification_channel_id" translatable="false">reply_channel</string>
+    <string name="community_notification_channel_name" translatable="false">Reply</string>
+    <string name="ideas_notification_channel_id" translatable="false">like_channel</string>
+    <string name="ideas_notification_channel_name" translatable="false">Likes</string>
+    <string name="iideas_notification_channel_id" translatable="false">comment_channel</string>
+    <string name="iideas_notification_channel_name" translatable="false">Comment</string>
 
 
     <string name="app_name">ESI better</string>
@@ -120,6 +122,73 @@
     <string name="delete_post_title">Delete the post</string>
     <string name="are_us_sure_delte_post">Are You sure You Want To Delete Your Post</string>
     <string name="open_with">Download / open with ...</string>
-
+    <string name="no_notification">You have no Notifications yet</string>
+    <string name="st_year">st Year</string>
+    <string name="nd_year">nd Year</string>
+    <string name="new_comment">"New Comment from : "</string>
+    <string name="it_said">" it said : "</string>
+    <string name="your_post_has">"your post has "</string>
+    <string name="comments">" comments ."</string>
+    <string name="you_got_new_reply">"You got new reply in your comment "</string>
+    <string name="from">" from : "</string>
+    <string name="in_th_post">" in the post : "</string>
+    <string name="new_reactions">" New Reations , You got : "</string>
+    <string name="dislikes">" dislikes ."</string>
+    <string name="likes">" likes and "</string>
+    <string name="error">ERROR :</string>
+    <string name="you_can_now">You can now edit your profile</string>
+    <string name="image_uploaded">"Image Uploaded "</string>
+    <string name="cant_upload">can\'t upload image, try again</string>
+    <string name="cant_update_prof">can\'t update your profile , try again</string>
+    <string name="fields_updated_succ">"fields updated successfully "</string>
+    <string name="name_not_valid">Name is not valid</string>
+    <string name="name_shouldnot_empty">Name should not be empty</string>
+    <string name="status_shouldbe"><![CDATA["Status should be < 20 chars "]]></string>
+    <string name="status_shouldnot">Status should not be empty</string>
+    <string name="deleting_video">Deleting Video!!</string>
+    <string name="are_you_sure_delte_video">Are you sure you want to delete this video ?</string>
+    <string name="yes">YES</string>
+    <string name="no">No</string>
+    <string name="are_yousre_delte_summ">Are you sure you want to delete this Summary ?</string>
+    <string name="delteing_summ">Deleting Summary!!</string>
+    <string name="gettiing_book">getting the summary content...</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="go_to_sett">GO to Setting ?</string>
+    <string name="no_internet_c">No Internet Connection Alert</string>
+    <string name="internet_conne">Internet Connected</string>
+    <string name="file_choosen">File Has been chosen</string>
+    <string name="progress_uploading">uploading in progress</string>
+    <string name="uploding_file">Uploading File</string>
+    <string name="add_file_pl">Add a file please</string>
+    <string name="add_im">Add an Image</string>
+    <string name="title_shou_em">title should not be empty</string>
+    <string name="tutorialq">Tutorials</string>
+    <string name="summaries">Summaries</string>
+    <string name="close_app">Close App !</string>
+    <string name="are_you_sure_close_appp">Are you sure you want to close the app !?</string>
+    <string name="desc_iss">Please describe your issue</string>
+    <string name="failed_sen_rep">Failed Sending Report, Please Try Again</string>
+    <string name="repo_sensucc">Report Sent Successfully, Thanks for contacting us</string>
+    <string name="faile_pdf">Taking Pdf failed.</string>
+    <string name="choose_year">please choose a year and module please</string>
+    <string name="choose_thu">please choose a thumbnail</string>
+    <string name="add_repl">ADD a Reply</string>
+    <string name="ok">OK</string>
+    <string name="body_emp">Body should not be empty</string>
+    <string name="edit_rep">Edit Reply</string>
+    <string name="edit_comm">Edit Comment</string>
+    <string name="create_art">Create Article</string>
+    <string name="subject">Subject...</string>
+    <string name="post">Post</string>
+    <string name="looking_for_smthng">Looking for something ?</string>
+    <string name="attach_file">Attach File...</string>
+    <string name="choose_year_pl">Choose a year</string>
+    <string name="cp1">1 CPI</string>
+    <string name="cp2">2 CPI</string>
+    <string name="add_tuto">"Add Tutorial "</string>
+    <string name="since_were">"Since we are students and we understand requirements of  you and problems that you may encounter,we solved some of them  and we created'ESI better'for university life better,that was supervised by the esteemed professor 'GHEID ZAKARIA' who accompanied us and guided us throughout our work.     "</string>
+    <string name="selected">selected</string>
+    <string name="add_summ">"Add Summary "</string>
+    <string name="your_comm">Your comment</string>
 
 </resources>

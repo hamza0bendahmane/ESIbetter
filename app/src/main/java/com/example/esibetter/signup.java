@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -49,19 +51,19 @@ import java.net.URLConnection;
 import java.util.Calendar;
 
 public class signup extends AppCompatActivity {
-    public static String URL = "https://emailverification.whoisxmlapi.com/api/v1?apiKey=at_ue6vuTmfKhO2EiG4DgUm0CaNhTU3X&emailAddress=";
-    public static Button date_view;
-    public static String date = "01/01/1999";
-    public static String STR;
-    public static boolean Exist;
-    public static Uri image_prof = null;
-    public static String user_wilaya;
-    static FirebaseAuth firebaseAuth;
-    static Button signin, signup;
-    static RadioButton male_radio;
-    static Spinner wilaya_spinner;
-    static DatePickerDialog.OnDateSetListener mDateSetListener;
-    static ImageView goback;
+    public String URL = "https://emailverification.whoisxmlapi.com/api/v1?apiKey=at_ue6vuTmfKhO2EiG4DgUm0CaNhTU3X&emailAddress=";
+    public Button date_view;
+    public String date = "01/01/1999";
+    public String STR;
+    public boolean Exist;
+    public Uri image_prof = null;
+    public String user_wilaya;
+    FirebaseAuth firebaseAuth;
+    Button signin, signup;
+    RadioButton male_radio;
+    Spinner wilaya_spinner;
+    DatePickerDialog.OnDateSetListener mDateSetListener;
+    ImageView goback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,7 @@ public class signup extends AppCompatActivity {
         // linking variables ...
         date_view = findViewById(R.id.dateview);
         date_view.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 // date picker
@@ -115,8 +118,6 @@ public class signup extends AppCompatActivity {
                     }
                 });
                 dialog.show();
-
-
 
 
             }
@@ -215,7 +216,7 @@ public class signup extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (!task.isSuccessful()) {
-                            Toast.makeText(signup.this, "ERROR :" + task.getException().getMessage(),
+                            Toast.makeText(signup.this, R.string.error + task.getException().getMessage(),
                                     Toast.LENGTH_LONG).show();
 
                         } else {

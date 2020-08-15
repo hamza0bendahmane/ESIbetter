@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,65 +15,49 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.esibetter.R;
-import com.example.esibetter.articles.news;
 import com.example.esibetter.courses.Tasks.MyUploadService;
 import com.example.esibetter.notifications.Profile_Activity;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.onegravity.rteditor.RTEditText;
-import com.onegravity.rteditor.RTManager;
-import com.onegravity.rteditor.RTToolbar;
-import com.onegravity.rteditor.api.RTApi;
-import com.onegravity.rteditor.api.RTProxyImpl;
-import com.onegravity.rteditor.api.format.RTFormat;
 
 import java.util.Calendar;
-import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class Add_Tutorial extends AppCompatActivity {
-    public static final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    public static final CollectionReference reference = FirebaseFirestore.getInstance()
+    public final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    public final CollectionReference reference = FirebaseFirestore.getInstance()
             .collection("posts");
-    public static Uri image_art , file_art;
+    public Uri image_art, file_art;
     final Calendar cc = Calendar.getInstance();
     final String month = String.valueOf(cc.get(Calendar.MONTH) + 1);
     final String date = cc.get(Calendar.YEAR) + "/" + month + "/" + cc.get(Calendar.DAY_OF_MONTH);
     String titleArt;
     TextView post_article;
     String dislikes = "0";
-    Spinner yearSpin , ModuleSpin  ;
-     String  Module  ;
-    static int  Type ,Year ;
+    Spinner yearSpin, ModuleSpin;
+    String Module;
+    int Type, Year;
     StorageReference images_url;
     ImageView show_picked_image;
     String BodyArt;
-    boolean haveChoosedTheType , haveChoosedTheModule ;
+    boolean haveChoosedTheType, haveChoosedTheModule;
     String likes = "0";
     EditText TitleBody;
-    static String typeof = "add";
+    String typeof = "add";
     boolean Done = false;
     CircleImageView photo;
-     ArrayAdapter<CharSequence> adapterModule ;
+    ArrayAdapter<CharSequence> adapterModule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -212,11 +195,11 @@ public class Add_Tutorial extends AppCompatActivity {
                 boolean imageIsSET = image_art != null;
                 boolean fileIsSet =  file_art!=null;
                 if (TextUtils.isEmpty(title))
-                    Toast.makeText(Add_Tutorial.this, "title should not be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Add_Tutorial.this, R.string.title_shou_em, Toast.LENGTH_SHORT).show();
                 else if (!imageIsSET)
-                    Toast.makeText(Add_Tutorial.this, "Add an Image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Add_Tutorial.this, R.string.add_im, Toast.LENGTH_SHORT).show();
                 else if (!fileIsSet)
-                    Toast.makeText(Add_Tutorial.this, "Add a file please", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Add_Tutorial.this, R.string.add_file_pl, Toast.LENGTH_SHORT).show();
                 else {
 
                     titleArt = TitleBody.getText().toString().trim();
@@ -226,18 +209,13 @@ public class Add_Tutorial extends AppCompatActivity {
                     final StorageReference photoArt = reference.child("thumbnail.png");
                     View vv = LayoutInflater.from(Add_Tutorial.this).inflate(R.layout.general_layout_image,
                             null, false);
-                    final AlertDialog dialog = new AlertDialog.Builder(Add_Tutorial.this).setTitle("Uploading File")
+                    final AlertDialog dialog = new AlertDialog.Builder(Add_Tutorial.this).setTitle(R.string.uploding_file)
                             .setView(vv).create();
                     dialog.show();
 
                     if (typeof.equals("add")) {
 
                         uploadFromUri(file_art,title);
-
-                    } else if (typeof.equals("edit")) {
-                        // edit Article ....
-                     //   managePost(photoArt, dialog, getIntent().getExtras().getString("PostId"),Type);
-
 
                     }
 
@@ -271,7 +249,7 @@ public class Add_Tutorial extends AppCompatActivity {
                 .putExtra("date",date)
                 .setAction(MyUploadService.ACTION_UPLOAD));
 
-        Toast.makeText(this, "progress_uploading", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.progress_uploading, Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(this, Profile_Activity.class);
         startActivity(intent);
@@ -302,7 +280,7 @@ public class Add_Tutorial extends AppCompatActivity {
         if (requestCode == 21 && resultCode == RESULT_OK && data != null && data.getData()!=null){
                 //VIDEO
             file_art = data.getData();
-            ((TextView)findViewById(R.id.myTextView)).setText("File Has been chosen");
+            ((TextView) findViewById(R.id.myTextView)).setText(R.string.file_choosen);
         }
         if (requestCode == 12 && data != null && data.getData() != null) {
             image_art = data.getData(); //IMAGE

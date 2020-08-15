@@ -45,10 +45,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class Add_Articles extends AppCompatActivity {
-    public static final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    public static final CollectionReference reference = FirebaseFirestore.getInstance()
-            .collection("posts");
-    public static Uri image_art;
+    public final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    public final CollectionReference reference = FirebaseFirestore.getInstance().collection("posts");
+    public Uri image_art;
     final Calendar cc = Calendar.getInstance();
     final String month = String.valueOf(cc.get(Calendar.MONTH) + 1);
     final String date = cc.get(Calendar.YEAR) + "/" + month + "/" + cc.get(Calendar.DAY_OF_MONTH);
@@ -81,6 +80,7 @@ public class Add_Articles extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ideas_add_articles);
+
         // init vars ......
      final    String type = getIntent().getExtras().getString("type");
 
@@ -165,11 +165,11 @@ public class Add_Articles extends AppCompatActivity {
 
                 boolean imageIsSET = image_art != null;
                 if (TextUtils.isEmpty(title))
-                    Toast.makeText(Add_Articles.this, "title should not be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Add_Articles.this, R.string.title_shou_em, Toast.LENGTH_SHORT).show();
                 else if (TextUtils.isEmpty(body))
-                    Toast.makeText(Add_Articles.this, "body should not be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Add_Articles.this, R.string.body_emp, Toast.LENGTH_SHORT).show();
                 else if (!imageIsSET)
-                    Toast.makeText(Add_Articles.this, "Add an Image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Add_Articles.this, R.string.add_im, Toast.LENGTH_SHORT).show();
                 else {
 
                     BodyArt = articleBody.getText(RTFormat.HTML);
@@ -179,7 +179,7 @@ public class Add_Articles extends AppCompatActivity {
                             getReference("Images/" + uid + "/" + keyDocument);
                     final StorageReference photoArt = reference.child("post_pic.png");
                     View vv = LayoutInflater.from(Add_Articles.this).inflate(R.layout.general_layout_image, null, false);
-                    final AlertDialog dialog = new AlertDialog.Builder(Add_Articles.this).setTitle("Uploading Post")
+                    final AlertDialog dialog = new AlertDialog.Builder(Add_Articles.this).setTitle(R.string.uploding_file)
                             .setView(vv).create();
                     dialog.show();
 
@@ -214,7 +214,7 @@ public class Add_Articles extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 if (!task.isSuccessful()) {
-                    Toast.makeText(Add_Articles.this, "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Add_Articles.this, R.string.failed + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 } else {
 

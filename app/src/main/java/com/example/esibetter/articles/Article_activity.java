@@ -1,6 +1,7 @@
 package com.example.esibetter.articles;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,16 +32,15 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -50,20 +51,21 @@ import java.util.HashMap;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Article_activity extends AppCompatActivity {
-    static CircleImageView imagePoster;
-    public static final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    public static String postId;
-    public static String posterUid;
-    public static ImageButton like, dislike;
-    public static ImageView imageofpost;
-    static TextView datee, posterName, bodye, likese, dislikese, titleofpost;
-    public static boolean userHasEmotion;
-    public static boolean userHasLikedThePost;
-    public static boolean userHasDislikedThePost;
-    static RecyclerView recyclerView;
+
+    public final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    public String postId;
+    public String posterUid;
+    public ImageButton like, dislike;
+    public ImageView imageofpost;
+    public boolean userHasEmotion;
+    public boolean userHasLikedThePost;
+    public boolean userHasDislikedThePost;
+    CircleImageView imagePoster;
+    TextView datee, posterName, bodye, likese, dislikese, titleofpost;
+    RecyclerView recyclerView;
     public int menuClickedPosition = -1;
-    private static RecyclerView.LayoutManager manager;
-    private static comment_adapter adapter;
+    private RecyclerView.LayoutManager manager;
+    private comment_adapter adapter;
     public final HashMap<String, Long> likesMap = new HashMap<>();
     public Long likes, dislikes;
     public Uri imageUri;
@@ -255,14 +257,12 @@ public class Article_activity extends AppCompatActivity {
         imageofpost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast t = new Toast(Article_activity.this);
-                t.setDuration(Toast.LENGTH_LONG);
-                View view = LayoutInflater.from(Article_activity.this).inflate(R.layout.general_layout_image, null, false);
-                ImageView vv = view.findViewById(R.id.image_toast);
-                Glide.with(Article_activity.this).load(imageUri).into(vv);
-                t.setView(view);
-                t.show();
-
+                Intent a = new Intent(Article_activity.this, ShowImage.class);
+                Bundle b = new Bundle();
+                b.putParcelable("ref", imageUri);
+                b.putString("title", title);
+                a.putExtras(b);
+                startActivity(a);
 
             }
         });
@@ -296,18 +296,16 @@ public class Article_activity extends AppCompatActivity {
     }
 
     public void setPosterName(String uid) {
-        FirebaseDatabase ref = FirebaseDatabase.getInstance();
-        ref.getReference("users/" + uid + "/name").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                posterName.setText(dataSnapshot.getValue().toString());
-            }
+        FirebaseFirestore.getInstance().collection("users").document(
+                uid).
+                addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        posterName.setText(value.getData().get("name").toString());
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
 
-            }
-        });
     }
 
     public void setupRecyclerAdapter(final String postId) {
@@ -334,7 +332,7 @@ public class Article_activity extends AppCompatActivity {
         recyclerView.setLayoutManager(manager);
         adapter = new comment_adapter(options, Article_activity.this, postId);
         recyclerView.setAdapter(adapter);
-        comment_adapter.setOnLikedListner(new comment_adapter.onLikedListner() {
+        adapter.setOnLikedListner(new comment_adapter.onLikedListner() {
 
             @Override
             public void onLiked(int position, View itemView, comment_adapter.onLikedListner listner) {
@@ -352,8 +350,8 @@ public class Article_activity extends AppCompatActivity {
 
                 View layout = LayoutInflater.from(Article_activity.this).inflate(R.layout.general_edit_comment, null);
                 final EditText comment_editText = layout.findViewById(R.id.edit_comment);
-                final AlertDialog builder = new AlertDialog.Builder(Article_activity.this).setTitle("ADD a Reply").setPositiveButton(
-                        "Reply", new DialogInterface.OnClickListener() {
+                final AlertDialog builder = new AlertDialog.Builder(Article_activity.this).setTitle(R.string.add_repl).setPositiveButton(
+                        R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(final DialogInterface dialog, int which) {
                                 // manipulate the reply
@@ -392,7 +390,7 @@ public class Article_activity extends AppCompatActivity {
                                 // dismiss ....
                             }
                         }
-                ).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                ).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -479,9 +477,7 @@ public class Article_activity extends AppCompatActivity {
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.share_post:
-                        HandleMenu("share");
-                        return true;
+
                     case R.id.edit_post:
                         HandleMenu("edit");
                         return true;
@@ -517,9 +513,6 @@ public class Article_activity extends AppCompatActivity {
                                 Long.parseLong(getIntent().getExtras().getString("dislikes")),
                                 postId), postId);
 
-                break;
-            case "share":
-                Toast.makeText(getApplicationContext(), action + postId, Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;

@@ -5,20 +5,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".notifications.Notifications">
+<customfonts.MyTextView
+    android:id="@+id/nothing"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp"
+    android:text="@string/notifications"
+    android:textAlignment="center"
+    android:textColor="@color/colorPrimary"
+    android:textSize="12pt"
+    android:textStyle="bold"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager_fragment"
+    <View
+        android:id="@+id/dfgfr"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="9dp"
+        android:layout_marginVertical="10dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/grid_modules"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nothing" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layoutDirection="ltr"
-            android:layout_height="wrap_content"
-            android:minHeight="?actionBarSize"
-            app:tabTextColor="#7f7f7e" />
-    </androidx.viewpager.widget.ViewPager>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/grid_modules"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dfgfr" />
 
+    <customfonts.MyTextView
+        android:id="@+id/text_no_notifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_notification"
+        android:textAlignment="center"
+        android:textColor="@color/com_facebook_blue"
+        android:textSize="10pt"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nothing" />
 </androidx.constraintlayout.widget.ConstraintLayout>

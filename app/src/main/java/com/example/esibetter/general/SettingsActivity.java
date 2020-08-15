@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.esibetter.R;
 import com.example.esibetter.login;
-import com.example.esibetter.notifications.Profile_Activity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -29,7 +28,7 @@ import java.util.Locale;
 public class SettingsActivity extends AppCompatActivity {
     LinearLayout edit_profile;
     private Switch notification;
-    public static final String NOTIFICATION = "notification";
+    public final String NOTIFICATION = "notification";
     private boolean notificationState;
 
     @Override
@@ -40,7 +39,7 @@ public class SettingsActivity extends AppCompatActivity {
         // initializing vars ....
         notification = findViewById(R.id.setNotification);
         edit_profile = findViewById(R.id.edit_profi);
-
+        notification.setChecked(getSharedPreferences(NOTIFICATION, MODE_PRIVATE).getBoolean(NOTIFICATION, false));
 
         // opening user profile ....
         edit_profile.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +131,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void changeLanguage(View view) {
-        final String[] listItem = {"English", "Arabic"};
+        final String[] listItem = {"English", "العربية"};
         AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
         builder.setTitle(getString(R.string.choose_your_language));
         builder.setSingleChoiceItems(listItem, -1, new DialogInterface.OnClickListener() {
@@ -156,11 +155,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(), Profile_Activity.class));
-        finish();
-    }
 
     private void setLocale(String lang) {
         Locale locale = new Locale(lang);

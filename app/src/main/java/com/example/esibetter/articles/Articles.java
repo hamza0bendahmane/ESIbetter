@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -28,22 +30,22 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.esibetter.R;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
@@ -51,6 +53,9 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class Articles extends Fragment {
@@ -90,7 +95,7 @@ public class Articles extends Fragment {
         mlistener = listener;
     }
 
-    public static void setUpTheRefresh(final SwipeRefreshLayout swipeRefreshLayout, final ArticlesAdapter adapter) {
+    public static void setUpTheRefresh(final SwipeRefreshLayout swipeRefreshLayout, final FirestoreRecyclerAdapter<Article_item, ArticlesAdapter.ViewHolder> adapter) {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -156,9 +161,9 @@ public class Articles extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(cc, "Report Sent Successfully, Thanks for contacting us", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(cc, R.string.repo_sensucc, Toast.LENGTH_SHORT).show();
                             } else
-                                Toast.makeText(cc, "Failed Sending Report, Please Try Again", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(cc, R.string.failed_sen_rep, Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -166,7 +171,7 @@ public class Articles extends Fragment {
 
                 } else {
 
-                    Toast.makeText(cc, "Please describe your issue ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(cc, R.string.desc_iss, Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -288,8 +293,8 @@ public class Articles extends Fragment {
         View layout = LayoutInflater.from(applicationContext).inflate(R.layout.general_edit_comment, null);
         final EditText comment_editText = layout.findViewById(R.id.edit_comment);
         comment_editText.setText(comment.getComment());
-        final AlertDialog builder = new AlertDialog.Builder(applicationContext).setTitle("Edit Comment").setPositiveButton(
-                "Edit", new DialogInterface.OnClickListener() {
+        final AlertDialog builder = new AlertDialog.Builder(applicationContext).setTitle(R.string.edit_comm).setPositiveButton(
+                R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface dialog, int which) {
                         // manipulate the edited comment
@@ -326,7 +331,7 @@ public class Articles extends Fragment {
                         // dismiss ....
                     }
                 }
-        ).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        ).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -419,9 +424,9 @@ public class Articles extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(applicationContext, "Report Sent Successfully, Thanks for contacting us", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(applicationContext, R.string.repo_sensucc, Toast.LENGTH_SHORT).show();
                             } else
-                                Toast.makeText(applicationContext, "Failed Sending Report, Please Try Again", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(applicationContext, R.string.failed_sen_rep, Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -429,7 +434,7 @@ public class Articles extends Fragment {
 
                 } else {
 
-                    Toast.makeText(applicationContext, "Please describe your issue ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(applicationContext, R.string.desc_iss, Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -521,8 +526,8 @@ public class Articles extends Fragment {
         View layout = LayoutInflater.from(cc).inflate(R.layout.general_edit_comment, null);
         final EditText comment_editText = layout.findViewById(R.id.edit_comment);
         comment_editText.setText(comment.getComment());
-        final AlertDialog builder = new AlertDialog.Builder(cc).setTitle("Edit Reply").setPositiveButton(
-                "Edit", new DialogInterface.OnClickListener() {
+        final AlertDialog builder = new AlertDialog.Builder(cc).setTitle(R.string.edit_rep).setPositiveButton(
+                R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface dialog, int which) {
                         // manipulate the edited comment
@@ -559,7 +564,7 @@ public class Articles extends Fragment {
                         // dismiss ....
                     }
                 }
-        ).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        ).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -650,9 +655,9 @@ public class Articles extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(applicationContext, "Report Sent Successfully, Thanks for contacting us", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(applicationContext, R.string.repo_sensucc, Toast.LENGTH_SHORT).show();
                             } else
-                                Toast.makeText(applicationContext, "Failed Sending Report, Please Try Again", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(applicationContext, R.string.failed_sen_rep, Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -660,7 +665,7 @@ public class Articles extends Fragment {
 
                 } else {
 
-                    Toast.makeText(applicationContext, "Please describe your issue ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(applicationContext, R.string.desc_iss, Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -723,30 +728,24 @@ public class Articles extends Fragment {
 
     public static void getNames(String posterUid) {
 
-        FirebaseDatabase ref = FirebaseDatabase.getInstance();
-        ref.getReference("users/" + posterUid + "/name").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                posterName = dataSnapshot.getValue().toString();
-            }
+        FirebaseFirestore.getInstance().collection("users").document(
+                uid).
+                addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        reporterName = value.getData().get("name").toString();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+        FirebaseFirestore.getInstance().collection("users").document(
+                posterUid).
+                addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        posterName = value.getData().get("name").toString();
 
-            }
-        });
-
-        ref.getReference("users/" + uid + "/name").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                reporterName = dataSnapshot.getValue().toString();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+                    }
+                });
 
 
     }
@@ -777,6 +776,7 @@ public class Articles extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+        loadLocal();
         ViewPager pages = view.findViewById(R.id.viewPager_fragment);
         TabLayout tabs = view.findViewById(R.id.tabLayout);
         pages.setAdapter(new MyTabPagerAdapter(getChildFragmentManager()));
@@ -833,6 +833,30 @@ public class Articles extends Fragment {
             }
             return null;
         }
+    }
+
+    public String loadLocal() {
+
+        SharedPreferences prefs = getContext().getSharedPreferences("Settings", MODE_PRIVATE);
+        String Language = prefs.getString("My_lang", "");
+        setLocale(Language);
+        return Language;
+    }
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+
+
+        getContext().getResources().
+                updateConfiguration(configuration, getContext().getResources().getDisplayMetrics());
+        //save data in shared preferences
+        SharedPreferences.Editor editor = getContext().getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_lang", lang);
+        editor.apply();
     }
 
 }
