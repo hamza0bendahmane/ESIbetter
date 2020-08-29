@@ -199,15 +199,16 @@ public class ArticlesAdapter extends FirestoreRecyclerAdapter<Article_item, Arti
         }
 
         public void setPosterName(String uid) {
-            FirebaseFirestore.getInstance().collection("users").document(
-                    uid).
-                    addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                            name = value.getData().get("name").toString();
-                            poster_name.setText(name);
-                        }
-                    });
+            if (uid != null)
+                FirebaseFirestore.getInstance().collection("users").document(
+                        uid).
+                        addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                name = value.getData().get("name").toString();
+                                poster_name.setText(name);
+                            }
+                        });
 
 
         }
