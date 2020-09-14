@@ -1,13 +1,6 @@
 <resources>
 
 
-    <string-array name="languages">
-        <item>English</item>
-        <item>العربية</item>
-
-
-    </string-array>
-
     <string name="email">Email</string>
     <string name="article">Ideas</string>
     <string name="courses">Courses</string>
@@ -102,9 +95,6 @@
     <string name="wilaya">Wilaya</string>
     <string name="save">Save</string>
     <string name="reply">Reply</string>
-    <string name="notifications_for_you"> for you</string>
-    <string name="notifications_shared_with_you"> shared with you</string>
-    <string name="share">Share</string>
     <string name="report">Report</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
@@ -190,5 +180,7 @@
     <string name="selected">selected</string>
     <string name="add_summ">"Add Summary "</string>
     <string name="your_comm">Your comment</string>
+    <string name="crating_profile">creating the profile please wait ....</string>
+    <string name="saving_data">Saving data please wait</string>
 
 </resources>

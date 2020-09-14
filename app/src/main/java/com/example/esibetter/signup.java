@@ -1,8 +1,10 @@
 package com.example.esibetter;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -10,6 +12,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -31,24 +34,33 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnPausedListener;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class signup extends AppCompatActivity {
     public String URL = "https://emailverification.whoisxmlapi.com/api/v1?apiKey=at_ue6vuTmfKhO2EiG4DgUm0CaNhTU3X&emailAddress=";
@@ -134,16 +146,11 @@ public class signup extends AppCompatActivity {
                 gotoSignin();
             }
         });
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Signup();
-            }
-        });
+
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gotoSignin();
+                onBackPressed();
             }
         });
 
@@ -167,7 +174,7 @@ public class signup extends AppCompatActivity {
 
     }
 
-    private void Signup() {
+    public void signup_bu(View cc) {
         final TextInputEditText name = findViewById(R.id.name_field1);
         TextInputEditText rep_pass = findViewById(R.id.password2_field1);
         TextInputEditText SignUpMail = findViewById(R.id.email_field1);
@@ -207,52 +214,162 @@ public class signup extends AppCompatActivity {
         } else if (isValidEmail(email) && isValidPassword(pass) && isValidName(names)) {
             STR = URL + email;
             DoesEmailExist user_mail = new DoesEmailExist();
-            user_mail.execute();
-            if (!Exist) {
-                SignUpMail.requestFocus();
-            } else {
-                firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(signup.this,
-                        new OnCompleteListener<AuthResult>() {
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+            //user_mail.execute();
+            // if (!Exist) {
+            //     SignUpMail.requestFocus();
+            //  } else
+            //  {
+            final ProgressDialog progressDialog = new ProgressDialog(signup.this);
+            progressDialog.setTitle(R.string.crating_profile);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(signup.this,
+                    new OnCompleteListener<AuthResult>() {
+                        public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(signup.this, R.string.error + task.getException().getMessage(),
-                                    Toast.LENGTH_LONG).show();
+                            if (!task.isSuccessful()) {
+                                Toast.makeText(signup.this, R.string.error + task.getException().getMessage(),
+                                        Toast.LENGTH_LONG).show();
+                                progressDialog.dismiss();
 
-                        } else {
-                            Toast.makeText(signup.this, getString(R.string.register_successful), Toast.LENGTH_LONG).show();
-                            final FirebaseUser user = firebaseAuth.getCurrentUser();
-                            //send email verification ..
-                            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull final Task<Void> task) {
-                                    if (!task.isSuccessful()) {
-                                        Toast.makeText(signup.this, getString(R.string.cant_snd_email_vrf), Toast.LENGTH_SHORT).show();
+                            } else {
+                                progressDialog.dismiss();
+                                Toast.makeText(signup.this, getString(R.string.register_successful), Toast.LENGTH_LONG).show();
+                                final ProgressDialog progressDialog0 = new ProgressDialog(signup.this);
+                                progressDialog0.setTitle(R.string.saving_data);
+                                progressDialog0.setCancelable(false);
+                                progressDialog0.show();
+                                final FirebaseUser user = firebaseAuth.getCurrentUser();
+                                //send email verification ..
+                                user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull final Task<Void> task) {
+                                        if (!task.isSuccessful()) {
+                                            Toast.makeText(signup.this, getString(R.string.cant_snd_email_vrf), Toast.LENGTH_SHORT).show();
+                                        } else {
+
+
+                                            if (image_prof == null) {
+                                                if (isMale)
+                                                    image_prof = Uri.parse("android.resource://" + R.class.getPackage().getName() + "/" + R.mipmap.male);
+                                                else
+                                                    image_prof = Uri.parse("android.resource://" + R.class.getPackage().getName() + "/" + R.mipmap.female);
+                                            }
+
+
+                                            byte[] data = null;
+
+                                            // image compression
+                                            try {
+                                                Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), image_prof); // getting image from gallery
+                                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                                bmp.compress(Bitmap.CompressFormat.PNG, 10, baos);
+                                                data = baos.toByteArray();
+                                            } catch (Exception e) {
+
+                                            }
+
+                                            final Long ts_long = System.currentTimeMillis() / 1000;
+                                            final String ts = ts_long.toString();
+                                            final StorageReference childRef = FirebaseStorage.getInstance().getReference().child("Images/" + user.getUid() + "prof_pic.png");
+                                            final UploadTask uploadTask = childRef.putBytes(data);
+
+                                            // Progress dialog box implemented
+                                            uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                                                    int current_progress = (int) progress;
+                                                    progressDialog0.setProgress(current_progress);
+                                                }
+                                            }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onPaused(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                                }
+                                            });
+
+
+                                            uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                                                            @Override
+                                                            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                                                                if (!task.isSuccessful()) {
+                                                                    throw task.getException();
+                                                                }
+
+                                                                // Continue with the task to get the download URL
+                                                                return childRef.getDownloadUrl();
+                                                            }
+                                                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Uri> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    Uri downloadUri = task.getResult();
+                                                                    String mUri = downloadUri.toString();
+                                                                    HashMap<String, Object> data = new HashMap<>();
+                                                                    data.put("name", names);
+                                                                    data.put("status", "is Student");
+                                                                    data.put("isMale", isMale);
+                                                                    data.put("wilaya", user_wilaya);
+                                                                    data.put("birthday", date);
+                                                                    FirebaseFirestore.getInstance().collection("users").document(user.getUid()).set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                                            if (task.isSuccessful()) {
+                                                                                gotoSignin();
+                                                                                Toast.makeText(getApplicationContext(), R.string.succes, Toast.LENGTH_LONG).show();
+
+                                                                            } else {
+                                                                                String errMsg = task.getException().getMessage();
+                                                                                Toast.makeText(getApplicationContext(), "Error: " + errMsg, Toast.LENGTH_LONG).show();
+                                                                            }
+                                                                            progressDialog0.dismiss();
+                                                                        }
+                                                                    });
+                                                                } else {
+                                                                    //Log.w("LOGIN", "signInWithCredential:failure", task.getException());
+                                                                    progressDialog0.dismiss();
+                                                                    String errMsg = task.getException().getMessage();
+                                                                    Toast.makeText(getApplicationContext(), "خطأ رفع الملف " + errMsg, Toast.LENGTH_LONG).show();
+                                                                }
+                                                            }
+                                                        });
+
+                                                    } else {
+                                                        String errMsg = task.getException().getMessage();
+                                                        Toast.makeText(getApplicationContext(), "Error: " + errMsg, Toast.LENGTH_LONG).show();
+                                                    }
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(getApplicationContext(), "فشل الرفع " + e, Toast.LENGTH_LONG).show();
+                                                }
+                                            });
+
+                                        }
+
                                     }
+                                });
 
-                                }
-                            });
-                            try {
-                                User_Account account = new User_Account(image_prof, names, "is Student", user_wilaya, isMale, date);
-                                account.SaveData(user, account);
 
-                            } catch (URISyntaxException e) {
-                                e.printStackTrace();
                             }
-                            gotoSignin();
+
                         }
-
-                    }
-                });
+                    });
 
 
-            }
         }
+        //  }
     }
 
     private void gotoSignin() {
-        startActivity(new Intent(signup.this, login.class));
-        finish();
+        onBackPressed();
     }
 
 

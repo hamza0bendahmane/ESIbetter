@@ -1,6 +1,6 @@
 package com.example.esibetter.articles;
 
-import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -179,8 +179,10 @@ public class Add_Articles extends AppCompatActivity {
                             getReference("Images/" + uid + "/" + keyDocument);
                     final StorageReference photoArt = reference.child("post_pic.png");
                     View vv = LayoutInflater.from(Add_Articles.this).inflate(R.layout.general_layout_image, null, false);
-                    final AlertDialog dialog = new AlertDialog.Builder(Add_Articles.this).setTitle(R.string.uploding_file)
-                            .setView(vv).create();
+                    final ProgressDialog dialog = new ProgressDialog(Add_Articles.this);
+                    dialog.setTitle(getString(R.string.saving_data));
+                    dialog.setMessage(getString(R.string.please_wait));
+
                     dialog.show();
 
                     if (type.equals("add")) {
@@ -201,7 +203,7 @@ public class Add_Articles extends AppCompatActivity {
 
     }
 
-    private void managePost(final StorageReference photoArt,final AlertDialog dialog, final String keyDocument) {
+    private void managePost(final StorageReference photoArt, final ProgressDialog dialog, final String keyDocument) {
         photoArt.putFile(image_art).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
             public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -247,7 +249,7 @@ public class Add_Articles extends AppCompatActivity {
         }
     }
 
-    public void add(String title, String body, Uri image, final AlertDialog dialog, String keyDocument, String likes, String dislikes) {
+    public void add(String title, String body, Uri image, final ProgressDialog dialog, String keyDocument, String likes, String dislikes) {
         DocumentReference ref = FirebaseFirestore.getInstance()
                 .collection("posts").document(keyDocument);
         final HashMap<String, Object> map = new HashMap<>();

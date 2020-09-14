@@ -71,7 +71,6 @@
                 android:scrollbars="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/pperson_proeperties"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -561,7 +560,6 @@
                 android:scrollbars="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/person_proeperties"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">

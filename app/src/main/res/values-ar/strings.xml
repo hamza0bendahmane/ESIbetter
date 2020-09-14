@@ -81,9 +81,6 @@
     <string name="wilaya">الولاية</string>
     <string name="save">حفظ</string>
     <string name="reply">الرد</string>
-    <string name="notifications_for_you"> خاصة بك</string>
-    <string name="notifications_shared_with_you"> مشاركة معك</string>
-    <string name="share">شارك</string>
     <string name="report">تبليغ</string>
     <string name="edit">تعديل</string>
     <string name="delete">حذف</string>
@@ -169,6 +166,8 @@
     <string name="since_were">وبما أننا تلاميذ مثلكم فاننا نفهم وضعكم ومتطلباتكم لذلك أنشئنا هذا التطبيق لدراسة وحياة أفضل تحت إشراف الأستاذ غيد زكريا الذي أشرف علينا طوال مرحلة إنشاء التطبيق .</string>
     <string name="add_summ">إضافة ملخص</string>
     <string name="your_comm">أدخل تعليقا</string>
+    <string name="crating_profile">إنشاء حساب الرجاء الانتظار...</string>
+    <string name="saving_data">جار حفظ معلومات الحساب الرجاء الإنتظار ...</string>
 
 
 </resources>
