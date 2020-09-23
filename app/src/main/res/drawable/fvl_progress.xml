@@ -2,13 +2,17 @@
 
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@android:id/background" android:drawable="@mipmap/fvl_track" />
+    <item
+        android:id="@android:id/background"
+        android:drawable="@drawable/fvl_track" />
     <item android:id="@android:id/secondaryProgress">
-        <scale android:scaleWidth="100%"
-            android:drawable="@mipmap/fvl_secondary" />
+        <scale
+            android:scaleWidth="100%"
+            android:drawable="@drawable/fvl_secondary" />
     </item>
     <item android:id="@android:id/progress">
-        <scale android:scaleWidth="100%"
-            android:drawable="@mipmap/fvl_primary" />
+        <scale
+            android:scaleWidth="100%"
+            android:drawable="@drawable/fvl_primary" />
     </item>
 </layer-list>
