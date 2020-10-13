@@ -52,7 +52,7 @@ public class ShowAllTutorials extends AppCompatActivity {
 
         updateView();
         query = FirebaseDatabase.getInstance()
-                .getReference().child("Summaries").child(String.valueOf(what_yearIs)).child(String.valueOf(moduleName));
+                .getReference().child("Tutorials").child(String.valueOf(what_yearIs)).child(String.valueOf(moduleName));
 
         options = new FirebaseRecyclerOptions.Builder<File_item>()
                 .setQuery(query, File_item.class)
