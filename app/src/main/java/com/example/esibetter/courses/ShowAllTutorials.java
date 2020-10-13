@@ -116,14 +116,14 @@ public class ShowAllTutorials extends AppCompatActivity {
 
     private void  HandleTutos() {
 
-        com.google.firebase.database.Query query =   FirebaseDatabase.getInstance()
+        /*com.google.firebase.database.Query query =   FirebaseDatabase.getInstance()
                 .getReference().child("Tutorials").child(String.valueOf(what_yearIs)).limitToFirst(20).orderByChild("module").equalTo(moduleName);
 
         FirebaseRecyclerOptions<File_item> options = new FirebaseRecyclerOptions.Builder<File_item>()
                 .setQuery(query, File_item.class)
                 .build();
 
-
+*/
 
         adapter = new FirebaseRecyclerAdapter<File_item, ViewHolder>(options) {
             @NonNull
