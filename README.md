@@ -15,6 +15,7 @@
  ## The Team 
  
  <img src="IMG_20201014_103546.jpg" width="900">
+ <br>
 ## Join development!
 
 **Build status:** <br>
