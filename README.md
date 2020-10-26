@@ -8,7 +8,7 @@
 
 <a href="https://drive.google.com/file/d/195Hv_pWox6-3LNPGDvqUWNpNGXA8JUAW/view?usp=sharing"><img src="https://github.com/hamza0bendahmane/ESIbetter/blob/master/index.png" height="75"></a>
 
-<img src="docs_resources/filelist_device.png" width="280"/> <img src="docs_resources/photos_device.png" width="280"/> <img src="docs_resources/share_device.png" width="280" />
+<img src="image1.png" width="280"/> <img src="image2.png" width="280"/> <img src="image3.png" width="280"/> <img src="image4.png" width="280" />
  
 ## Join development!
 
