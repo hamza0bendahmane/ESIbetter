@@ -14,33 +14,31 @@
 ## Join development!
 
 **Build status:** <br>
+The app is not in a stable status , so if you wanna help improving it 
+just inbox us on any of these e-mails :
 
-|master (unit tests and app instrumented tests)| ![](https://app.bitrise.io/app/fa5ae3e8d031601f/status.svg?token=EP5etVT9wHG6V1No3yd8fQ&branch=master)|
-| :----- | :------ |
-|**master (data instrumented tests)**| ![](https://app.bitrise.io/app/78c929113947bc8c/status.svg?token=riaFMnOs2HGHcbTWPxlrbA&branch=master)|
-|**stable**| ![](https://app.bitrise.io/app/fa5ae3e8d031601f/status.svg?token=EP5etVT9wHG6V1No3yd8fQ&branch=stable)|
 
-**Start contributing:** Make sure you read [SETUP.md](https://github.com/owncloud/android/blob/master/SETUP.md) when you start working on this project. Basically: Fork this repository and contribute back using pull requests to the master branch.
-Easy starting points are also reviewing [pull requests](https://github.com/owncloud/android/pulls) and working on [junior jobs](https://github.com/owncloud/android/issues?q=is%3Aopen+is%3Aissue+label%3A%22Junior+Job%22).
 
-**IRC channel:** [#owncloud-android](https://webchat.freenode.net/?channels=owncloud-android) on freenode IRC
+###Imen Larbaoui : #### n.larbaoui@esi-sba.dz
+###Hamza Bendahmane : #### h.bendahmane@esi-sba.dz
+###Anouar Manaa : #### a.manaa@esi-sba.dz
+###Manel Boufeldja : #### m.boufeldja@esi-sba.dz
+###Djihan Bouziane : #### d.bouziane@esi-sba.dz
+###Walid Boussaada : #### m.boussaada@esi-sba.dz
 
-**License:** [GPLv2](https://github.com/owncloud/android/blob/master/LICENSE.txt)
+
 
 ## Join testing!
 
-If you are interested in testing the new features before being released and give us your feedback, please try out our beta channels:
+** Through Google Drive Play Store**
 
-**Play Store**
+1. Download The app from  
+<a href="https://drive.google.com/file/d/195Hv_pWox6-3LNPGDvqUWNpNGXA8JUAW/view?usp=sharing"> here </a>
+2. Install the App ,Try It and Don't forget to hit us with any suggestions or Notes .
 
-1. Download ownCloud app from Play Store.
-2. Go to ownCloud tab in Play Store and scroll down to the end of the view.
-3. Press the **I'M IN** button to join the beta program and your final app will be replaced with the beta one.
 
-Note: If you want to use the ownCloud production version you have to leave the beta program, uninstall the app, and reinstall the production version.
+Note: You gotta have an "esi-sba.dz" email to be able to use the app.
 
-**F-Droid**
+**Through Play Sore**
 
-1. Go to ownCloud tab in F-Droid.
-2. Open versions section.
-3. Download the latest version that contains beta in the name.
+ Not Available Yet .
