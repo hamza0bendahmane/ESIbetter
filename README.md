@@ -11,6 +11,10 @@
 <img src="Image1.png" width="260"/> <img src="Image3.jpg" width="260"/> <img src="Image3.png" width="260"/> <img src="Image4.png" width="260" />
 <img src="Image5.jpg" width="260"/><img src="Image6.jpg" width="260"/><img src="Image7.jpg" width="260"/><img src="Image8.jpg" width="260"/><img src="Image9.jpg" width="260"/><img src="Image10.jpg" width="260"/>
  
+ 
+ ## The Team 
+ 
+ <img src="IMG_20201014_103546.jpg" width="900">
 ## Join development!
 
 **Build status:** <br>
