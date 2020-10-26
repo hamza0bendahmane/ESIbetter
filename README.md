@@ -1,9 +1,9 @@
 # ESIbetter
+<img src="https://github.com/hamza0bendahmane/ESIbetter/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_logo_app_round.png" height="180">
 
 <img src="logo_school.png" width="800"/>
 
 # [ESI SBA](https://esi-sba.dz) 2nd Year Project 
-<img src="https://github.com/hamza0bendahmane/ESIbetter/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_logo_app_round.png" height="180">
 
 ## "An Android Platform for the students of the school" 
 
