@@ -1,6 +1,6 @@
 # ESIbetter
 
-<img src="logo_school.png" width="280"/>
+<img src="logo_school.png" width="800"/>
 
 # [ESI SBA](https://esi-sba.dz) 2nd Year Project "Android app for the students of the school" 
 
