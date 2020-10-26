@@ -8,7 +8,7 @@
 
 <a href="https://drive.google.com/file/d/195Hv_pWox6-3LNPGDvqUWNpNGXA8JUAW/view?usp=sharing"><img src="https://github.com/hamza0bendahmane/ESIbetter/blob/master/index.png" height="75"></a>
 
-<img src="image1.png" width="280"/> <img src="image2.png" width="280"/> <img src="image3.png" width="280"/> <img src="image4.png" width="280" />
+<img src="Image1.png" width="280"/> <img src="Image2.png" width="280"/> <img src="Image3.png" width="280"/> <img src="Image4.png" width="280" />
  
 ## Join development!
 
